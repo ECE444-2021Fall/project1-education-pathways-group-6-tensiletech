@@ -2,7 +2,7 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-Edit this - This project is a web application to recreate the educations pathway application to make it more user-friendly etc.
+BetterPath is a web appliction that builds on the Education Pathways website for course exploration and planning. 
 
 ## Built With
 
