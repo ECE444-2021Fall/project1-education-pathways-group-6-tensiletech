@@ -4,12 +4,15 @@
 ## About The Project
 Edit this - This project is a web application to recreate the educations pathway application to make it more user-friendly etc.
 
-### Built With
+## Built With
 
 * [Python Flask](https://flask.palletsprojects.com/en/2.0.x/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
+## Project Management Tools
+
+Trello Board - [Trello Workspace](https://trello.com/b/36RbXYxA/ece444-tensiletech)
 
 
 <!-- GETTING STARTED -->
@@ -95,6 +98,6 @@ Project Link: [https://github.com/github_username/repo_name](https://github.com/
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-ReadMe.md Templaate Followed [ReadMe Template](https://github.com/othneildrew/Best-README-Template)
+ReadMe.md Template Followed From : [ReadMe Template](https://github.com/othneildrew/Best-README-Template)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
