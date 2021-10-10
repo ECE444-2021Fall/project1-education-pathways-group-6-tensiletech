@@ -30,7 +30,7 @@ This is an example of how to list things you need to use the software and how to
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/github_username/repo_name.git
+   git clone https://github.com/ECE444-2021Fall/project1-education-pathways-group-6-tensiletech.git
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -38,6 +38,7 @@ This is an example of how to list things you need to use the software and how to
 <!-- USAGE EXAMPLES -->
 ## Usage
 
+Coming Soon!
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -46,32 +47,25 @@ This is an example of how to list things you need to use the software and how to
 <!-- ROADMAP -->
 ## Roadmap
 
-- [] Feature 1
-- [] Feature 2
-- [] Feature 3
-    - [] Nested Feature
+Please take a look at our Trello Board for Feature Roadmap!
 
-See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/ECE444-2021Fall/project1-education-pathways-group-6-tensiletech/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-
-
-<!-- LICENSE -->
-## License
-
-Distributed under the MIT License. See `LICENSE.txt` for more information.
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
 
 
 <!-- CONTACT -->
-## Contact
+## Contact Names
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
+4th Year ECE Students at the University of Toronto. 
 
-Project Link: [https://github.com/github_username/repo_name](https://github.com/github_username/repo_name)
+Anikeith Bankar
+Romil Jain
+Mohammadreza Koramsoltani
+Justin Kreiner
+Hannah Zhang
+
+Project Link: [https://github.com/ECE444-2021Fall/project1-education-pathways-group-6-tensiletech](https://github.com/ECE444-2021Fall/project1-education-pathways-group-6-tensiletech)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
