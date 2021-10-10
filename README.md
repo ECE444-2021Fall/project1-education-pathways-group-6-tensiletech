@@ -59,10 +59,10 @@ See the [open issues](https://github.com/ECE444-2021Fall/project1-education-path
 
 4th Year ECE Students at the University of Toronto. 
 
-Anikeith Bankar
-Romil Jain
-Mohammadreza Koramsoltani
-Justin Kreiner
+Anikeith Bankar,
+Romil Jain,
+Mohammadreza Koramsoltani,
+Justin Kreiner,
 Hannah Zhang
 
 Project Link: [https://github.com/ECE444-2021Fall/project1-education-pathways-group-6-tensiletech](https://github.com/ECE444-2021Fall/project1-education-pathways-group-6-tensiletech)
