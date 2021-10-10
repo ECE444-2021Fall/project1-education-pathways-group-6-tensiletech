@@ -1,4 +1,4 @@
-### Welcome to BetterPath by TensileTech
+## Welcome to BetterPath by TensileTech
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
