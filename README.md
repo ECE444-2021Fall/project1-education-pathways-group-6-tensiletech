@@ -74,6 +74,8 @@ Project Link: [https://github.com/ECE444-2021Fall/project1-education-pathways-gr
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
+Project is based off of this repository: [Education Pathways](https://github.com/nelaturuk/education_pathways)
+
 ReadMe.md Template Followed From : [ReadMe Template](https://github.com/othneildrew/Best-README-Template)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
