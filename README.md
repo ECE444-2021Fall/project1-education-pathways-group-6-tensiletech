@@ -31,6 +31,35 @@ This is an example of how to list things you need to use the software and how to
 1. Clone the repo
    ```sh
    git clone https://github.com/ECE444-2021Fall/project1-education-pathways-group-6-tensiletech.git
+   cd project1-education-pathways-group-6-tensiletech
+   ```
+
+2. Create a Python virtual environment and activate it
+
+    ```sh
+    python -m venv ./venv
+    source ./venv/bin/activate
+    ```
+
+3. Install required Python dependencies
+
+    ```sh
+    pip install -r requirements.txt
+    ```
+
+4. Run Flask app in development mode
+
+    On windows, first set the following environment variables
+    ```sh
+    set FLASK_APP=__init__.py
+    set FLASK_ENV=development
+    ```
+
+    Then run the application
+    ```sh
+    flask run
+    ```
+
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
