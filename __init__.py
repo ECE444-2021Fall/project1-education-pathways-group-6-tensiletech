@@ -71,15 +71,25 @@ def create_app():
     def login():
         login = LoginForm(request.form)
         if request.method == 'POST':
-            print('successfully logged in')
-            return redirect('/')
+            # TODO: Change this to do actual validation, for now just display
+            # the Invalid credentials page if username is "invalid"
+            username = request.form.get('username')
+            if username == 'invalid':
+                return render_template(
+                    'landing.html',
+                    form=login,
+                    page="login",
+                    error_message="Invalid username or password"
+                )
+            else:
+                return redirect('/')
         return render_template('landing.html', form=login, page="login")
 
     @app.route('/signup',methods=['GET', 'POST'])
     def create():
         create = CreateForm(request.form)
         if request.method == 'POST':
-            print('successfully created account')
+            # TODO: Verify and save account information to database
             return redirect('/login')
         return render_template('landing.html', form=create, page="create")
 

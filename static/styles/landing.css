@@ -48,3 +48,9 @@
     font-style: italic;
     font-size: 16px;
 }
+
+.landing-form-error {
+    color: red;
+    font-style: italic;
+    font-size: 16px;
+}

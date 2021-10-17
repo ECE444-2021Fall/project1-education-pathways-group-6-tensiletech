@@ -6,7 +6,9 @@
 
 {% block main %}
 <div class="landing-form">
-    {% if page == "login" %}
+    {% if error_message %}
+        <h3>Sorry...</h3>
+    {% elif page == "login" %}
         <h3>Welcome Back</h3>
     {% elif page == "create" %}
         <h3>Sign Up</h3>
@@ -24,6 +26,9 @@
                 {{ render_textfield(form.confirm_password) }}
             {% endif %}
         </div>
+        {% if error_message %}
+            <div class="landing-form-error">{{ error_message }}</div>
+        {% endif %}
         <button class="landing-button">Login</button>
     </form>
     {% if page == "login" %}
