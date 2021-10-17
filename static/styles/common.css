@@ -1,0 +1,17 @@
+body {
+    background-color: #bcddea;
+    font-family: 'Open Sans';
+}
+
+h1 {
+    color: #355386;
+}
+
+h3 {
+    color: #355386;
+    font-weight: 600;
+}
+
+::placeholder {
+    color: #94d2ef;
+}

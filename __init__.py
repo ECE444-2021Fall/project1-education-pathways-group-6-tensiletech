@@ -7,7 +7,9 @@ from collections import defaultdict
 from scipy.sparse import load_npz
 from sklearn.metrics.pairwise import cosine_similarity
 from flask import Flask, render_template, request, redirect
-from wtforms import Form, StringField, SelectField
+from wtforms import Form, StringField, SelectField, PasswordField, SubmitField, validators
+from wtforms.validators import DataRequired
+from wtforms.fields.html5 import EmailField
 
 """Build the search form, including dropdown menus at the top of the page, from the main datafile."""
 class CourseSearchForm(Form):
@@ -40,6 +42,16 @@ class CourseSearchForm(Form):
     campuses = SelectField('Campus:', choices=campus)
     search = StringField('Search Terms:')
 
+class LoginForm(Form):
+    username = StringField('Username', validators=[DataRequired()], render_kw={"placeholder": "Username"})
+    password = PasswordField('Password', validators=[DataRequired()], render_kw={"placeholder": "Password"})
+
+class CreateForm(Form):
+    email = EmailField('Email', validators=[DataRequired()], render_kw={"placeholder": "Email"})
+    username = StringField('Username', validators=[DataRequired()], render_kw={"placeholder": "Username"})
+    password = PasswordField('Password', validators=[DataRequired()], render_kw={"placeholder": "Password"})
+    confirm_password = PasswordField('Confirm Password', validators=[DataRequired()], render_kw={"placeholder": "Confirm your Password"})
+
 def create_app():
     app = Flask(__name__, instance_relative_config=True)
     try:
@@ -54,6 +66,22 @@ def create_app():
         if request.method == 'POST':
             return search_results(search)
         return render_template('index.html',form=search)
+
+    @app.route('/login',methods=['GET', 'POST'])
+    def login():
+        login = LoginForm(request.form)
+        if request.method == 'POST':
+            print('successfully logged in')
+            return redirect('/')
+        return render_template('landing.html', form=login, page="login")
+
+    @app.route('/signup',methods=['GET', 'POST'])
+    def create():
+        create = CreateForm(request.form)
+        if request.method == 'POST':
+            print('successfully created account')
+            return redirect('/login')
+        return render_template('landing.html', form=create, page="create")
 
     """Handle the data from the POST request that will go to the main algorithm.
     If we get an empty search, just go back to home.
