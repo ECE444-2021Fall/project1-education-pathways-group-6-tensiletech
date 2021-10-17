@@ -82,6 +82,7 @@ def create_app():
                     error_message="Invalid username or password"
                 )
             else:
+                # TODO: Save contents in form (username, password) to database
                 return redirect('/')
         return render_template('landing.html', form=login, page="login")
 
@@ -89,7 +90,25 @@ def create_app():
     def create():
         create = CreateForm(request.form)
         if request.method == 'POST':
-            # TODO: Verify and save account information to database
+            email = request.form.get('email')
+            username = request.form.get('username')
+            # TODO: Check if email already exists in database, if so return below template
+            if email == 'invalid@test.com':
+                return render_template(
+                    'landing.html',
+                    form=create,
+                    page="create",
+                    error_message="Email %s already exists" % email
+                )
+            # TODO: Check if username already exists, if so return below template
+            elif username == 'invalid':
+                return render_template(
+                    'landing.html',
+                    form=create,
+                    page="create",
+                    error_message="Username %s already exists" % username
+                )
+                
             return redirect('/login')
         return render_template('landing.html', form=create, page="create")
 
