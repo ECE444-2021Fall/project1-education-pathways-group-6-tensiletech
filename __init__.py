@@ -8,7 +8,7 @@ from scipy.sparse import load_npz
 from sklearn.metrics.pairwise import cosine_similarity
 from flask import Flask, render_template, request, redirect
 from wtforms import Form, StringField, SelectField, PasswordField, SubmitField, validators
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, EqualTo, Length, ValidationError
 from wtforms.fields.html5 import EmailField
 
 """Build the search form, including dropdown menus at the top of the page, from the main datafile."""
@@ -46,11 +46,36 @@ class LoginForm(Form):
     username = StringField('Username', validators=[DataRequired()], render_kw={"placeholder": "Username"})
     password = PasswordField('Password', validators=[DataRequired()], render_kw={"placeholder": "Password"})
 
+    def validate_username(form, field):
+        # TODO: Proper validation for username and password, depending on the model
+        # For now, just test error message when username is 'invalid'
+        if field.data == 'invalid':
+            raise ValidationError("Invalid username or password")
+
 class CreateForm(Form):
-    email = EmailField('Email', validators=[DataRequired()], render_kw={"placeholder": "Email"})
-    username = StringField('Username', validators=[DataRequired()], render_kw={"placeholder": "Username"})
-    password = PasswordField('Password', validators=[DataRequired()], render_kw={"placeholder": "Password"})
-    confirm_password = PasswordField('Confirm Password', validators=[DataRequired()], render_kw={"placeholder": "Confirm your Password"})
+    email = EmailField('Email',
+        validators=[DataRequired()],
+        render_kw={"placeholder": "Email"})
+    username = StringField('Username', 
+        validators=[DataRequired()],
+        render_kw={"placeholder": "Username"})
+    password = PasswordField('Password', 
+        validators=[DataRequired(),
+            EqualTo('confirm_password', 'Passwords must match')],
+        render_kw={"placeholder": "Password"})
+    confirm_password = PasswordField('Confirm Password',
+        validators=[DataRequired()],
+        render_kw={"placeholder": "Confirm your Password"})
+    
+    def validate_email(form, field):
+        # TODO: Check if email already exists in database
+        if field.data == 'invalid@test.com':
+            raise ValidationError("Email %s already exists" % field.data)
+
+    def validate_username(form, field):
+        # TODO: Check if username already exists in database
+        if field.data == 'invalid': 
+            raise ValidationError("Username %s already exists" % field.data)
 
 def create_app():
     app = Flask(__name__, instance_relative_config=True)
@@ -70,46 +95,18 @@ def create_app():
     @app.route('/login',methods=['GET', 'POST'])
     def login():
         login = LoginForm(request.form)
-        if request.method == 'POST':
-            # TODO: Change this to do actual validation, for now just display
-            # the Invalid credentials page if username is "invalid"
-            username = request.form.get('username')
-            if username == 'invalid':
-                return render_template(
-                    'landing.html',
-                    form=login,
-                    page="login",
-                    error_message="Invalid username or password"
-                )
-            else:
-                # TODO: Save contents in form (username, password) to database
-                return redirect('/')
+        if request.method == 'POST' and login.validate():
+            return redirect('/')
+        
         return render_template('landing.html', form=login, page="login")
 
     @app.route('/signup',methods=['GET', 'POST'])
     def create():
         create = CreateForm(request.form)
-        if request.method == 'POST':
-            email = request.form.get('email')
-            username = request.form.get('username')
-            # TODO: Check if email already exists in database, if so return below template
-            if email == 'invalid@test.com':
-                return render_template(
-                    'landing.html',
-                    form=create,
-                    page="create",
-                    error_message="Email %s already exists" % email
-                )
-            # TODO: Check if username already exists, if so return below template
-            elif username == 'invalid':
-                return render_template(
-                    'landing.html',
-                    form=create,
-                    page="create",
-                    error_message="Username %s already exists" % username
-                )
-                
+        if request.method == 'POST' and create.validate():
+            # TODO: Save contents in form (username, password) to database
             return redirect('/login')
+            
         return render_template('landing.html', form=create, page="create")
 
     """Handle the data from the POST request that will go to the main algorithm.

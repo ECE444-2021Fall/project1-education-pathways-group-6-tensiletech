@@ -6,7 +6,7 @@
 
 {% block main %}
 <div class="landing-form">
-    {% if error_message %}
+    {% if form.errors %}
         <h3>Sorry...</h3>
     {% elif page == "login" %}
         <h3>Welcome Back</h3>
@@ -26,9 +26,11 @@
                 {{ render_textfield(form.confirm_password) }}
             {% endif %}
         </div>
-        {% if error_message %}
-            <div class="landing-form-error">{{ error_message }}</div>
-        {% endif %}
+        {% for field, error in form.errors.items() %}
+            <div class="landing-form-error">
+                {{ ', '.join(error) }}
+            </div>
+        {% endfor %}
         <button class="landing-button">Login</button>
     </form>
     {% if page == "login" %}
