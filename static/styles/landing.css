@@ -1,7 +1,9 @@
 .landing-form {
     text-align: center;
     width: calc(80px + 25%);
-    margin: 40px auto;
+    margin-top: 10vh;
+    margin-left: auto;
+    margin-right: auto;
     background-color: white;
     padding-top: 10vh;
     padding-bottom: 10vh;
