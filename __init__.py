@@ -6,10 +6,25 @@ import networkx as nx
 from collections import defaultdict
 from scipy.sparse import load_npz
 from sklearn.metrics.pairwise import cosine_similarity
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, flash
+from flask_sqlalchemy import SQLAlchemy
+from flask_bcrypt import Bcrypt
 from wtforms import Form, StringField, SelectField, PasswordField, SubmitField, validators
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, Email
 from wtforms.fields.html5 import EmailField
+from flask_wtf import FlaskForm
+
+# Create app
+app = Flask(__name__, instance_relative_config=True)
+try:
+    os.makedirs(app.instance_path)
+except OSError:
+    pass
+
+# Database config
+app.config['SQLALCHEMY_DATABASE_URI'] = ''
+db = SQLAlchemy(app)
+bcrypt = Bcrypt(app)
 
 """Build the search form, including dropdown menus at the top of the page, from the main datafile."""
 class CourseSearchForm(Form):
@@ -42,22 +57,23 @@ class CourseSearchForm(Form):
     campuses = SelectField('Campus:', choices=campus)
     search = StringField('Search Terms:')
 
-class LoginForm(Form):
+class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()], render_kw={"placeholder": "Username"})
     password = PasswordField('Password', validators=[DataRequired()], render_kw={"placeholder": "Password"})
 
-class CreateForm(Form):
-    email = EmailField('Email', validators=[DataRequired()], render_kw={"placeholder": "Email"})
+class CreateForm(FlaskForm):
+    email = EmailField('Email', validators=[DataRequired(), Email()], render_kw={"placeholder": "Email"})
     username = StringField('Username', validators=[DataRequired()], render_kw={"placeholder": "Username"})
     password = PasswordField('Password', validators=[DataRequired()], render_kw={"placeholder": "Password"})
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired()], render_kw={"placeholder": "Confirm your Password"})
 
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key = True) # Generated automatically when not specified
+    username = db.Column(db.String(100), unique = True, nullable = False)
+    email = db.Column(db.String(100), unique = True, nullable = False)
+    password = db.Column(db.String(60), nullable = False)
+
 def create_app():
-    app = Flask(__name__, instance_relative_config=True)
-    try:
-        os.makedirs(app.instance_path)
-    except OSError:
-        pass
 
     """Homepage is essentially just the course search form. If a post request is received, call the method that finds search results."""
     @app.route('/',methods=['GET','POST'])
@@ -69,7 +85,7 @@ def create_app():
 
     @app.route('/login',methods=['GET', 'POST'])
     def login():
-        login = LoginForm(request.form)
+        login = LoginForm()
         if request.method == 'POST':
             # TODO: Change this to do actual validation, for now just display
             # the Invalid credentials page if username is "invalid"
@@ -88,15 +104,24 @@ def create_app():
 
     @app.route('/signup',methods=['GET', 'POST'])
     def create():
-        create = CreateForm(request.form)
-        if request.method == 'POST':
+        form = CreateForm()
+        if form.validate_on_submit():
+
+            # Create user credentials
+            hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+            user = User(username = form.username.data, password = hashed_password, email = form.email.data)
+
+            # Add the user to the database
+            db.session.add(user)
+            db.session.commit()
+
             email = request.form.get('email')
             username = request.form.get('username')
             # TODO: Check if email already exists in database, if so return below template
             if email == 'invalid@test.com':
                 return render_template(
                     'landing.html',
-                    form=create,
+                    form=form,
                     page="create",
                     error_message="Email %s already exists" % email
                 )
@@ -104,13 +129,13 @@ def create_app():
             elif username == 'invalid':
                 return render_template(
                     'landing.html',
-                    form=create,
+                    form=form,
                     page="create",
                     error_message="Username %s already exists" % username
                 )
-                
+            flash(f'Account created for {form.username.data}!', 'success')
             return redirect('/login')
-        return render_template('landing.html', form=create, page="create")
+        return render_template('landing.html', form=form, page="create")
 
     """Handle the data from the POST request that will go to the main algorithm.
     If we get an empty search, just go back to home.
@@ -265,4 +290,4 @@ df = pd.read_pickle('resources/df_processed.pickle').set_index('Code')
 app = create_app()
 
 if __name__=="__main__":
-    app.run(host='0.0.0.0')
+    app.run(debug=True)
