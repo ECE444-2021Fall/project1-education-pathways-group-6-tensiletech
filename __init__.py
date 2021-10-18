@@ -41,7 +41,7 @@ class CourseSearchForm(Form):
     search = StringField('Search Terms:')
 
 def create_app():
-    app = Flask(__name__, instance_relative_config=True)
+    app = Flask(__name__, template_folder='app/templates', instance_relative_config=True)
     try:
         os.makedirs(app.instance_path)
     except OSError:
