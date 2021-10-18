@@ -10,7 +10,7 @@ from flask import Flask, render_template, request, redirect, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from wtforms import Form, StringField, SelectField, PasswordField, SubmitField, validators
-from wtforms.validators import DataRequired, Email
+from wtforms.validators import Email, DataRequired, EqualTo, Length, ValidationError
 from wtforms.fields.html5 import EmailField
 from flask_wtf import FlaskForm
 
