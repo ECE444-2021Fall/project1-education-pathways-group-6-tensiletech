@@ -1,3 +1,9 @@
 {% macro render_field(field) %}
     {{ field.label }} {{ field(**kwargs)|safe }}
 {% endmacro %}
+
+{% macro render_textfield(field) %}
+    <div class="landing-form-field">
+        {{ field(**kwargs)|safe }}
+    </div>
+{% endmacro %}

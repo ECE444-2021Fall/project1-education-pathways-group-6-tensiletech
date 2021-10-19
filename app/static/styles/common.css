@@ -1,0 +1,50 @@
+body {
+    background-color: #bcddea;
+    font-family: 'Open Sans';
+}
+
+h1 {
+    color: #355386;
+}
+
+h3 {
+    color: #355386;
+    font-weight: 600;
+}
+
+::placeholder {
+    color: #94d2ef;
+}
+
+#bg-circle1 {
+    position: absolute;
+    z-index: -1000;
+    width: 40vw;
+    height: 40vw;
+    border-radius: 50%;
+    top: -15vw;
+    left: -10vw;
+    background: #5091c0;
+}
+
+#bg-circle2 {
+    position: absolute;
+    z-index: -900;
+    width: 14vw;
+    height: 14vw;
+    border-radius: 50%;
+    top: 1vw;
+    left: 25vw;
+    background: #cfe3ef;
+}
+
+#bg-circle3 {
+    position: absolute;
+    z-index: -900;
+    width: 15vw;
+    height: 15vw;
+    border-radius: 50%;
+    top: 25vw;
+    left: 60vw;
+    background: #94d2ef;
+}

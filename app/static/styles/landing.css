@@ -1,0 +1,56 @@
+.landing-form {
+    text-align: center;
+    width: calc(80px + 25%);
+    margin-top: 10vh;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+    padding-top: 10vh;
+    padding-bottom: 10vh;
+    border-radius: 50px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.landing-form h3 {
+    margin-bottom: 10vh;
+}
+
+.landing-form-input-box {
+    height: 30vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.landing-form-field input {
+    color: #355386;
+    border: none;
+    width: 60%;
+    font-weight: 300;
+    font-size: 20px;
+    border-bottom: 1px solid #94d2ef;
+}
+
+.landing-button {
+    color: white;
+    font-size: 20px;
+    background: #94d2ef;
+    width: 50%;
+    padding: 5px;
+    border-radius: 20px;
+    border: none;
+    opacity: 70%;
+    margin: 20px auto;
+}
+
+.landing-redirect {
+    color: #94d2ef;
+    font-style: italic;
+    font-size: 16px;
+}
+
+.landing-form-error {
+    color: red;
+    font-style: italic;
+    font-size: 16px;
+}
