@@ -51,7 +51,7 @@ This is an example of how to list things you need to use the software and how to
 
     On windows, first set the following environment variables
     ```sh
-    set FLASK_APP=__init__.py
+    set FLASK_APP=run.py
     set FLASK_ENV=development
     ```
 
