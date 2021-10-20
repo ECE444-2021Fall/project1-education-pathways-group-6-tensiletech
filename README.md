@@ -54,7 +54,11 @@ This is an example of how to list things you need to use the software and how to
     set FLASK_APP=run.py
     set FLASK_ENV=development
     ```
-
+    On MacOS, set the environment variables using
+    ```sh
+    export FLASK_APP=run.py
+    export FLASK_ENV=development
+    ```
     Then run the application
     ```sh
     flask run
