@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block imports %}
+<link rel="stylesheet" href="static/styles/common.css">
+<link rel="stylesheet" href="static/styles/landing.css">
+<link rel="stylesheet" href="static/styles/search.css">
+{% endblock %}
+
+{% block main %}
+<div class="landing-form">
+    {% if form.errors %}
+        <h3>Sorry...</h3>
+    {% elif page == "login" %}
+        <h3>Welcome Back</h3>
+    {% elif page == "create" %}
+        <h3>Sign Up</h3>
+    {% endif %}
+
+    {% from "_formhelpers.html" import render_textfield %}
+    <form method="post">
+        <div class="landing-form-input-box">
+            {% if form.email %}
+                {{ render_textfield(form.email) }}
+            {% endif %}
+            {{ render_textfield(form.username) }}
+            {{ render_textfield(form.password) }}
+            {% if form.confirm_password %}
+                {{ render_textfield(form.confirm_password) }}
+            {% endif %}
+        </div>
+        {% for field, error in form.errors.items() %}
+            <div class="landing-form-error">
+                {{ ', '.join(error) }}
+            </div>
+        {% endfor %}
+        <button class="landing-button">Login</button>
+    </form>
+    {% if page == "login" %}
+        <a class="landing-redirect" href="/signup">Create an account</a>
+    {% elif page == "create" %}
+        <a class="landing-redirect" href="/login">Already have an account?</a>
+    {% endif %}
+</div>
+{% endblock %}
