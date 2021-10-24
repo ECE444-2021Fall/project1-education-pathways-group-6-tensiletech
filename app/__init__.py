@@ -40,8 +40,10 @@ def create_app(config_class = Config):
 
     from app.users.routes import users
     from app.courses.routes import courses
+    from app.searching_filtering import searching_filtering
     app.register_blueprint(users)
     app.register_blueprint(courses)
+    app.register_blueprint(searching_filtering)
 
     return app
 
