@@ -1,6 +1,7 @@
-from app import db, bcrypt
+from app import bcrypt
 from flask import Flask, Blueprint, render_template, request, redirect, flash, url_for
-from app.models import User
+from app.db.db_models import User
+from app.db.db_process import add_user
 from app.users.forms import LoginForm, CreateForm
 from flask_login import login_user, current_user, logout_user
 
@@ -50,8 +51,7 @@ def create():
         user = User(username = form.username.data, password = hashed_password, email = form.email.data)
 
         # Add the user to the database
-        db.session.add(user)
-        db.session.commit()
+        add_user(user)
         
         flash(f'Account created for {form.username.data}!', 'success')
         return redirect(url_for('users.login'))
