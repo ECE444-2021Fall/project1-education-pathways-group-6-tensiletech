@@ -9,9 +9,11 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from config import Config
 
+# DB - Sqlite3
+dbsql = SQLAlchemy()
 
-# Database
-db = SQLAlchemy()
+from .db.db_models import *
+
 # Authentication
 bcrypt = Bcrypt()
 # Login
@@ -32,9 +34,23 @@ def create_app(config_class = Config):
     # Create app
     app = Flask(__name__)
     app.config.from_object(config_class)
+    
+    # sqlite db setup
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db/betterpaths.db'
+    dbsql.init_app(app)
 
+    with app.app_context():
+        dbsql.create_all()
+        dbsql.session.commit()
+
+<<<<<<< HEAD
     db.init_app(app)
+=======
+    # Bycrypt
+>>>>>>> cc7dc34 (setup sqlite3 db, next step to create tables for all)
     bcrypt.init_app(app)
+
+    # Login Manager
     login_manager.init_app(app)
 
     from app.users.routes import users
