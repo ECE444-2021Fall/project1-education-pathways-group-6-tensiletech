@@ -8,14 +8,8 @@
 
 {% block main %}
 <div class="search-form">
-    {% if form.errors %}
-        <h3>Sorry...</h3>
-    {% elif page == "login" %}
-        <h3>Welcome Back</h3>
-    {% elif page == "create" %}
-        <h3>Sign Up</h3>
-    {% endif %}
-
+    <h3>Search For Courses</h3>
+    
     {% from "_formhelpers.html" import render_textfield %}
     <form method="post">
         <div class="landing-form-input-box">
