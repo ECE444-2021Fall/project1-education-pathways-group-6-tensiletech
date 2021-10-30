@@ -9,4 +9,4 @@ def search_home():
     if not current_user.is_authenticated:
         return redirect(url_for('users.login'))
 
-    return render_template('landing.html', page="search")
+    return render_template('search.html', page="search")
