@@ -18,11 +18,15 @@ def login():
 
         # Check user credentials
         user = User.query.filter_by(username = form.username.data).first()
-        if user and bcrypt.check_password_hash(form.password.data, user.password):
-
+        # print(f"Form Hashed password: {form.password.data}")
+        # print(f"User password")
+        if user and bcrypt.check_password_hash(user.password, form.password.data):
             # Logs the user in and redirects to home page
             login_user(user) # can also add remember me argument here if we add remember me input in form
 
+            # Clear all flashed messages
+            session.pop('_flashes', None)
+            
             # If user was trying to access a page but was redirected to login before accessing
             # we need to redirect him to that page again
             next_page = request.args.get('next')
@@ -31,6 +35,7 @@ def login():
             else:
                 return redirect(url_for('courses.home'))
         else:
+            # print("incorrect credentials")
             flash('Incorrect username or password, please try again', 'danger')
 
     return render_template('landing.html', form=form, page="login")
@@ -52,7 +57,7 @@ def create():
         # Add the user to the database
         db.session.add(user)
         db.session.commit()
-        
+
         flash(f'Account created for {form.username.data}!', 'success')
         return redirect(url_for('users.login'))
     return render_template('landing.html', form=form, page="create")

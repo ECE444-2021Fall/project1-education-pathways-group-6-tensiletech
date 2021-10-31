@@ -3,7 +3,8 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 class Config:
     SECRET_KEY = 'cbewhicbeiwcbeiw' # os.environ.get('SECRET_KEY')
-
+    # To mention a relative path, use 3 slashes, relative path is with respect to the root folder
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///site.db' # os.environ.get('SQLALCHEMY_DATABASE_URI')
     @staticmethod
     def init_app(app):
         pass

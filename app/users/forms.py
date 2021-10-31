@@ -6,13 +6,15 @@ from app.models import User
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()], render_kw={"placeholder": "Username"})
     password = PasswordField('Password', validators=[DataRequired()], render_kw={"placeholder": "Password"})
+    submit = SubmitField('Login')
 
 class CreateForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()], render_kw={"placeholder": "Email"})
     username = StringField('Username', validators=[DataRequired()], render_kw={"placeholder": "Username"})
     password = PasswordField('Password', validators=[DataRequired()], render_kw={"placeholder": "Password"})
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired()], render_kw={"placeholder": "Confirm your Password"})
-
+    submit = SubmitField('Sign up')
+    
     def validate_username(self, username):
         user = User.query.filter_by(username=username.data).first()
         if user:

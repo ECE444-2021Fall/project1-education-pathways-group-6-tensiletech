@@ -14,8 +14,19 @@
         <h3>Sign Up</h3>
     {% endif %}
 
+    <!-- Print flash error messages -->
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <h6 class = "text-danger">{{ messages[-1] }}</h6>
+    {% endif %}
+    {% endwith %}
+
     {% from "_formhelpers.html" import render_textfield %}
     <form method="post">
+        <!-- Generating the csrf token -->
+        {{ form.csrf_token }} 
+        <!-- Rendering the form's hidden fields -->
+        {{ form.hidden_tag() }}
         <div class="landing-form-input-box">
             {% if form.email %}
                 {{ render_textfield(form.email) }}
@@ -31,7 +42,12 @@
                 {{ ', '.join(error) }}
             </div>
         {% endfor %}
+        <!-- {% if page == "login" %}
         <button class="landing-button">Login</button>
+        {% elif page == "create" %}
+        <button class="landing-button">Sign up</button>
+        {% endif %} -->
+        {{ form.submit(class="landing-button") }}
     </form>
     {% if page == "login" %}
         <a class="landing-redirect" href="/signup">Create an account</a>
