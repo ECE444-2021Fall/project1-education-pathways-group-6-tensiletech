@@ -1,5 +1,5 @@
 from app import db, bcrypt
-from flask import Flask, Blueprint, render_template, request, redirect, flash, url_for
+from flask import Flask, Blueprint, render_template, request, redirect, flash, url_for, session
 from app.models import User
 from app.users.forms import LoginForm, CreateForm
 from flask_login import login_user, current_user, logout_user
@@ -24,9 +24,6 @@ def login():
             # Logs the user in and redirects to home page
             login_user(user) # can also add remember me argument here if we add remember me input in form
 
-            # Clear all flashed messages
-            session.pop('_flashes', None)
-            
             # If user was trying to access a page but was redirected to login before accessing
             # we need to redirect him to that page again
             next_page = request.args.get('next')
