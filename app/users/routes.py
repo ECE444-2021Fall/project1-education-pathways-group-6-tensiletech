@@ -18,8 +18,6 @@ def login():
 
         # Check user credentials
         user = User.query.filter_by(username = form.username.data).first()
-        # print(f"Form Hashed password: {form.password.data}")
-        # print(f"User password")
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             # Logs the user in and redirects to home page
             login_user(user) # can also add remember me argument here if we add remember me input in form

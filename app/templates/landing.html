@@ -42,17 +42,12 @@
                 {{ ', '.join(error) }}
             </div>
         {% endfor %}
-        <!-- {% if page == "login" %}
-        <button class="landing-button">Login</button>
-        {% elif page == "create" %}
-        <button class="landing-button">Sign up</button>
-        {% endif %} -->
         {{ form.submit(class="landing-button") }}
     </form>
     {% if page == "login" %}
-        <a class="landing-redirect" href="/signup">Create an account</a>
+        <a class="landing-redirect" href= "{{ url_for('users.login') }}" >Create an account</a>
     {% elif page == "create" %}
-        <a class="landing-redirect" href="/login">Already have an account?</a>
+        <a class="landing-redirect" href= "{{ url_for('users.create') }}" >Already have an account?</a>
     {% endif %}
 </div>
 {% endblock %}
