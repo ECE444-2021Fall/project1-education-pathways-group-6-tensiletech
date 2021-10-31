@@ -1,5 +1,5 @@
 from app import db, bcrypt
-from flask import Flask, Blueprint, render_template, request, redirect, flash, url_for
+from flask import Flask, Blueprint, render_template, request, redirect, flash, url_for, session
 from app.models import User
 from app.users.forms import LoginForm, CreateForm
 from flask_login import login_user, current_user, logout_user
@@ -18,8 +18,7 @@ def login():
 
         # Check user credentials
         user = User.query.filter_by(username = form.username.data).first()
-        if user and bcrypt.check_password_hash(form.password.data, user.password):
-
+        if user and bcrypt.check_password_hash(user.password, form.password.data):
             # Logs the user in and redirects to home page
             login_user(user) # can also add remember me argument here if we add remember me input in form
 
@@ -31,6 +30,7 @@ def login():
             else:
                 return redirect(url_for('courses.home'))
         else:
+            # print("incorrect credentials")
             flash('Incorrect username or password, please try again', 'danger')
 
     return render_template('landing.html', form=form, page="login")
@@ -52,7 +52,7 @@ def create():
         # Add the user to the database
         db.session.add(user)
         db.session.commit()
-        
+
         flash(f'Account created for {form.username.data}!', 'success')
         return redirect(url_for('users.login'))
     return render_template('landing.html', form=form, page="create")
