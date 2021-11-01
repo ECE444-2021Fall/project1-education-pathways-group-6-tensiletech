@@ -11,6 +11,7 @@ from config import Config
 
 # DB - Sqlite3
 dbsql = SQLAlchemy()
+dbsql_path = 'sqlite:///db/betterpaths.db'
 
 from .db.db_models import *
 
@@ -36,7 +37,7 @@ def create_app(config_class = Config):
     app.config.from_object(config_class)
     
     # sqlite db setup
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db/betterpaths.db'
+    app.config['SQLALCHEMY_DATABASE_URI'] = dbsql_path
     dbsql.init_app(app)
 
     with app.app_context():
