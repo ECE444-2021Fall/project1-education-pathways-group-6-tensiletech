@@ -11,6 +11,7 @@ def login():
 
     # Cannot log in if already logged in
     if current_user.is_authenticated:
+        flash("Already logged in!")
         return redirect(url_for('courses.home'))
 
     form = LoginForm()
@@ -21,7 +22,8 @@ def login():
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             # Logs the user in and redirects to home page
             login_user(user) # can also add remember me argument here if we add remember me input in form
-
+            flash("Successfully logged in!")
+            
             # If user was trying to access a page but was redirected to login before accessing
             # we need to redirect him to that page again
             next_page = request.args.get('next')
