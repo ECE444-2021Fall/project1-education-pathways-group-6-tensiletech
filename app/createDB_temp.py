@@ -20,8 +20,4 @@ from models import User as User
 db.create_all()
 db.session.commit()
 
-user1 = User(username = "romil", email = "romil.sjain@gmail.com", password = "password")
-db.session.add(user1)
-db.session.commit()
-users = User.query.all()
-print(users)
+
