@@ -45,10 +45,14 @@ def create_app(config_class = Config):
         dbsql.session.commit()
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     db.init_app(app)
 =======
     # Bycrypt
 >>>>>>> cc7dc34 (setup sqlite3 db, next step to create tables for all)
+=======
+    # Bycrypt
+>>>>>>> 2318de91065b1db53b600099c7a35a7578b43f7b
     bcrypt.init_app(app)
 
     # Login Manager
