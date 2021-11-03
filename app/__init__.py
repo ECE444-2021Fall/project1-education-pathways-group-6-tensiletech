@@ -34,6 +34,9 @@ df = pd.read_pickle(os.path.join(cur_path, 'resources/df_processed.pickle')).set
 def create_app(config_class = Config):
     # Create app
     app = Flask(__name__)
+    # Login Manager
+    login_manager.init_app(app)
+
     app.config.from_object(config_class)
     
     # sqlite db setup
@@ -43,20 +46,10 @@ def create_app(config_class = Config):
     with app.app_context():
         dbsql.create_all()
         dbsql.session.commit()
+        # Just for testing
+        from .db import db_process
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    db.init_app(app)
-=======
-    # Bycrypt
->>>>>>> cc7dc34 (setup sqlite3 db, next step to create tables for all)
-=======
-    # Bycrypt
->>>>>>> 2318de91065b1db53b600099c7a35a7578b43f7b
     bcrypt.init_app(app)
-
-    # Login Manager
-    login_manager.init_app(app)
 
     from app.users.routes import users
     from app.courses.routes import courses

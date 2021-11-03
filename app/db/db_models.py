@@ -1,4 +1,3 @@
-from os import name
 from app import dbsql
 from sqlalchemy import Table, Column, Integer, ForeignKey, Boolean, String
 from sqlalchemy.orm import relationship
@@ -17,17 +16,17 @@ class User(Base, UserMixin):
         return f"User(UserId: '{self.id}', Username: '{self.username}', email: '{self.email}')"
 class Courses(Base):
     __tablename__ = 'courses'
-    courseId = dbsql.Column(dbsql.String(8), primary_key = True)
+    courseId = dbsql.Column(dbsql.String(10), primary_key = True)
     name = dbsql.Column(dbsql.String, nullable = False)
     description = dbsql.Column(dbsql.String, nullable = False)
     department = dbsql.Column(dbsql.String, nullable = False)
     prerequisites = dbsql.Column(dbsql.String, nullable = False)
-    course_level = dbsql.Column(dbsql.Integer, nullabe=False)
+    course_level = dbsql.Column(dbsql.Integer, nullable=False)
     campus = dbsql.Column(dbsql.String, nullable=False)
     terms_offered = dbsql.Column(dbsql.String,  nullable=False)
     exclusion = dbsql.Column(dbsql.String, nullable=False)
     corequisites = dbsql.Column(dbsql.String, nullable=False)
-    fase_availabe = dbsql.Column(dbsql.Boolean, nullable=False)
+    fase_available = dbsql.Column(dbsql.Boolean, nullable=False)
 
     def __repr__(self):
         return f"Course(Course Id: '{self.courseId}', Course Name: '{self.name}')"
@@ -35,7 +34,7 @@ class Courses(Base):
 class UserSavedCourses(Base):
     __tablename__ = 'user_saved_courses'
     userId = dbsql.Column(dbsql.Integer, ForeignKey('user.id'), primary_key = True) 
-    courseId = dbsql.Column(dbsql.String(8), ForeignKey('courses.id'), primary_key = True)
+    courseId = dbsql.Column(dbsql.String(10), ForeignKey('courses.courseId'), primary_key = True)
     users = relationship("User")
     courses = relationship("Courses")
     def __repr__(self):
@@ -44,8 +43,8 @@ class UserSavedCourses(Base):
 class CourseComments(Base):
     __tablename__ = 'course_comments'
     userId = dbsql.Column(dbsql.Integer, ForeignKey('user.id'), primary_key = True)
-    courseId = dbsql.Column(dbsql.String(15), ForeignKey('courses.id'), primary_key = True)
-    comment = courseId = dbsql.Column(dbsql.String, ForeignKey('courses.id'), primary_key = True)
+    courseId = dbsql.Column(dbsql.String(15), ForeignKey('courses.courseId'), primary_key = True)
+    comment = dbsql.Column(dbsql.String,primary_key = True)
     users = relationship("User")
     courses = relationship("Courses")
 
