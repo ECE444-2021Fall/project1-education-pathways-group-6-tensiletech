@@ -1,7 +1,6 @@
 from app import bcrypt
 from flask import Flask, Blueprint, render_template, request, redirect, flash, url_for
-from app.db.db_models import User
-from app.db.db_process import add_to_table
+from app.db.db_models import User, add_to_table
 from app.users.forms import LoginForm, CreateForm
 from flask_login import login_user, current_user, logout_user
 

@@ -1,5 +1,5 @@
-from app import dbsql
-from sqlalchemy import Table, Column, Integer, ForeignKey, Boolean, String
+from app import dbsql, login_manager
+from sqlalchemy import Table, Column, Integer, ForeignKey, Boolean, String, DateTime
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 from flask_login import UserMixin # Helps in managing a user session
@@ -17,15 +17,30 @@ class Courses(dbsql.Model):
     __tablename__ = 'courses'
     courseId = dbsql.Column(dbsql.String(10), primary_key = True)
     name = dbsql.Column(dbsql.String, nullable = False)
+    division = dbsql.Column(dbsql.String, nullable = False)
     description = dbsql.Column(dbsql.String, nullable = False)
     department = dbsql.Column(dbsql.String, nullable = False)
     prerequisites = dbsql.Column(dbsql.String, nullable = False)
     course_level = dbsql.Column(dbsql.Integer, nullable=False)
+    utsc_breadth = dbsql.Column(dbsql.String, nullable = False)
+    apsc_electives = dbsql.Column(dbsql.String, nullable = False)
     campus = dbsql.Column(dbsql.String, nullable=False)
     terms_offered = dbsql.Column(dbsql.String,  nullable=False)
+    activity = dbsql.Column(dbsql.String, nullable = False)
+    last_updated = dbsql.Column(dbsql.String, nullable = False)
     exclusion = dbsql.Column(dbsql.String, nullable=False)
+    utm_distribution = dbsql.Column(dbsql.String, nullable=False)
     corequisites = dbsql.Column(dbsql.String, nullable=False)
+    recommended_prep = dbsql.Column(dbsql.String, nullable=False)
+    as_breadth = dbsql.Column(dbsql.String, nullable=False)
+    as_distribution = dbsql.Column(dbsql.String, nullable=False)
+    later_term_course_details = dbsql.Column(dbsql.String, nullable=False)
+    course_hyperlink = dbsql.Column(dbsql.String, nullable=False)
     fase_available = dbsql.Column(dbsql.Boolean, nullable=False)
+    maybe_restricted = dbsql.Column(dbsql.Boolean, nullable=False)
+    major_outcomes = dbsql.Column(dbsql.String, nullable=False)
+    minor_outcomes = dbsql.Column(dbsql.String, nullable=False)
+    aip_rereqs = dbsql.Column(dbsql.String, nullable=False)
 
     def __repr__(self):
         return f"Course(Course Id: '{self.courseId}', Course Name: '{self.name}')"
@@ -50,3 +65,16 @@ class CourseComments(dbsql.Model):
     def __repr__(self):
         return f"CourseComments(User: '{self.userId}', Course: '{self.courseId}', Comment: '{self.comment}')"
 
+@login_manager.user_loader
+def load_user(user_id):
+    return dbsql.session.query(User).get(int(user_id))
+
+def load_course(course_id):
+    return dbsql.session.query(Courses).get(str(course_id))
+
+def add_to_table(table_row):
+    dbsql.session.add(table_row)
+    dbsql.session.commit()
+
+def querying_all(table):
+    return dbsql.session.query(table).all()
