@@ -4,8 +4,7 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 from flask_login import UserMixin # Helps in managing a user session
 
-Base = declarative_base()
-class User(Base, UserMixin):
+class User(dbsql.Model, UserMixin):
     __tablename__ = 'user'
     id = dbsql.Column(dbsql.Integer, primary_key = True) # Generated automatically when not specified
     username = dbsql.Column(dbsql.String(100), unique = True, nullable = False)
@@ -14,7 +13,7 @@ class User(Base, UserMixin):
 
     def __repr__(self):
         return f"User(UserId: '{self.id}', Username: '{self.username}', email: '{self.email}')"
-class Courses(Base):
+class Courses(dbsql.Model):
     __tablename__ = 'courses'
     courseId = dbsql.Column(dbsql.String(10), primary_key = True)
     name = dbsql.Column(dbsql.String, nullable = False)
@@ -31,7 +30,7 @@ class Courses(Base):
     def __repr__(self):
         return f"Course(Course Id: '{self.courseId}', Course Name: '{self.name}')"
 
-class UserSavedCourses(Base):
+class UserSavedCourses(dbsql.Model):
     __tablename__ = 'user_saved_courses'
     userId = dbsql.Column(dbsql.Integer, ForeignKey('user.id'), primary_key = True) 
     courseId = dbsql.Column(dbsql.String(10), ForeignKey('courses.courseId'), primary_key = True)
@@ -40,7 +39,7 @@ class UserSavedCourses(Base):
     def __repr__(self):
         return f"UserSavedCourses('User: {self.userId}', Saved Course: '{self.courseId}')"
 
-class CourseComments(Base):
+class CourseComments(dbsql.Model):
     __tablename__ = 'course_comments'
     userId = dbsql.Column(dbsql.Integer, ForeignKey('user.id'), primary_key = True)
     courseId = dbsql.Column(dbsql.String(15), ForeignKey('courses.courseId'), primary_key = True)
