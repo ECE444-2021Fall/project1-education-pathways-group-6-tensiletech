@@ -82,3 +82,9 @@ def add_to_table(table_row):
 
 def querying_all(table):
     return dbsql.session.query(table).all()
+
+def row_to_dict(row):
+    result = dict()
+    for col in row.__table__.columns:
+        result[col.name] = str(getattr(row, col.name))
+    return result

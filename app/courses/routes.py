@@ -2,6 +2,7 @@
 from flask import Flask, Blueprint, render_template, request, redirect, flash, url_for
 from app.courses.forms import CourseSearchForm
 from app.courses.utils import filter_courses
+from app.db.db_models import load_comments, row_to_dict
 from app import df, G
 
 courses = Blueprint('courses', __name__)
@@ -44,6 +45,10 @@ Pass all that to render template.
 """
 @courses.route('/course/<code>')
 def course(code):
+    commentsQuery = load_comments(code)
+    comments = []
+    for c in commentsQuery:
+        comments.append(row_to_dict(c)['comment'])
 
     #If the course code is not present in the dataset, progressively remove the last character until we get a match.
     #For example, if there is no CSC413 then we find the first match that is CSC41.
@@ -88,5 +93,6 @@ def course(code):
         mayberestricted=mayberestricted,
         terms=terms,
         activities=activities,
-        zip=zip
+        zip=zip,
+        comments=comments
         )
