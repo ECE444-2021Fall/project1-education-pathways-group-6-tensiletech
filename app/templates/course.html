@@ -24,7 +24,7 @@
         </ul>
         <hr>
         <form
-            action=""
+            action="{{ url_for('courses.add_comment', code=code) }}"
             method="post"
             class="add-comment"
         >

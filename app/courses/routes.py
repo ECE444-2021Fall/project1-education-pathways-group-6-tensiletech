@@ -1,8 +1,9 @@
 # from app import db
 from flask import Flask, Blueprint, render_template, request, redirect, flash, url_for
+from flask_login import current_user
 from app.courses.forms import CourseSearchForm
 from app.courses.utils import filter_courses
-from app.db.db_models import load_comments, row_to_dict
+from app.db.db_models import load_comments, row_to_dict, add_to_table, CourseComments
 from app import df, G
 
 courses = Blueprint('courses', __name__)
@@ -45,11 +46,6 @@ Pass all that to render template.
 """
 @courses.route('/course/<code>')
 def course(code):
-    commentsQuery = load_comments(code)
-    comments = []
-    for c in commentsQuery:
-        comments.append(row_to_dict(c)['comment'])
-
     #If the course code is not present in the dataset, progressively remove the last character until we get a match.
     #For example, if there is no CSC413 then we find the first match that is CSC41.
     #If there are no matches for any character, just go home.
@@ -79,8 +75,15 @@ def course(code):
     terms = course['Term']
     activities = course['Activity']
     course = {k:v for k,v in course.items() if k not in ['Course','Course Level Number','FASEAvailable','MaybeRestricted','URL','Pre-requisites','Exclusion','Corequisite','Recommended Preparation','AIPreReqs','MajorsOutcomes','MinorsOutcomes','Term','Activity'] and v==v}
+
+    commentsQuery = load_comments(code)
+    comments = []
+    for c in commentsQuery:
+        comments.append(row_to_dict(c)['comment'])
+    
     return render_template(
         'course.html',
+        code=code,
         course=course,
         pre=pre, 
         post=post,
@@ -96,3 +99,17 @@ def course(code):
         zip=zip,
         comments=comments
         )
+
+@courses.route('/course/<code>/add_comment', methods=['POST'])
+def add_comment(code):
+    if current_user and current_user.username:
+        comment = CourseComments(
+            userId=current_user.username,
+            courseId=code,
+            comment=request.form['text']
+        )
+        add_to_table(comment)
+    else:
+        print('User is not currently logged in')
+    
+    return redirect(url_for('courses.course', code = code))
