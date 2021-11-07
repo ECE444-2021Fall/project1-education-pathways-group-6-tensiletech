@@ -56,9 +56,10 @@ class UserSavedCourses(dbsql.Model):
 
 class CourseComments(dbsql.Model):
     __tablename__ = 'course_comments'
-    userId = dbsql.Column(dbsql.Integer, ForeignKey('user.id'), primary_key = True)
-    courseId = dbsql.Column(dbsql.String(15), ForeignKey('courses.courseId'), primary_key = True)
-    comment = dbsql.Column(dbsql.String,primary_key = True)
+    id = dbsql.Column(dbsql.Integer, primary_key = True) # Generated automatically when not specified
+    userId = dbsql.Column(dbsql.Integer, ForeignKey('user.id'))
+    courseId = dbsql.Column(dbsql.String(15), ForeignKey('courses.courseId'))
+    comment = dbsql.Column(dbsql.String)
     users = relationship("User")
     courses = relationship("Courses")
 
@@ -71,6 +72,9 @@ def load_user(user_id):
 
 def load_course(course_id):
     return dbsql.session.query(Courses).get(str(course_id))
+
+def load_comments(course_id):
+    return dbsql.session.query(CourseComments).filter_by(courseId=str(course_id)).all()
 
 def add_to_table(table_row):
     dbsql.session.add(table_row)
