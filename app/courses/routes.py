@@ -102,6 +102,9 @@ def course(code):
 
 @courses.route('/course/<code>/add_comment', methods=['POST'])
 def add_comment(code):
+    if not any(c.isalpha() for c in request.form['text']):
+        return redirect(url_for('courses.course', code = code))
+
     if current_user and current_user.username:
         comment = CourseComments(
             userId=current_user.username,
