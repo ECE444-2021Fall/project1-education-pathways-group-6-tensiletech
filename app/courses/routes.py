@@ -79,8 +79,8 @@ def course(code):
     commentsQuery = load_comments(code)
     comments = []
     for c in commentsQuery:
-        comments.append(row_to_dict(c)['comment'])
-    
+        comments.append(row_to_dict(c))
+
     return render_template(
         'course.html',
         code=code,

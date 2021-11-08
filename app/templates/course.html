@@ -15,7 +15,10 @@
         </div>
         <ul class="comments">
             {% for comment in comments %}
-            <li class="comment">{{comment}}</li>
+            <li class="comment">
+                <div><b>{{comment.userId}}</b></div>
+                {{comment.comment}}
+            </li>
             {% else %}
             <div class="empty-list"><em>There are no comments yet.</em></div>
             {% endfor %}
