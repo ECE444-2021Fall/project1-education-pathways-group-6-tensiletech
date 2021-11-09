@@ -1,5 +1,5 @@
 from app import dbsql, login_manager
-from sqlalchemy import Table, Column, Integer, ForeignKey, Boolean, String, DateTime
+from sqlalchemy import Table, Column, Integer, ForeignKey, Boolean, String, DateTime, and_, delete
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 from flask_login import UserMixin # Helps in managing a user session
@@ -47,12 +47,12 @@ class Courses(dbsql.Model):
 
 class UserSavedCourses(dbsql.Model):
     __tablename__ = 'user_saved_courses'
-    userId = dbsql.Column(dbsql.Integer, ForeignKey('user.id'), primary_key = True) 
-    courseId = dbsql.Column(dbsql.String(10), ForeignKey('courses.courseId'), primary_key = True)
-    users = relationship("User")
+    id = dbsql.Column(dbsql.Integer, primary_key = True)
+    username = dbsql.Column(dbsql.String(100), unique = False, nullable = False)
+    courseId = dbsql.Column(dbsql.String(10), ForeignKey('courses.courseId'))
     courses = relationship("Courses")
     def __repr__(self):
-        return f"UserSavedCourses('User: {self.userId}', Saved Course: '{self.courseId}')"
+        return f"UserSavedCourses('User: {self.username}', Saved Course: '{self.courseId}')"
 
 class CourseComments(dbsql.Model):
     __tablename__ = 'course_comments'
@@ -76,9 +76,24 @@ def load_course(course_id):
 def load_comments(course_id):
     return dbsql.session.query(CourseComments).filter_by(courseId=str(course_id)).all()
 
+def load_saved_courses(username):
+    return dbsql.session.query(UserSavedCourses).filter_by(username=username).all()
+
 def add_to_table(table_row):
     dbsql.session.add(table_row)
     dbsql.session.commit()
+
+def remove_course(username, course_id):
+    dbsql.session.query(UserSavedCourses).filter(and_(UserSavedCourses.username == str(username), UserSavedCourses.courseId == str(course_id))).delete()
+    dbsql.session.commit()
+
+def isCourseSaved(username, course_id):
+    saved = dbsql.session.query(UserSavedCourses).filter(and_(UserSavedCourses.username == str(username), UserSavedCourses.courseId == str(course_id))).one_or_none()
+    print(f"Username is {username} and course_id is {course_id} and Result of isCourseSaved is {saved} \n")
+    if saved == None:
+        return False
+    else:
+        return True
 
 def querying_all(table):
     return dbsql.session.query(table).all()

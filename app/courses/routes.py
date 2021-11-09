@@ -1,15 +1,16 @@
 # from app import db
 from flask import Flask, Blueprint, render_template, request, redirect, flash, url_for
-from flask_login import current_user
+from flask_login import current_user, login_required
 from app.courses.forms import CourseSearchForm
 from app.courses.utils import filter_courses
-from app.db.db_models import load_comments, row_to_dict, add_to_table, CourseComments
+from app.db.db_models import load_comments, row_to_dict, add_to_table, remove_course, CourseComments, UserSavedCourses, isCourseSaved
 from app import df, G
 
 courses = Blueprint('courses', __name__)
 
 """Homepage is essentially just the course search form. If a post request is received, call the method that finds search results."""
 @courses.route('/',methods=['GET','POST'])
+@login_required
 def home():
     search = CourseSearchForm(request.form)
     if request.method == 'POST':
@@ -102,9 +103,12 @@ def course(code):
 
 @courses.route('/course/<code>/add_comment', methods=['POST'])
 def add_comment(code):
+
+    # Make sure that comment is not empty
     if not any(c.isalpha() for c in request.form['text']):
         return redirect(url_for('courses.course', code = code))
 
+    # Make sure user is logged in before he tries to comment
     if current_user and current_user.username:
         comment = CourseComments(
             userId=current_user.username,
@@ -116,3 +120,36 @@ def add_comment(code):
         print('User is not currently logged in')
     
     return redirect(url_for('courses.course', code = code))
+
+# When this function is called from the search page, the argument needs to be passed. Eg:
+        #   <form action="{{ url_for('courses.save_course', course_id = course.id) }}" method="POST">
+        #     <input class="btn" type="submit" value="Save">
+        #   </form>
+# But above, the value should say either save or unsave based on condition if course is already saved or not
+# This route is called from both the search page and the course info page
+# The route needs to redirect back to the page that it was actually called from
+# This method is used for both saving and unsaving courses
+@courses.route('/course/<code>/save-course', methods = ['POST'])
+def save_course(code):
+    
+    # Validate if user has logged in
+    if current_user and current_user.username:
+        savedCourse = UserSavedCourses(username=current_user.username, courseId=code)
+
+        if isCourseSaved(current_user.username, code):
+            remove_course(current_user.username, code)
+            print("Course was already saved!")
+        else:
+            add_to_table(savedCourse)
+            print("Course was saved!")
+    else:
+        print('User is not currently logged in')
+
+
+    # Redirect back to the page originally called from
+    next_page = request.args.get('next')
+    if next_page:
+        return redirect(next_page)
+    else:
+        return redirect(url_for('courses.course', code = code)) 
+
