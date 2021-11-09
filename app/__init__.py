@@ -1,4 +1,7 @@
 import os
+import json
+
+from werkzeug.utils import escape
 import pickle5 as pickle
 import numpy as np
 import pandas as pd
@@ -8,6 +11,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from config import Config
+from elasticsearch import Elasticsearch, helpers, ElasticsearchException
 
 # DB - Sqlite3
 dbsql = SQLAlchemy()
@@ -49,7 +53,40 @@ def create_app(config_class = Config):
         # from .db import db_general_testing.py
         from .db import resources_initializer
 
+    # Setup Elasticsearch
+    # get config information from the config file
+    with open(os.path.join(cur_path, "searching_filtering/ESconfig.json")) as json_data_file:
+        es_config = json.load(json_data_file)
+        
+    # Initiate elasticsearch instance
+    try:
+        es = Elasticsearch(
+            cloud_id=es_config['elasticsearch']['cloud_id'], 
+            api_key=(es_config['elasticsearch']['api_key'], es_config['elasticsearch']['api_key_secret'])
+        )
+        print("Successfully created elasticsearch instance")
+        print(es.info())
+    except ElasticsearchException as error:
+        print("Failed to initiate elasticsearch instance")
+        print(error)
+
+    # create the json file for search data if not yet created
+    from .searching_filtering import elasticsearch_initializer
+
+    f = open(os.path.join(cur_path, 'resources/courseInfo.json'),)
+    doc = []
+    for i in f.readlines():
+        doc.append(i)
+
+    try:
+        data = helpers.bulk(es, doc, index="course_info")
+        print("Successfully uploaded data onto the elastic cloud cluster index!", data)
+    except ElasticsearchException as error:
+        print("Failed to upload elasticsearch data")
+        print(error)
+    
     bcrypt.init_app(app)
+
 
     from app.users.routes import users
     from app.courses.routes import courses
