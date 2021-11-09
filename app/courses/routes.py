@@ -3,6 +3,7 @@ from flask import Flask, Blueprint, render_template, request, redirect, flash, u
 from app.courses.forms import CourseSearchForm
 from app.courses.utils import filter_courses
 from app import df, G
+from app import es
 
 courses = Blueprint('courses', __name__)
 
