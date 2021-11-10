@@ -11,7 +11,7 @@ def login():
 
     # Cannot log in if already logged in
     if current_user.is_authenticated:
-        return redirect(url_for('courses.home'))
+        return redirect(url_for('searching_filtering.search_home'))
 
     form = LoginForm()
     if form.validate_on_submit():
@@ -28,7 +28,7 @@ def login():
             if next_page:
                 return redirect(next_page)
             else:
-                return redirect(url_for('courses.home'))
+                return redirect(url_for('searching_filtering.search_home'))
         else:
             # print("incorrect credentials")
             flash('Incorrect username or password, please try again', 'danger')
@@ -40,7 +40,7 @@ def create():
 
     # Cannot create account if already logged in
     if current_user.is_authenticated:
-        return redirect(url_for('courses.home'))
+        return redirect(url_for('searching_filtering.search_home'))
     
     form = CreateForm()
     if form.validate_on_submit():

@@ -8,7 +8,7 @@ class SearchForm(FlaskForm):
     # The keywords field can be empty, therefor no validator needed (if empty return all result)
     keywords = StringField('Keywords', render_kw={"placeholder": "Search BetterPath"})
     search = SubmitField('Search')
-    saved_courses = SubmitField('SavedCourses')
+    saved_courses = SubmitField('Saved Courses')
     log_out = SubmitField('Logout')
 
 # reuse the form in the orginal educationpath repo

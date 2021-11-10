@@ -13,8 +13,10 @@
     {% from "_formhelpers.html" import render_searchtextfield %}
     <form method="post">
         <div class="buttons-top-right">
-            <button class=search-landing-button>Saved Courses</button>
-            <button class=search-landing-button>Log Out</button>
+            <!-- <button class=search-landing-button>Saved Courses</button>
+            <button class=search-landing-button>Log Out</button> -->
+            {{ search_form.log_out(class="search-landing-button") }}
+            {{ search_form.saved_courses(class="search-landing-button") }}
         </div>
         <div class="middle-search">
             <h3>Welcome to BetterPath!</h3>
@@ -27,7 +29,8 @@
                 </div>
             </div> -->
             {{ render_searchtextfield(search_form.keywords) }}
-            <button class="landing-button">Search</button>
+            <!-- <button class="landing-button">Search</button> -->
+            {{ search_form.search(class="landing-button") }}
         </div>
     </form>
 </div>
