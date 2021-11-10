@@ -6,4 +6,10 @@
     <div class="landing-form-field">
         {{ field(**kwargs)|safe }}
     </div>
-{% endmacro %}
+{% endmacro %} 
+
+{% macro render_searchtextfield(field) %}
+    <div class="search-box">
+        {{ field(**kwargs)|safe }}
+    </div>
+{% endmacro %} 

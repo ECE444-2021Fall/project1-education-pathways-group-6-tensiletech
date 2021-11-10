@@ -1,2 +1,79 @@
 /* Any specific styling needed for search page */
 
+
+.middle-search {
+    color: #355386;
+    font-weight: 600;
+    left: 0;
+    line-height: 200px;
+    margin-top: -100px;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.buttons-top-right {
+    float: right;
+}
+
+.search-box input{
+    border-radius: 20px;
+    color: #355386;
+    border: none;
+    display:inline-block;
+    padding:15px 10px;
+    line-height:140%;
+    width: 50%;
+    font-weight: 300;
+    font-size: 20px;
+    border-bottom: 1px solid #94d2ef;
+}
+
+.search-landing-button {
+    color: #355386;
+    font-size: 25px;
+    background: rgb(255, 255, 255);
+    width: 50%;
+    padding: 1px;
+    border-radius: 20px;
+    border: none;
+    opacity: 100%;
+    margin: 5px auto;
+}
+
+
+.search {
+    position: relative;
+    box-shadow: 0 0 40px rgba(51, 51, 51, .1)
+}
+
+.search input {
+    height: 60px;
+    text-indent: 25px;
+    border: 2px solid #d6d4d4
+}
+
+.search input:focus {
+    box-shadow: none;
+    border: 2px solid #355386
+}
+
+.search .fa-search {
+    position: absolute;
+    top: 20px;
+    left: 16px
+}
+
+.search button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    height: 50px;
+    width: 110px;
+    background: #355386
+}
+
