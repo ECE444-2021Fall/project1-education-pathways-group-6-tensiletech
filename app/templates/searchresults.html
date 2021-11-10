@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block imports %}
+<link rel="stylesheet" href="static/styles/common.css">
+<link rel="stylesheet" href="static/styles/landing.css">
+<link rel="stylesheet" href="static/styles/search.css">
+<link rel="stylesheet" href="static/styles/results.css">
+
+{% endblock %}
+
+
+{% block main %}
+<div class="search-form">
+    <form method="post">
+        <div class="buttons-top-right">
+            {{ results_form.log_out(class="search-landing-button") }}
+            {{ results_form.saved_courses(class="search-landing-button") }}
+        </div>
+    </form>
+</div>
+<h1>Search Results</h1>
+
+<div class="middle">
+    <table class="table table-sm">
+        <thead>
+        <tr>
+            <th scope="col" class="centre"> {{ keys[0] }} </th>
+            <th scope="col" class="centre"> {{ keys[1] }} </th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for course in data %}
+            <tr>
+            {% for key, val in course.items() %}
+                <td> {{ val }} </td> 
+            {% endfor %}
+            <td><button type="button" class="btn btn-primary">More Info</button></td>
+            <td><button type="button" class="btn btn-primary">Save</button></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

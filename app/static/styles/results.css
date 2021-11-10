@@ -1,0 +1,29 @@
+h1 {
+    text-align: center;
+    color: white;
+    margin-left: 30vh;
+    margin-top: 10vh;
+}
+
+.middle {
+    left: 0;
+    line-height: 200px;
+    margin-top: -100px;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    width: 100%;
+}
+
+table.table {
+    width: auto;
+    margin:10px auto;
+}
+
+table.table tbody td {
+    padding:10px;
+}
+
+.centre {
+    font-size: 20px;
+}

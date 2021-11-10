@@ -35,45 +35,13 @@
 
 .search-landing-button {
     color: #355386;
-    font-size: 25px;
+    font-size: 20px;
     background: rgb(255, 255, 255);
-    width: 50%;
-    padding: 1px;
+    width: 70%;
+    padding: 10px;
     border-radius: 20px;
     border: none;
     opacity: 100%;
     margin: 5px auto;
-}
-
-
-.search {
-    position: relative;
-    box-shadow: 0 0 40px rgba(51, 51, 51, .1)
-}
-
-.search input {
-    height: 60px;
-    text-indent: 25px;
-    border: 2px solid #d6d4d4
-}
-
-.search input:focus {
-    box-shadow: none;
-    border: 2px solid #355386
-}
-
-.search .fa-search {
-    position: absolute;
-    top: 20px;
-    left: 16px
-}
-
-.search button {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    height: 50px;
-    width: 110px;
-    background: #355386
 }
 
