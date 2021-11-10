@@ -6,7 +6,7 @@ import os
 
 if os.path.exists("resources_db_done.log"):
     print("Resources to DB transition completed, if needed to redo the DB, please remove 'resources_db_done.log'" +
-        "from the current folder!\nThe next time the app is run, DB transition from resources will take place!")
+        "from the current folder and delete betterpaths.db(mostly)!\nThe next time the app is run, DB transition from resources will take place!")
 else:
     df_cleaned = df.replace(np.nan,"",regex=True)
 

@@ -33,8 +33,7 @@ df = pd.read_pickle(os.path.join(cur_path, 'resources/df_processed.pickle')).set
 def create_app(config_class = Config):
     # Create app
     app = Flask(__name__)
-    # Login Manager
-    login_manager.init_app(app)
+
 
     app.config.from_object(config_class)
     
@@ -50,10 +49,15 @@ def create_app(config_class = Config):
         from .db import resources_initializer
 
     bcrypt.init_app(app)
+    
 
     from app.users.routes import users
     from app.courses.routes import courses
     app.register_blueprint(users)
     app.register_blueprint(courses)
 
+    # Login Manager
+    login_manager.init_app(app)
+    login_manager.login_view = 'users.login'
+    
     return app

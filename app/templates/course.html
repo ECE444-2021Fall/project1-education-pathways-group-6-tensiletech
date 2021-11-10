@@ -9,6 +9,40 @@
 <h1 style="text-align: center">Education Pathways</h1>
 
 <body>
+<!-- Remove later! Only for testing purposes!
+    <div class="container">
+        <form
+                action="{{ url_for('courses.save_course', code=code) }}"
+                method="post"
+            >
+                <button class="btn btn-primary" type="submit" value="Post" />
+        </form>
+    </div> -->
+    <div class="course-comments-box">
+        <div class="course-comments-title-box">
+            <h3>Comments</h3>
+        </div>
+        <ul class="comments">
+            {% for comment in comments %}
+            <li class="comment">
+                <div><b>{{comment.userId}}</b></div>
+                {{comment.comment}}
+            </li>
+            {% else %}
+            <div class="empty-list"><em>There are no comments yet.</em></div>
+            {% endfor %}
+        </ul>
+        <hr>
+        <form
+            action="{{ url_for('courses.add_comment', code=code) }}"
+            method="post"
+            class="add-comment"
+        >
+            <textarea name="text" placeholder="Your comment..."></textarea>
+            <input class="comment-button" type="submit" value="Post" />
+        </form>
+    </div>
+
     {% for k,v in course.items() %}
         <p>
             <b>{{k}}:</b> {{v | safe}}
@@ -49,6 +83,82 @@
         .tg .tg-0pky{border-color:inherit;text-align:center;vertical-align:top}
         .tg .tg-7btt{border-color:inherit;font-weight:bold;text-align:center;vertical-align:top}
         .tg .tg-0lax{border-color:#38fff8;text-align:center;vertical-align:top}
+        
+        body {
+            background-color: #BCDDEA;
+        }
+        .course-comments-box {
+            background-color: white;
+            height: 70vh;
+            margin: 40px;
+        }
+        .course-comments-title-box {
+            background-color: #355386;
+            box-shadow: 0 3px 3px rgba(0, 0, 0, 0.4);
+            padding: 5px 0px;
+            text-align: center;
+        }
+        .course-comments-title-box h3 {
+            color: white;
+        }
+        .comments {
+            height: 60%;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            overflow-y: scroll;
+        }
+        .comments li {
+            background-color: #355386;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1em;
+            margin: 0.8em 1.2em;
+        }
+        .empty-list {
+            background-color: white;
+            color: #355386;
+            padding: 10px 20px;
+            margin: 0.8em 1.2em;
+            font-size: 1.2em;
+        }
+        .comment p {
+            color: white;
+        }
+        hr {
+            border: 1px solid black;
+            opacity: 0.5;
+            margin-bottom: 0;
+        }
+        .add-comment {
+            display: flex;
+            color: #355386;
+            margin: 0.8em 1.2em;
+        }
+        .add-comment textarea {
+            resize: none;
+            width: 100%;
+            background-color: #355386;
+            color: white;
+            padding: 5px;
+        }
+        ::placeholder {
+            color: white;
+            opacity: 0.7;
+        }
+        .comment-button {
+            color: white;
+            background-color: #355386;
+            border: none;
+            margin-top: auto;
+            margin-bottom: auto;
+            margin-left: 10px;
+            height: 35px;
+            width: 20%;
+            border-radius: 20px;
+        }
+
         </style>
         <table class="tg">
         <tbody>
