@@ -4,22 +4,27 @@ body {
 .main-content {
     display: flex;
     justify-content: space-around;
-    margin-left: 20px;
-    margin-right: 20px;
+    margin: 40px 20px;
 }
 .course-info-box {
-    background-color: #ffffff;
+    background-color: #f8f9fa;
     width: 65%;
+    height: auto;
+    border-radius: 15px;
 }
 .course-info-title-box {
     background-color: #355386;
-    color: white;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.4);
+    z-index: 100;
+    color: #f8f9fa;
     padding: 10px;
     display: flex; 
 }
 
 .save-button {
-    background: #ffffff;
+    background: #f8f9fa;
     float: right;
     margin-left: auto;
     width: 20%;
@@ -30,6 +35,7 @@ body {
 }
 
 .course-info-content {
+    display: inline-block;
     padding-left: 30px;
     padding-right: 30px;
 }
@@ -46,7 +52,7 @@ body {
     background-color: #355386;
     color: white;
     width: auto; 
-    height: 4vh; 
+    height: 40px; 
     padding-top: 1vh;
     align-items: center; 
     padding-right: 10px;
@@ -60,35 +66,41 @@ body {
  * Styling for the comments section
  */
 .comments-box {
-    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    background-color: #f8f9fa;
+    border-radius: 15px;
     width: 30%;
+    height: 75vh;
 }
 .course-comments-title-box {
     background-color: #355386;
     box-shadow: 0 3px 3px rgba(0, 0, 0, 0.4);
     padding: 5px 0px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    z-index: 100;
     text-align: center;
 }
 .course-comments-title-box h3 {
-    color: white;
+    color: #f8f9fa;
 }
-.comments {
-    height: 60%;
+.comments-list {
     list-style: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
     overflow-y: scroll;
 }
-.comments li {
+.comments-list li {
     background-color: #355386;
-    color: white;
+    color: #f8f9fa;
     padding: 10px 20px;
     font-size: 1em;
     margin: 0.8em 1.2em;
 }
 .empty-list {
-    background-color: white;
+    background-color: #f8f9fa;
     color: #355386;
     padding: 10px 20px;
     margin: 0.8em 1.2em;
@@ -100,7 +112,12 @@ body {
 hr {
     border: 1px solid black;
     opacity: 0.5;
+    margin-top: 0;
     margin-bottom: 0;
+}
+.comment-entry {
+    margin-top: auto;
+    width: 100%;
 }
 .add-comment {
     display: flex;
@@ -135,11 +152,16 @@ hr {
         flex-direction: column;
     }
     .course-info-box {
-        margin: auto;
-        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        height: auto;
+        width: 90%;
     }
     .comments-box {
-        margin: auto;
-        width: 80%;
+        margin-top: 40px;
+        margin-left: auto;
+        margin-right: auto;
+        min-height: 300px;
+        width: 90%;
     }
 }

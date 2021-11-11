@@ -35,7 +35,7 @@
         <div class="course-comments-title-box">
             <h3>Comments</h3>
         </div>
-        <ul class="comments">
+        <ul class="comments-list">
             {% for comment in comments %}
             <li class="comment">
                 <div><b>{{comment.userId}}</b></div>
@@ -45,15 +45,17 @@
             <div class="empty-list"><em>There are no comments yet.</em></div>
             {% endfor %}
         </ul>
-        <hr>
-        <form
-            action="{{ url_for('courses.add_comment', code=code) }}"
-            method="post"
-            class="add-comment"
-        >
-            <textarea name="text" placeholder="Your comment..."></textarea>
-            <input class="comment-button" type="submit" value="Post" />
-        </form>
+        <div class="comment-entry">
+            <hr>
+            <form
+                action="{{ url_for('courses.add_comment', code=code) }}"
+                method="post"
+                class="add-comment"
+            >
+                <textarea name="text" placeholder="Your comment..."></textarea>
+                <input class="comment-button" type="submit" value="Post" />
+            </form>
+        </div>
     </div>
 </div>
 {% endblock %}
