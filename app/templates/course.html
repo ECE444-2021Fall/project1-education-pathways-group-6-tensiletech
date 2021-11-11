@@ -1,10 +1,14 @@
 {% extends "base.html" %}
 
+{% import "macros.html" as macros %}
+
 {% block imports %}
 <link rel="stylesheet" href="../static/styles/course.css">
 {% endblock %}
 
 {% block main %}
+{{ macros.navbar('course') }}
+
 <div class="main-content">
     <div class="course-info-box">
         <div class="course-info-title-box">
