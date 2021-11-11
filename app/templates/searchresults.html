@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% import "macros.html" as macros %}
 
 {% block imports %}
 
@@ -11,28 +12,15 @@
 
 
 {% block main %}
-<div class="search-form">
-    <form method="post">
-        <div class="buttons-top-right">
-            {{ results_form.log_out(class="search-landing-button") }}
-            {{ results_form.saved_courses(class="search-landing-button") }}
-        </div>
-    </form>
-</div>
+{{ macros.navbar('results') }}
 
 <h1>Search Results</h1>
 
+<br> <br> <br> <br>
+
 {% if data != [] %}
     <div class="table-wrapper-scroll-y my-custom-scrollbar ">
-        <table class="table table-bordered mb-0">
-            <thead>
-            <!-- <tr> -->
-                <!-- <th scope="col" class="centre"> {{ keys[0] }} </th> -->
-                <!-- <th scope="col" class="centre"> {{ keys[1] }} </th> -->
-                <!-- <th scope="col"></th> -->
-                <!-- <th scope="col"></th> -->
-            <!-- </tr> -->
-            </thead>
+        <table cellpadding="0" class="table table-bordered mb-0 text-center table-sm">
             <tbody>
             {% for course in data %}
                 <tr>
@@ -53,6 +41,5 @@
         <a href="/search" style="font-size: 22px; margin: 0 auto;"> Click Here to Return Back to Search! </a>
     </div>
 {% endif %}
-
 
 {% endblock %}

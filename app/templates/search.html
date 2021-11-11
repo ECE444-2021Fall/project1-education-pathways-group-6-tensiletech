@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% import "macros.html" as macros %}
 
 {% block imports %}
 <link rel="stylesheet" href="static/styles/common.css">
@@ -8,14 +9,15 @@
 
 
 {% block main %}
+{{ macros.navbar('search') }}
 <div class="search-form">
     
     {% from "_formhelpers.html" import render_searchtextfield %}
     <form method="post">
-        <div class="buttons-top-right">
-            {{ search_form.log_out(class="search-landing-button") }}
-            {{ search_form.saved_courses(class="search-landing-button") }}
-        </div>
+        <!-- <div class="buttons-top-right"> -->
+            <!-- {{ search_form.log_out(class="search-landing-button") }} -->
+            <!-- {{ search_form.saved_courses(class="search-landing-button") }} -->
+        <!-- </div> -->
         <div class="middle-search">
             <h3>Welcome to BetterPath!</h3>
             <h3>Search For Courses</h3>
