@@ -10,7 +10,6 @@
 
 {% endblock %}
 
-
 {% block main %}
 {{ macros.navbar('results') }}
 
@@ -19,17 +18,17 @@
 <br> <br> <br> <br>
 
 {% if data != [] %}
-    <div class="table-wrapper-scroll-y my-custom-scrollbar ">
-        <table cellpadding="0" class="table table-bordered mb-0 text-center table-sm">
+    <div class=" middle scrollbar">
+        <table align="center" class="table mb-0 text-center table-sm scroll-y ">
             <tbody>
             {% for course in data %}
                 <tr>
-                {% set ns = namespace(course_url="/course/") %}
-                <td> {{ course["Code"] }} </td>
-                <td> {{ course["Name"] }} </td>
-                {% set ns.course_url = ns.course_url + course["Code"] %}
-                <td><a class="btn btn-primary table-button" href= "{{ ns.course_url }}">More Info</a></td>
-                <td><button class="btn btn-primary table-button">Save Course</button></td>
+                    {% set ns = namespace(course_url="/course/") %}
+                    <td> {{ course["Code"] }} </td>
+                    <td> {{ course["Name"] }} </td>
+                    {% set ns.course_url = ns.course_url + course["Code"] %}
+                    <td><a class="btn btn-primary table-button" href= "{{ ns.course_url }}">More Info</a></td>
+                    <td><button class="btn btn-primary table-button">Save Course</button></td>
                 </tr>
             {% endfor %}
             </tbody>
