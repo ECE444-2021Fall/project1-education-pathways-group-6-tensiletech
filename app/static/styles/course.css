@@ -1,10 +1,67 @@
 body {
     background-color: #BCDDEA;
 }
-.course-comments-box {
-    background-color: white;
-    height: 70vh;
-    margin: 40px;
+.main-content {
+    display: flex;
+    justify-content: space-around;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.course-info-box {
+    background-color: #ffffff;
+    width: 65%;
+}
+.course-info-title-box {
+    background-color: #355386;
+    color: white;
+    padding: 10px;
+    display: flex; 
+}
+
+.save-button {
+    background: #ffffff;
+    float: right;
+    margin-left: auto;
+    width: 20%;
+    height: 40px;
+    padding: 20px auto;
+    border: none;
+    border-radius: 50px;
+}
+
+.course-info-content {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.course-info {
+    padding-top: 50px;
+}
+
+.prereq-list {
+    display: flex;
+}
+
+.prereq-items {
+    background-color: #355386;
+    color: white;
+    width: auto; 
+    height: 4vh; 
+    padding-top: 1vh;
+    align-items: center; 
+    padding-right: 10px;
+    padding-left: 10px;
+    margin-right: 20px;
+    border-radius: 50px;
+    margin-bottom: 50px;
+}
+
+/*
+ * Styling for the comments section
+ */
+.comments-box {
+    background-color: #ffffff;
+    width: 30%;
 }
 .course-comments-title-box {
     background-color: #355386;
@@ -73,67 +130,16 @@ hr {
     border-radius: 20px;
 }
 
-.main-content {
-    display: flex;
-}
-
-.course-info-box {
-    background-color: #ffffff;
-    width: 55%;
-    height: 70vh;
-    margin: 40px auto;
-    overflow: auto;
-}
-
-.course-info-title-box {
-    background-color: #355386;
-    color: white;
-    padding-top: 1px;
-    padding-bottom: 1px;
-    padding-left: 20px;
-    display: flex; 
-}
-
-.save-button {
-    background: #ffffff;
-    width: 20%; 
-    margin-left: 40%;
-    margin-top: 3vh;
-    height: 6vh; 
-    padding: 20px auto;
-    border-radius: 50px;
-}
-
-.course-info-content {
-    padding-left: 30px;
-    padding-right: 30px;
-}
-
-.course-info {
-    padding-top: 50px;
-}
-
-.prereq-list {
-    display: flex;
-}
-
-.prereq-items {
-    background-color: #355386;
-    color: white;
-    width: auto; 
-    height: 4vh; 
-    padding-top: 1vh;
-    align-items: center; 
-    padding-right: 10px;
-    padding-left: 10px;
-    margin-right: 20px;
-    border-radius: 50px;
-    margin-bottom: 50px;
-}
-
-.comments-box {
-    background-color: #ffffff;
-    width: 30%;
-    height: 70vh;
-    margin: 40px auto;
+@media screen and (max-width: 769px) {
+    .main-content {
+        flex-direction: column;
+    }
+    .course-info-box {
+        margin: auto;
+        width: 100%;
+    }
+    .comments-box {
+        margin: auto;
+        width: 80%;
+    }
 }
