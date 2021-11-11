@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% import "macros.html" as macros %}
 
 {% block imports %}
 <link rel="stylesheet" href="static/styles/common.css">
@@ -8,29 +9,22 @@
 
 
 {% block main %}
+{{ macros.navbar('search') }}
 <div class="search-form">
     
     {% from "_formhelpers.html" import render_searchtextfield %}
     <form method="post">
-        <div class="buttons-top-right">
-            <!-- <button class=search-landing-button>Saved Courses</button>
-            <button class=search-landing-button>Log Out</button> -->
-            {{ search_form.log_out(class="search-landing-button") }}
-            {{ search_form.saved_courses(class="search-landing-button") }}
-        </div>
+        <!-- <div class="buttons-top-right"> -->
+            <!-- {{ search_form.log_out(class="search-landing-button") }} -->
+            <!-- {{ search_form.saved_courses(class="search-landing-button") }} -->
+        <!-- </div> -->
         <div class="middle-search">
             <h3>Welcome to BetterPath!</h3>
             <h3>Search For Courses</h3>
-            <!-- <div class="container">
-                <div class="row height d-flex justify-content-center align-items-center">
-                    <div class="col-md-8">
-                        <div class="search"> <i class="fa fa-search"></i> <input type="text" class="form-control" placeholder="Search BetterPaths!"> <button class="btn btn-primary">Search</button> </div> 
-                    </div>
-                </div>
-            </div> -->
-            {{ render_searchtextfield(search_form.keywords) }}
-            <!-- <button class="landing-button">Search</button> -->
-            {{ search_form.search(class="landing-button") }}
+                {{ render_searchtextfield(search_form.keywords) }}
+        </div>
+        <div class="centering">
+            {{ search_form.search(class="search-landing-button") }}
         </div>
     </form>
 </div>

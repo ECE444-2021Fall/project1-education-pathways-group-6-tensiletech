@@ -7,7 +7,7 @@ from app import es
 
 searching_filtering = Blueprint('searching_filtering', __name__)
 
-@searching_filtering.route('/search',methods=['GET','POST'])
+@searching_filtering.route('/',methods=['GET','POST'])
 def search_home():
     print("Entering search home")
     # Cannot log in if already logged in
@@ -27,8 +27,17 @@ def search_home():
             return redirect(url_for('users.logout'))
     return render_template('search.html', search_form=search_form, filter_form=filter_form)
 
-@searching_filtering.route('/results', methods=['GET', 'POST'])
-def performSearch(search_form, filter_form=None):
+
+@searching_filtering.route('/results')
+def performSearch(search_form, filter_form=None, methods=['GET', 'POST']):
+    query = None
+    results_form = SearchForm()
+
+    if results_form.saved_courses.data:
+        return redirect(url_for('courses.home'))
+    if results_form.log_out.data:
+        return redirect(url_for('users.logout'))
+
     if request.method == 'POST':
         query = search_form.data['keywords']
     print("Query keywords: ", query)
@@ -49,4 +58,11 @@ def performSearch(search_form, filter_form=None):
     for i in data['hits']['hits']:
         course_list.append(i['_source'])
     print(course_list)
-    return render_template('results.html', form=course_list)
+    keys = []
+    course_list_cd = []
+    if course_list != None: 
+        if len(course_list):
+            keys = course_list[0].keys()
+        course_list_cd = [{"Code": course["Code"], "Name": course["Name"]} for course in course_list]
+        print(course_list_cd)
+    return render_template('searchresults.html', keys=list(keys), results_form=results_form, data=course_list_cd)
