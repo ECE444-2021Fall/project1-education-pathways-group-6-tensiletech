@@ -4,390 +4,95 @@
     height: 100%;
 }
 
-.topicon {
-    position: absolute; 
-    width: 40px; 
-    height: 40px; 
-    left: 1440px; 
-    top: 16px; 
-    mix-blend-mode: normal;
-}
-
-.searchbar {
-    position: absolute;
-    width: 889px;
-    height: 40px;
-    left: 40px; 
-    top: 16px; 
+.search-bar {
     background: #FFFFFF;
+    width: 50%;
+    height: 5vh;
+    padding: 20px auto;
+    margin: 20px auto;
+    margin-left: 4%;
+    margin-right: 21%;
     border-radius: 50px;
 }
-.savedcoursesbutton {
-    position: absolute; 
-    width: 148px; 
-    height: 40px; 
-    left: 1090px; 
-    top: 16px; 
+
+.saved-courses-button {
     background: #ffffff;
+    width: 10%; 
+    height: 6vh; 
+    padding: 20px auto;
     border-radius: 50px;
 }
 
-.logoutbutton {
-    position: absolute;
-    width: 148px; 
-    height: 40px; 
-    left: 1260px; 
-    top: 16px; 
-    background: #FFFFFF; 
+.logout-button {
+    background: #ffffff;
+    width: 10%; 
+    height: 6vh;
+    padding: 20px auto;
     border-radius: 50px;
 }
 
-.rect1 {
-    position: absolute; 
-    width: 860px; 
-    height: 70px; 
-    left: 40px; 
-    top: 120px; 
-    background: #355386;
-}
-.coursename {
-    position: absolute; 
-    width: 482px; 
-    height: 70px; 
-    left: 48px; 
-    top: 0px; 
-    font-family: Open Sans; 
-    font-style: normal; 
-    font-weight: 600; 
-    font-size: 40px; 
-    display: flex; 
-    align-items: center; 
-    text-align: center; 
-    color: #FFFFFF; 
-    mix-blend-mode: normal;
+.main-content {
+    display: flex;
 }
 
-.savebutton {
-    position: absolute; 
-    width: 148px; 
-    height: 40px; 
-    left: 650px; 
-    top: 16px; 
-    background: #FFFFFF; 
+.course-info-box {
+    background-color: #ffffff;
+    width: 55%;
+    height: 70vh;
+    margin: 40px auto;
+    overflow: auto;
+}
+
+.course-info-title-box {
+    background-color: #355386;
+    color: white;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 20px;
+    display: flex; 
+}
+
+.save-button {
+    background: #ffffff;
+    width: 20%; 
+    margin-left: 40%;
+    margin-top: 3vh;
+    height: 6vh; 
+    padding: 20px auto;
     border-radius: 50px;
 }
 
-.rect2 {
-    position: absolute; 
-    width: 860px; 
-    height: 750px; 
-    left: 40px; 
-    top: 190px; 
-    background: #FFFFFF;
+.course-info-content {
+    padding-left: 30px;
+    padding-right: 30px;
 }
 
-.courseinformation {
-    position: absolute; 
-    width: 830px; 
-    height: auto; 
-    left: 20px; 
-    top: 20px; 
-    font-family: Open Sans; 
-    font-style: normal; 
-    font-size: 30px; 
-    display: flex; 
-    color: #000000; 
-    mix-blend-mode: normal;
+.course-info {
+    padding-top: 50px;
 }
 
-.info {
-    position: absolute; 
-    width: 830px; 
-    height: auto; 
-    left: 20px; 
-    top: 70px;
-    bottom: 20px; 
-    font-family: Open Sans; 
-    font-style: normal; 
-    font-size: 20px; 
-    display: flex; 
-    color: #000000; 
-    mix-blend-mode: normal;
+.prereq-list {
+    display: flex;
 }
 
-.downloadsyllabus {
-    position: absolute; 
-    width: 830px; 
-    height: auto; 
-    left: 0px; 
-    top: 230px;
-    bottom: 20px;
-    font-family: Open Sans; 
-    font-style: normal; 
-    font-size: 20px; 
-    display: flex; 
-    color: #000000; 
-    mix-blend-mode: normal;
-}
-
-.filterapplied {
-    position: absolute; 
-    width: 830px; 
-    height: auto; 
-    left: 0px; 
-    top: 50px;
-    bottom: 20px; 
-    font-family: Open Sans; 
-    font-style: normal; 
-    font-size: 20px; 
-    display: flex; 
-    color: #000000; 
-    mix-blend-mode: normal;
-}
-
-.universityyear {
-    position: absolute; 
+.prereq-items {
+    background-color: #355386;
+    color: white;
     width: auto; 
-    height: 40px; 
-    top: 50px; 
-    font-family: Open Sans; 
-    font-style: normal; 
-    font-size: 20px; 
-    display: flex; 
-    color: #FFFFFF; 
-    mix-blend-mode: normal; 
-    background: #355386; 
+    height: 4vh; 
+    padding-top: 1vh;
+    align-items: center; 
+    padding-right: 10px;
+    padding-left: 10px;
+    margin-right: 20px;
     border-radius: 50px;
-    align-items: center; 
-    padding-left: 20px; 
-    padding-right: 20px;
+    margin-bottom: 50px;
 }
 
-.department {
-    position: absolute; 
-    width: auto; 
-    height: 40px; 
-    top: 100px; 
-    font-family: Open Sans; 
-    font-style: normal; 
-    font-size: 20px; display: flex; 
-    color: #FFFFFF; 
-    mix-blend-mode: normal; 
-    background: #355386; 
-    border-radius: 50px;
-    align-items: center; 
-    padding-left: 20px; 
-    padding-right: 20px;
+.comments-box {
+    background-color: #ffffff;
+    width: 30%;
+    height: 70vh;
+    margin: 40px auto;
 }
 
-.year {
-    position: absolute; 
-    width: auto; 
-    height: 40px; 
-    top: 150px; 
-    font-family: Open Sans; 
-    font-style: normal; 
-    font-size: 20px; 
-    display: flex; 
-    color: #FFFFFF; 
-    mix-blend-mode: normal; 
-    background: #355386; 
-    border-radius: 50px;
-    align-items: center; 
-    padding-left: 20px; 
-    padding-right: 20px;
-}
-
-.professor {
-    position: absolute; 
-    width: auto; 
-    height: 40px; 
-    top: 200px; 
-    font-family: Open Sans; 
-    font-style: normal; 
-    font-size: 20px; 
-    display: flex; 
-    color: #FFFFFF; 
-    mix-blend-mode: normal; 
-    background: #355386; 
-    border-radius: 50px;
-    align-items: center; 
-    padding-left: 20px; 
-    padding-right: 20px;
-}
-
-.campus {
-    position: absolute; 
-    width: auto; 
-    height: 40px; 
-    top: 250px; 
-    font-family: Open Sans; 
-    font-style: normal; 
-    font-size: 20px; 
-    display: flex; 
-    color: #FFFFFF; 
-    mix-blend-mode: normal; 
-    background: #355386; 
-    border-radius: 50px;
-    align-items: center; 
-    padding-left: 20px; 
-    padding-right: 20px;
-}
-
-.semester {
-    position: absolute; 
-    width: auto; 
-    height: 40px; 
-    top: 300px; 
-    font-family: Open Sans; 
-    font-style: normal; 
-    font-size: 20px; 
-    display: flex; 
-    color: #FFFFFF; 
-    mix-blend-mode: normal; 
-    background: #355386; 
-    border-radius: 50px;
-    align-items: center; 
-    padding-left: 20px; 
-    padding-right: 20px;
-}
-
-.rect3 {
-    position: absolute; 
-    width: 530px; 
-    height: 70px; 
-    left: 950px; 
-    top: 120px; 
-    background: #355386
-}
-
-.commentsection {
-    position: absolute; 
-    width: 482px; 
-    height: 70px; 
-    left: 48px; 
-    top: 0px; 
-    font-family: Open Sans; 
-    font-style: normal; 
-    font-weight: 600; 
-    font-size: 40px; 
-    display: flex; 
-    align-items: center; 
-    text-align: center; 
-    color: #FFFFFF; 
-    mix-blend-mode: normal;
-}
-
-.rect4 {
-    position: absolute; 
-    width: 530px; 
-    height: 750px; 
-    left: 950px; 
-    top: 190px; 
-    background: #FFFFFF;
-}
-
-.comment1 {
-    position: absolute; 
-    width: 400px; 
-    height: auto; 
-    left: 70px; 
-    top: 50px; 
-    font-family: Open Sans; 
-    font-style: normal; 
-    font-size: 20px; 
-    display: flex; 
-    color: #FFFFFF; 
-    mix-blend-mode: normal; 
-    background: #355386; 
-    align-items: center; 
-    padding-left: 20px; 
-    padding-right: 20px; 
-    padding-top: 20px; 
-    padding-bottom: 20px;
-}
-
-.icon2 {
-    position: absolute; 
-    width: 40px; 
-    height: 40px; 
-    left: -55px; 
-    top: 16px; 
-    mix-blend-mode: normal
-}
-
-.comment2 {
-    position: absolute; 
-    width: 400px; 
-    height: auto; 
-    left: 0px; 
-    top: 200px; 
-    font-family: 
-    Open Sans; 
-    font-style: normal; 
-    font-size: 20px; 
-    display: flex; 
-    color: #FFFFFF; 
-    mix-blend-mode: normal; 
-    background: #355386; 
-    align-items: center; 
-    padding-left: 20px; 
-    padding-right: 20px; 
-    padding-top: 20px; 
-    padding-bottom: 20px;
-}
-
-.line{
-    display: block; 
-    background: #000000; 
-    margin-top: 450px;
-}
-
-.commentarea {
-    position: absolute; 
-    width: 200px; 
-    height: 30px; 
-    left: 70px; 
-    top: 500px; 
-    font-family: Open Sans; 
-    font-style: normal; 
-    font-size: 20px; 
-    display: flex; 
-    color: #FFFFFF; 
-    mix-blend-mode: normal; 
-    background: #355386; 
-    align-items: center; 
-    padding-left: 20px; 
-    padding-right: 20px; 
-    padding-top: 5px; 
-    padding-bottom: 5px;
-}
-
-.commentarea2 {
-    position: absolute; 
-    width: 400px; 
-    height: auto; 
-    left: 70px; 
-    top: 560px; 
-    font-family: Open Sans; 
-    font-style: normal; 
-    font-size: 20px; 
-    display: flex; 
-    color: #FFFFFF; 
-    mix-blend-mode: normal; 
-    background: #355386; 
-    align-items: center; 
-    padding-left: 20px; 
-    padding-right: 20px; 
-    padding-top: 20px; 
-    padding-bottom: 70px;
-}
-
-.icon3 {
-    position: absolute; 
-    width: 40px; 
-    height: 40px; 
-    left: 15px; 
-    top: 500px; 
-    mix-blend-mode: normal
-}

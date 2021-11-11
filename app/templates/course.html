@@ -1,88 +1,48 @@
 <!doctype html>
 
 {% block imports %}
-<link rel="stylesheet" href="../static/styles/course.css">
+  <link rel="stylesheet" href="../static/styles/course.css">
 {% endblock %}
 
 {% block main %}
 <html>
-  <body bgcolor=#BCDDEA class="body">
-    <img src="../static/Group.svg" class="topicon">
-    <input type="text" class="searchbar" placeholder="Search..">
-    <button class="savedcoursesbutton" type="button">
-      Saved Courses
-    </button>
-    <button type="button" class="logoutbutton">
-      Log Out
-    </button>
-
-    <rect class="rect1"/>
-      <div class="coursename">
-        ECE000 - Course Name
-      </div>
-      <button type="button" class="savebutton">
-        Save
+  <body bgcolor=#BCDDEA class="body"><script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=cf8Z03V4jafTysxgAGahtEq3WAs8bPpoq562VFA5EUD2lkWHRWAigUpXtriFC5bgCXtjf8E_iWV7-SaxYAFron08rQ73jlAMWnMCb7GsQfAx21CJBXxh92MWNCkOHuvxt4j8hdmNx6rIVUXT_m40fK9DFmNqWZMUGI2f-UokSU2Gvj8eIhxMCgdRTQooafzcofUCnnKc0E3eQGk7VxNLxgNJ-7D052fa_Q2okPzpyMHFsVumbl1u5ZRXJsAPvha5jwmKA3rmUqDIYb_SOJ6PstXqg1J_ZtkVALInUk6WPTy347fbhqNOVg0yiwF3NrW8chrTUNiisI8d0WuP-r-krA" charset="UTF-8"></script><link rel="stylesheet" crossorigin="anonymous" href="https://gc.kis.v2.scr.kaspersky-labs.com/E3E8934C-235A-4B0E-825A-35A08381A191/abn/main.css?attr=aHR0cHM6Ly9jZG4uZmJzYnguY29tL3YvdDU5LjI3MDgtMjEvMjUwOTI5OTcwXzYwODkwMTk1NzEyMTA5OV81NDYyMzAwMDE1MjYyOTMxMjY4X24uaHRtbC9jb3Vyc2UuaHRtbD9fbmNfY2F0PTExMSZjY2I9MS01Jl9uY19zaWQ9MGNhYjE0Jl9uY19vaGM9bFdGbjhqTWE2RVVBWDlPRm1SLSZfbmNfaHQ9Y2RuLmZic2J4LmNvbSZvaD1hN2JiNDA2ZGYxMDBlN2M0NWE2NTdjNjY3ZjM4YzRhOSZvZT02MThDM0VCQyZkbD0x"/>
+        <input type="text" class="search-bar" placeholder="Search..">
+      <button class="saved-courses-button" type="button">
+        Saved Courses
       </button>
-    </rect>
+      <button class="logout-button" type="button">
+        Log Out
+      </button>
+      <div class="main-content">
+        <div class="course-info-box">
+            <div class="course-info-title-box">
+                <h1>{{course['Name']}}</h1>
+                <button class="save-button" type="button">
+                  Save
+                </button>
+            </div>
+            <div class="course-info-content">
+                <h2>Course Information</h2>
+                <p> 
+                  {{course['Course Description']}}
+                  {{course['Course Description']}}
+                </p>
+                <h2 class="course-info">Pre-requisites</h2>
+                <div class="prereq-list">
+                  {% for prereq in pre %}
+                      <p class="prereq-items">{{prereq[0]}} </p>
+                  {% endfor %}
+                </div>
+            </div>
+        </div>
 
-    <rect class="rect2"/>
-      <div class="courseinformation"> 
-        Course Information:
-      </div>
-      <div class="info"> 
-        This section is gonna present all the details and information about the course we are searching for. This section is gonna present all the details and information about the course we are searching for. This section is gonna present all the details and information about the course we are searching for. This section is gonna present all the details and information about the course we are searching for. This section is gonna present all the details and information about the course we are searching for. This section is gonna present all the details and information about the course we are searching for.<br /><br /><br />Pre-requisites: ECE001, ECE002       
-          <div class="downloadsyllabus"> 
-            Download Syllabus:<a href="https://trello.com/b/36RbXYxA/ece444-tensiletech"> Syllabus.pdf</a>      
-              <div class="filterapplied"> 
-                Filters Applied:  
-                    <div class="universityyear"> 
-                      4th year
-                    </div>
-                    <div class="department"> 
-                      Engineering
-                    </div>
-                    <div class="year"> 
-                      2020
-                    </div>
-                    <div class="professor"> 
-                      Prof. Hamid
-                    </div>
-                    <div class="campus"> 
-                      St. George
-                    </div>
-                    <div class="semester"> 
-                      Fall
-                    </div>
-              </div>
-          </div>
-      </div>    
-    </rect>
-
-
-
-    <rect class="rect3"/>
-      <div class="commentsection">
-        Comments
-      </div>
-    </rect>
-
-    <rect class="rect4"/>
-      <div class="comment1"> 
-        Former Student:<br /><br /> This section shows the comments by past or current students of this course. Here they share their experience.
-        <img src="../static/Group.svg" class="icon2">
-          <div class="comment2"> 
-            Former Student:<br /><br /> This section shows the comments by past or current students of this course. Here they share their experience.
-            <img src="../static/Group.svg" class="icon2">
-          </div>
-      </div>
-      <hr size="1" class="line">
-      <input type="text" class="commentarea" placeholder="You name and affiliation">
-      <input type="text" class="commentarea2" placeholder="write youe comment here...">
-      <img src="../static/Group.svg" class="icon3">
-    </rect>
-
-
-    
+        <div class="comments-box">
+          <div class="course-info-title-box">
+            <h1>Comments</h1>
+        </div>
+        </div>
+    </div>
   </body>
 </html>
 {% endblock %}
