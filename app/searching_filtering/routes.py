@@ -7,7 +7,7 @@ from app import es
 
 searching_filtering = Blueprint('searching_filtering', __name__)
 
-@searching_filtering.route('/search',methods=['GET','POST'])
+@searching_filtering.route('/',methods=['GET','POST'])
 def search_home():
     print("Entering search home")
     # Cannot log in if already logged in

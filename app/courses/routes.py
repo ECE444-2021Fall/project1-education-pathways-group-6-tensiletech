@@ -8,12 +8,12 @@ from app import es
 courses = Blueprint('courses', __name__)
 
 """Homepage is essentially just the course search form. If a post request is received, call the method that finds search results."""
-@courses.route('/',methods=['GET','POST'])
-def home():
-    search = CourseSearchForm(request.form)
-    if request.method == 'POST':
-        return search_results(search)
-    return render_template('index.html',form=search)
+# @courses.route('/',methods=['GET','POST'])
+# def home():
+#     search = CourseSearchForm(request.form)
+#     if request.method == 'POST':
+#         return search_results(search)
+#     return render_template('index.html',form=search)
 
 
 """Handle the data from the POST request that will go to the main algorithm.
