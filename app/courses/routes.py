@@ -1,18 +1,27 @@
 # from app import db
-from flask import Flask, Blueprint, render_template, request, redirect, flash, url_for
+from flask import Flask, Blueprint, render_template, request, redirect, flash, url_for, session
+from sqlalchemy.sql.sqltypes import VARBINARY
 from app.courses.forms import CourseSearchForm
 from app.courses.utils import filter_courses
 from app import df, G
 from app import es
 
 courses = Blueprint('courses', __name__)
+search = CourseSearchForm()
 
 """Homepage is essentially just the course search form. If a post request is received, call the method that finds search results."""
 @courses.route('/',methods=['GET','POST'])
 def home():
     search = CourseSearchForm(request.form)
     if request.method == 'POST':
-        return search_results(search)
+        search_word = search.data['search']
+        select = search.data['select']
+        division = search.data['divisions']
+        departments = search.data['departments']
+        campuses = search.data['campuses']
+        top = search.data['top']
+        return redirect(url_for('courses.search_results', search_word=search_word, select=select, divisions=division, departments=departments, campuses=campuses, top=top))
+        # return search_results(search)
     return render_template('index.html',form=search)
 
 
@@ -22,19 +31,19 @@ Otherwise, pull out the elements of the POST request that are used by the algori
 Then, render the results page with a list of pandas tables containing the results for each year.
 Pass the original search to the template as well, so the user can see the context of what they asked for.
 """
-@courses.route('/results')
-def search_results(search):
-    if search.data['search'] == '' or not search.data['search']:
+@courses.route('/results/query=?q=<search_word>s=<select>d=<divisions>dp=<departments>c=<campuses>t=<top>')
+def search_results(search_word, select, divisions, departments, campuses, top):
+    if search_word == '' or not search_word:
         return redirect(url_for('courses.home'))
     results = filter_courses(
-        search.data['search'],
-        search.data['select'],
-        search.data['divisions'],
-        search.data['departments'],
-        search.data['campuses'],
-        search.data['top']
+        search_word,
+        select,
+        divisions,
+        departments,
+        campuses,
+        top
         )
-
+    
     return render_template('results.html',tables=[t.to_html(classes='data',index=False,na_rep='',render_links=True, escape=False) for t in results],form=search)
 
 """

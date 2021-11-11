@@ -13,13 +13,11 @@ def search_home():
     # Cannot log in if already logged in
     if not current_user.is_authenticated:
         return redirect(url_for('users.login'))
-    
     search_form = SearchForm()
     filter_form = FilterForm()
     print("search form: ", search_form.data)
     print("filter form: ", filter_form.data)
     if request.method == 'POST':
-        print("search===========")
         # check if filter_form is filled
         if search_form.search.data:
             return performSearch(search_form, filter_form)
@@ -28,22 +26,25 @@ def search_home():
         if search_form.log_out.data:
             return redirect(url_for('users.logout'))
     return render_template('search.html', search_form=search_form, filter_form=filter_form)
-    # return render_template('index.html', form=search_form)
 
 @searching_filtering.route('/results', methods=['GET', 'POST'])
 def performSearch(search_form, filter_form=None):
     if request.method == 'POST':
         query = search_form.data['keywords']
     print("Query keywords: ", query)
-    if query == '':
-        data = es.search(index="course_info")
-    else:
-        data = es.search(index="course_info", body={"query": {
+    search_body = {
+        "size": 5000, 
+        "query": {
             "multi_match": {
                 "query": query,
                 "fuzziness": "AUTO"
             }
-        }})
+        }   
+    }
+    if query == '':
+        data = es.search(index="course_info")
+    else:
+        data = es.search(index="course_info", body=search_body)
     course_list = []
     for i in data['hits']['hits']:
         course_list.append(i['_source'])

@@ -1,9 +1,17 @@
-import unittest
+import pytest
+import json
+from pathlib import Path
 import os
-from flask import current_app
-from app import create_app, db
+from pytest_elasticsearch import fatories
 
-app = create_app()
+from ..app import app, es
+from ..app.searching_filtering.routes import search_home, performSearch
+
+@pytest.fixture
+def client():
+    BASE_DIR =  Path(__file__).resolve().parent.parent
+    app.config["TESTING"] = True
+    yield app.test_client()
 
 class BasicsTestCase(unittest.TestCase):
     ############  SET UP  ############
