@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block imports %}
+
 <link rel="stylesheet" href="static/styles/common.css">
 <link rel="stylesheet" href="static/styles/landing.css">
 <link rel="stylesheet" href="static/styles/search.css">
@@ -22,15 +23,15 @@
 <h1>Search Results</h1>
 
 {% if data != [] %}
-    <div class="middle">
-        <table class="table table-striped table-sm">
+    <div class="table-wrapper-scroll-y my-custom-scrollbar ">
+        <table class="table table-bordered mb-0">
             <thead>
-            <tr>
-                <th scope="col" class="centre"> {{ keys[0] }} </th>
-                <th scope="col" class="centre"> {{ keys[1] }} </th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-            </tr>
+            <!-- <tr> -->
+                <!-- <th scope="col" class="centre"> {{ keys[0] }} </th> -->
+                <!-- <th scope="col" class="centre"> {{ keys[1] }} </th> -->
+                <!-- <th scope="col"></th> -->
+                <!-- <th scope="col"></th> -->
+            <!-- </tr> -->
             </thead>
             <tbody>
             {% for course in data %}
@@ -39,8 +40,8 @@
                 <td> {{ course["Code"] }} </td>
                 <td> {{ course["Name"] }} </td>
                 {% set ns.course_url = ns.course_url + course["Code"] %}
-                <td><a class="btn btn-primary" href= "{{ ns.course_url }}">More Info</a></td>
-                <td><a class="btn btn-primary">Save Course</a></td>
+                <td><a class="btn btn-primary table-button" href= "{{ ns.course_url }}">More Info</a></td>
+                <td><button class="btn btn-primary table-button">Save Course</button></td>
                 </tr>
             {% endfor %}
             </tbody>
@@ -52,5 +53,6 @@
         <a href="/search" style="font-size: 22px; margin: 0 auto;"> Click Here to Return Back to Search! </a>
     </div>
 {% endif %}
+
 
 {% endblock %}
