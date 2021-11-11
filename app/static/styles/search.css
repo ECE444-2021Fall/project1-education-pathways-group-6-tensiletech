@@ -23,25 +23,35 @@
 .search-box input{
     border-radius: 20px;
     color: #355386;
-    border: none;
+    /* border: none; */
+    border-radius: 100px;
+    border-color: #355386;
+    border-width: 5px;
     display:inline-block;
     padding:15px 10px;
     line-height:140%;
     width: 50%;
     font-weight: 300;
     font-size: 20px;
-    border-bottom: 1px solid #94d2ef;
+    /* border-bottom: 1px solid #94d2ef; */
 }
 
 .search-landing-button {
+    position: absolute;
+    top: 65%;
+    left: 45%;
+    font-size: 25px;
     color: #355386;
-    font-size: 20px;
     background: rgb(255, 255, 255);
-    width: 70%;
-    padding: 10px;
-    border-radius: 20px;
-    border: none;
+    width: 8%;
+    height: 8%;
+    border-radius: 100px;
+    border-color: #355386;
+    border-width: 5px;
     opacity: 100%;
-    margin: 5px auto;
+}
+
+.centering {
+    text-align: center;
 }
 

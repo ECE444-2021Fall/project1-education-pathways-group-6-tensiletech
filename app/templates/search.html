@@ -21,8 +21,10 @@
         <div class="middle-search">
             <h3>Welcome to BetterPath!</h3>
             <h3>Search For Courses</h3>
-            {{ render_searchtextfield(search_form.keywords) }}
-            {{ search_form.search(class="landing-button") }}
+                {{ render_searchtextfield(search_form.keywords) }}
+        </div>
+        <div class="centering">
+            {{ search_form.search(class="search-landing-button") }}
         </div>
     </form>
 </div>
