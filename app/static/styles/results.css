@@ -17,13 +17,24 @@ h1 {
 
 table.table {
     width: auto;
-    margin:10px auto;
+    margin:0 auto;
+    background-color: white;
+}
+
+table.table thead th {
+    padding:0;
 }
 
 table.table tbody td {
-    padding:10px;
+    padding: 10px;
 }
 
 .centre {
     font-size: 20px;
+}
+
+.nomatch {
+    margin-left: 20px;
+    text-align: center;
+    align-items: center;
 }

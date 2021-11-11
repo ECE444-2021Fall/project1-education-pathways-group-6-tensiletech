@@ -18,30 +18,39 @@
         </div>
     </form>
 </div>
+
 <h1>Search Results</h1>
 
-<div class="middle">
-    <table class="table table-sm">
-        <thead>
-        <tr>
-            <th scope="col" class="centre"> {{ keys[0] }} </th>
-            <th scope="col" class="centre"> {{ keys[1] }} </th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for course in data %}
+{% if data != [] %}
+    <div class="middle">
+        <table class="table table-striped table-sm">
+            <thead>
             <tr>
-            {% for key, val in course.items() %}
-                <td> {{ val }} </td> 
-            {% endfor %}
-            <td><button type="button" class="btn btn-primary">More Info</button></td>
-            <td><button type="button" class="btn btn-primary">Save</button></td>
+                <th scope="col" class="centre"> {{ keys[0] }} </th>
+                <th scope="col" class="centre"> {{ keys[1] }} </th>
+                <th scope="col"></th>
+                <th scope="col"></th>
             </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-</div>
+            </thead>
+            <tbody>
+            {% for course in data %}
+                <tr>
+                {% set ns = namespace(course_url="/course/") %}
+                <td> {{ course["Code"] }} </td>
+                <td> {{ course["Name"] }} </td>
+                {% set ns.course_url = ns.course_url + course["Code"] %}
+                <td><a class="btn btn-primary" href= "{{ ns.course_url }}">More Info</a></td>
+                <td><a class="btn btn-primary">Save Course</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <div class="middle-search">
+        <h3 style="margin: 0 auto;">Sorry, There are No Courses Matching Your Search! </h1>
+        <a href="/search" style="font-size: 22px; margin: 0 auto;"> Click Here to Return Back to Search! </a>
+    </div>
+{% endif %}
 
 {% endblock %}
