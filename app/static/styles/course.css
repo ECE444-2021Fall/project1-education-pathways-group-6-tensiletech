@@ -1,0 +1,139 @@
+body {
+    background-color: #BCDDEA;
+}
+.course-comments-box {
+    background-color: white;
+    height: 70vh;
+    margin: 40px;
+}
+.course-comments-title-box {
+    background-color: #355386;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.4);
+    padding: 5px 0px;
+    text-align: center;
+}
+.course-comments-title-box h3 {
+    color: white;
+}
+.comments {
+    height: 60%;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+.comments li {
+    background-color: #355386;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1em;
+    margin: 0.8em 1.2em;
+}
+.empty-list {
+    background-color: white;
+    color: #355386;
+    padding: 10px 20px;
+    margin: 0.8em 1.2em;
+    font-size: 1.2em;
+}
+.comment p {
+    color: white;
+}
+hr {
+    border: 1px solid black;
+    opacity: 0.5;
+    margin-bottom: 0;
+}
+.add-comment {
+    display: flex;
+    color: #355386;
+    margin: 0.8em 1.2em;
+}
+.add-comment textarea {
+    resize: none;
+    width: 100%;
+    background-color: #355386;
+    color: white;
+    padding: 5px;
+}
+::placeholder {
+    color: white;
+    opacity: 0.7;
+}
+.comment-button {
+    color: white;
+    background-color: #355386;
+    border: none;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 10px;
+    height: 35px;
+    width: 20%;
+    border-radius: 20px;
+}
+
+.main-content {
+    display: flex;
+}
+
+.course-info-box {
+    background-color: #ffffff;
+    width: 55%;
+    height: 70vh;
+    margin: 40px auto;
+    overflow: auto;
+}
+
+.course-info-title-box {
+    background-color: #355386;
+    color: white;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 20px;
+    display: flex; 
+}
+
+.save-button {
+    background: #ffffff;
+    width: 20%; 
+    margin-left: 40%;
+    margin-top: 3vh;
+    height: 6vh; 
+    padding: 20px auto;
+    border-radius: 50px;
+}
+
+.course-info-content {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.course-info {
+    padding-top: 50px;
+}
+
+.prereq-list {
+    display: flex;
+}
+
+.prereq-items {
+    background-color: #355386;
+    color: white;
+    width: auto; 
+    height: 4vh; 
+    padding-top: 1vh;
+    align-items: center; 
+    padding-right: 10px;
+    padding-left: 10px;
+    margin-right: 20px;
+    border-radius: 50px;
+    margin-bottom: 50px;
+}
+
+.comments-box {
+    background-color: #ffffff;
+    width: 30%;
+    height: 70vh;
+    margin: 40px auto;
+}
