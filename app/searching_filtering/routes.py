@@ -7,7 +7,7 @@ from app import es
 
 searching_filtering = Blueprint('searching_filtering', __name__)
 
-@searching_filtering.route('/',methods=['GET','POST'])
+@searching_filtering.route('/search',methods=['GET','POST'])
 def search_home():
     print("Entering search home")
     # Cannot log in if already logged in
@@ -65,4 +65,4 @@ def performSearch(search_form, filter_form=None, methods=['GET', 'POST']):
             keys = course_list[0].keys()
         course_list_cd = [{"Code": course["Code"], "Name": course["Name"]} for course in course_list]
         print(course_list_cd)
-    return render_template('searchresults.html', keys=list(keys), results_form=results_form, data=course_list_cd)
+    return render_template('searchresults.html', results_form=results_form, data=course_list_cd)
