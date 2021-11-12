@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 from sqlalchemy import insert
 
-from ..app import app, dbsql, dbsql_path
+from ..app import dbsql, dbsql_path
 from ..app.db.db_models import User, CourseComments, Courses, CourseComments
 
 # Test added by Anikeith Bankar

@@ -1,0 +1,2 @@
+pytest==6.1.1
+pytest-elasticsearch==2.1.0

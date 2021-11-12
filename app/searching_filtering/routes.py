@@ -20,7 +20,7 @@ def search_home():
             search_word = search_form.data['keywords']
             if search_word == '':
                 search_word = '__'
-            return performSearch( search_word=search_word, select=filter_form.data['select'], divisions=filter_form.data['divisions'], campuses=filter_form.data['campuses'])
+            return performSearch(search_word=search_word, select=filter_form.data['select'], divisions=filter_form.data['divisions'], campuses=filter_form.data['campuses'])
             #return redirect(url_for('searching_filtering.performSearch', search_word=search_word, select=filter_form.data['select'], divisions=filter_form.data['divisions'], campuses=filter_form.data['campuses']))
         if search_form.saved_courses.data:
             return redirect(url_for('courses.home'))
@@ -31,7 +31,7 @@ def search_home():
 
 #@searching_filtering.route('/results/query?=<search_word>/<select>/<divisions>/<campuses>', methods=['GET', 'POST'])
 @searching_filtering.route('/results', methods=['GET', 'POST'])
-def performSearch(search_word, select, divisions, campuses):
+def performSearch(search_word, select, divisions, campuses, top=5000):
     results_form = SearchForm()
 
     if results_form.saved_courses.data:
@@ -39,7 +39,7 @@ def performSearch(search_word, select, divisions, campuses):
     if results_form.log_out.data:
         return redirect(url_for('users.logout'))
     
-    search_body = get_query(search_word, select, divisions, campuses)
+    search_body = get_query(search_word, select, divisions, campuses, top)
     
     data = es.search(index="course_info_v2", body=search_body)
     course_list = []
@@ -54,9 +54,9 @@ def performSearch(search_word, select, divisions, campuses):
             "Course Level" : course["Course Level"], "Campus" : course["Campus"]} for course in course_list]
     return render_template('searchresults.html', keys=list(keys), results_form=results_form, data=course_list_limited)
 
-def get_query(search_word, select, divisions, campuses):
+def get_query(search_word, select, divisions, campuses, top):
     query_body = {
-            "size": 20,
+            "size": top,
             "query": {
                 "bool": {
                 }
