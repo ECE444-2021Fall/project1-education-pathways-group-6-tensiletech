@@ -7,7 +7,7 @@ from app import es
 
 searching_filtering = Blueprint('searching_filtering', __name__)
 
-@searching_filtering.route('/search',methods=['GET','POST'])
+@searching_filtering.route('/',methods=['GET','POST'])
 def search_home():
     print("Entering search home")
     # Cannot log in if already logged in
@@ -20,7 +20,10 @@ def search_home():
     if request.method == 'POST':
         # check if filter_form is filled
         if search_form.search.data:
-            return performSearch(search_form, filter_form)
+            search_word = search_form.data['keywords']
+            if search_word == '':
+                search_word = '__'
+            return redirect(url_for('searching_filtering.performSearch', search_word=search_word, select=filter_form.data['select'], divisions=filter_form.data['divisions'], campuses=filter_form.data['campuses']))
         if search_form.saved_courses.data:
             return redirect(url_for('courses.home'))
         if search_form.log_out.data:
@@ -28,42 +31,70 @@ def search_home():
     return render_template('search.html', search_form=search_form, filter_form=filter_form)
 
 
-@searching_filtering.route('/results')
-def performSearch(search_form, filter_form=None, methods=['GET', 'POST']):
-    query = None
+@searching_filtering.route('/results/query?=<search_word>/<select>/<divisions>/<campuses>', methods=['GET', 'POST'])
+def performSearch(search_word, select, divisions, campuses):
     results_form = SearchForm()
 
     if results_form.saved_courses.data:
         return redirect(url_for('courses.home'))
     if results_form.log_out.data:
         return redirect(url_for('users.logout'))
-
-    if request.method == 'POST':
-        query = search_form.data['keywords']
-    print("Query keywords: ", query)
-    search_body = {
-        "size": 5000, 
-        "query": {
-            "multi_match": {
-                "query": query,
-                "fuzziness": "AUTO"
-            }
-        }   
-    }
-    if query == '':
-        data = es.search(index="course_info")
-    else:
-        data = es.search(index="course_info", body=search_body)
+    
+    search_body = get_query(search_word, select, divisions, campuses)
+    
+    data = es.search(index="course_info_v2", body=search_body)
     course_list = []
     for i in data['hits']['hits']:
         course_list.append(i['_source'])
     print(course_list)
     keys = []
-    course_list_cd = []
+    course_list_limited = []
     if course_list != None: 
         if len(course_list):
             keys = course_list[0].keys()
         course_list_limited = [{"Code": course["Code"], "Name": course["Name"], "Division" : course["Division"], \
             "Course Level" : course["Course Level"], "Campus" : course["Campus"]} for course in course_list]
-        print(course_list_limited)
+        # print(course_list_limited)
     return render_template('searchresults.html', keys=list(keys), results_form=results_form, data=course_list_limited)
+
+def get_query(search_word, select, divisions, campuses):
+    query_body = {
+            "size": 5, # <==== change back to 5000 when doing PR
+            "query": {
+                "bool": {
+                }
+            }
+        }
+    must = []
+    if select != 'Any':
+        query = {
+            "match": {
+                "Course Level": int(select)
+            }
+        }
+        must.append(query)
+    if divisions != 'Any':
+        query = {
+            "match": {
+                "Division": divisions
+            }
+        }
+        must.append(query)
+    if campuses != 'Any':
+        query = {
+            "match": {
+                "Campus": campuses
+            }
+        }
+        must.append(query)
+    if search_word != '__':
+        query = {
+            "multi_match": {
+                "query": search_word,
+                "fuzziness": "AUTO"
+            }
+        }
+        must.append(query)
+    query_body["query"]["bool"]["must"] = must
+    return query_body
+    

@@ -10,7 +10,7 @@ courses = Blueprint('courses', __name__)
 search = CourseSearchForm()
 
 """Homepage is essentially just the course search form. If a post request is received, call the method that finds search results."""
-@courses.route('/',methods=['GET','POST'])
+@courses.route('/search',methods=['GET','POST'])
 def home():
     search = CourseSearchForm(request.form)
     if request.method == 'POST':
