@@ -1,6 +1,6 @@
 h1 {
     text-align: center;
-    color: white;
+    color: 355386;
     margin-top: 10vh;
 }
 
@@ -9,6 +9,13 @@ table.centre {
     width:70%; 
     margin-left:15%; 
     margin-right:15%;
+}
+
+.heading {
+    font: bolder;
+    font-size: large;
+    text-align: center;
+    font-family: 'Open Sans';
 }
 
 th, td {
@@ -30,8 +37,12 @@ th, td {
     z-index: 15;
     top: 50%;
     left: 50%;
-    transform: translate(-25%, -20%);
+    transform: translate(-33%, -20%);
     margin: -100px 0 0 -150px;
+}
+
+td {
+    font-family: 'Open Sans';
 }
 
 table.table {

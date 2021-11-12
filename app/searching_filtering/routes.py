@@ -63,6 +63,7 @@ def performSearch(search_form, filter_form=None, methods=['GET', 'POST']):
     if course_list != None: 
         if len(course_list):
             keys = course_list[0].keys()
-        course_list_cd = [{"Code": course["Code"], "Name": course["Name"]} for course in course_list]
-        print(course_list_cd)
-    return render_template('searchresults.html', results_form=results_form, data=course_list_cd)
+        course_list_limited = [{"Code": course["Code"], "Name": course["Name"], "Division" : course["Division"], \
+            "Course Level" : course["Course Level"], "Campus" : course["Campus"]} for course in course_list]
+        print(course_list_limited)
+    return render_template('searchresults.html', keys=list(keys), results_form=results_form, data=course_list_limited)
