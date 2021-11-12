@@ -9,14 +9,11 @@ searching_filtering = Blueprint('searching_filtering', __name__)
 
 @searching_filtering.route('/',methods=['GET','POST'])
 def search_home():
-    print("Entering search home")
     # Cannot log in if already logged in
     if not current_user.is_authenticated:
         return redirect(url_for('users.login'))
     search_form = SearchForm()
     filter_form = FilterForm()
-    print("search form: ", search_form.data)
-    print("filter form: ", filter_form.data)
     if request.method == 'POST':
         # check if filter_form is filled
         if search_form.search.data:
@@ -46,7 +43,6 @@ def performSearch(search_word, select, divisions, campuses):
     course_list = []
     for i in data['hits']['hits']:
         course_list.append(i['_source'])
-    print(course_list)
     keys = []
     course_list_limited = []
     if course_list != None: 
@@ -54,12 +50,11 @@ def performSearch(search_word, select, divisions, campuses):
             keys = course_list[0].keys()
         course_list_limited = [{"Code": course["Code"], "Name": course["Name"], "Division" : course["Division"], \
             "Course Level" : course["Course Level"], "Campus" : course["Campus"]} for course in course_list]
-        # print(course_list_limited)
     return render_template('searchresults.html', keys=list(keys), results_form=results_form, data=course_list_limited)
 
 def get_query(search_word, select, divisions, campuses):
     query_body = {
-            "size": 5, # <==== change back to 5000 when doing PR
+            "size": 5000,
             "query": {
                 "bool": {
                 }
