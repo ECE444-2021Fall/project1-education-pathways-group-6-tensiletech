@@ -55,3 +55,51 @@
     text-align: center;
 }
 
+.rectangle {
+    width:1000px;
+    height:100px;
+    border: solid;
+    border-color: #355386;
+    background-color: white;
+    border-width: 5px;
+    border-radius: 100px;
+    position: relative;
+    left: 23%;
+    top: 70vh;
+}
+
+.filter {
+    /* putting the styling of the dropdown in here */
+    color: #355386;
+    font-family: 'Open Sans';
+    font-size: 16px;
+    text-align: center;
+}
+
+.filter-title {
+    position: absolute;
+    left:435px; 
+    top:10px;
+    color: #355386;
+    font: bolder;
+}
+
+.courseyear-filter {
+    position: absolute;
+    left:50px; 
+    top:40px;
+}
+
+.division-filter {
+    position: absolute;
+    left:200px; 
+    top:40px;
+}
+
+.campus-filter {
+    position: absolute;
+    left:750px; 
+    top:40px;
+}
+
+

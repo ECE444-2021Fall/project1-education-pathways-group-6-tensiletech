@@ -21,11 +21,23 @@
     <div class=" middle scrollbar">
         <table align="center" class="table mb-0 text-center table-sm scroll-y ">
             <tbody>
+            <tr class="heading">
+                <td> Code </td>
+                <td> Name </td>
+                <td> Division </td>
+                <td> Course Level </td>
+                <td> Campus </td>
+                <td></td>
+                <td></td>
+            </tr>
             {% for course in data %}
                 <tr>
                     {% set ns = namespace(course_url="/course/") %}
                     <td> {{ course["Code"] }} </td>
                     <td> {{ course["Name"] }} </td>
+                    <td> {{ course["Division"] }}</td>
+                    <td> {{ course["Course Level"] }}</td>
+                    <td> {{ course["Campus"] }}</td>
                     {% set ns.course_url = ns.course_url + course["Code"] %}
                     <td><a class="btn btn-primary table-button" href= "{{ ns.course_url }}">More Info</a></td>
                     <td><button class="btn btn-primary table-button">Save Course</button></td>
@@ -35,7 +47,7 @@
         </table>
         <div style="text-align: center; top: 80%;">
             <br>
-            <a href="/" style="font-size: 22px; margin: 0 auto;"> Click Here to Return Back to Search! </a>
+            <a href="/" style="font-size: 22px; margin: 0 auto; font-family: 'Open Sans';"> Click Here to Return Back to Search! </a>
         </div>
     </div>
 {% else %}

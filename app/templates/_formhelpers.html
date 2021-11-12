@@ -2,6 +2,12 @@
     {{ field.label }} {{ field(**kwargs)|safe }}
 {% endmacro %}
 
+{% macro filter_render_field(field) %}
+    <div class="filter">
+        {{ field.label }} {{ field(**kwargs)|safe }}
+    </div>
+{% endmacro %}
+
 {% macro render_textfield(field) %}
     <div class="landing-form-field">
         {{ field(**kwargs)|safe }}
@@ -12,4 +18,4 @@
     <div class="search-box">
         {{ field(**kwargs)|safe }}
     </div>
-{% endmacro %} 
+{% endmacro %}
