@@ -4,6 +4,12 @@ from flask_login import current_user, login_required
 from app.courses.forms import CourseSearchForm
 from app.courses.utils import filter_courses
 from app.db.db_models import load_comments, row_to_dict, add_to_table, remove_course, CourseComments, UserSavedCourses, isCourseSaved, load_saved_courses, get_course_by_id
+# from app import db
+from flask import Flask, Blueprint, render_template, request, redirect, flash, url_for
+from flask_login import current_user, login_required
+from app.courses.forms import CourseSearchForm
+from app.courses.utils import filter_courses
+from app.db.db_models import load_comments, row_to_dict, add_to_table, remove_course, CourseComments, UserSavedCourses, isCourseSaved, load_saved_courses, get_course_by_id
 from app import df, G
 
 courses = Blueprint('courses', __name__)
@@ -137,10 +143,8 @@ def save_course(code):
 
         if isCourseSaved(current_user.username, code):
             remove_course(current_user.username, code)
-            print("Course was already saved!")
         else:
             add_to_table(savedCourse)
-            print("Course was saved!")
     else:
         print('User is not currently logged in')
 
@@ -160,11 +164,7 @@ def my_courses():
     if current_user and current_user.username:
         all_saved_courses = load_saved_courses(current_user.username)
         for i, course in enumerate(all_saved_courses):
-            #print(f"i:{i}, course:{course["name"]}\n")
-            print(all_saved_courses)
             all_user_courses.append(get_course_by_id(course.courseId))
 
-    # Just go back to the home page for now
-    # When we create the view for the saved courses page, we can redirect to that template
     return render_template('my-courses.html' , courses = all_user_courses)
 

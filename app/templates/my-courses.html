@@ -17,7 +17,7 @@
       </div>
       <div class="course-info-box">
         {% for course in courses %}
-          <p class="saved-courses-list">{{course[0]}}
+          <p class="saved-courses-list">{{course.name}}
             <button class="more-info-button" type="button">
               <a href= "{{ url_for('courses.course', code = course.courseId) }}">
                 More Info
