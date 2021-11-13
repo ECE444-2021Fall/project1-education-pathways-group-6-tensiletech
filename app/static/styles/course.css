@@ -19,47 +19,51 @@ body {
     box-shadow: 0 3px 3px rgba(0, 0, 0, 0.4);
     z-index: 100;
     color: #f8f9fa;
-    padding: 10px;
+    padding: 10px 20px;
     display: flex; 
 }
 
-.save-button {
+.save-course {
     background: #f8f9fa;
-    float: right;
+    font-size: 1.1em;
     margin-left: auto;
-    width: 20%;
-    height: 40px;
-    padding: 20px auto;
     border: none;
-    border-radius: 50px;
+    margin-top: auto;
+    margin-bottom: auto;
+    height: 35px;
+    width: 20%;
+    border-radius: 20px;
+    padding: 20px auto;
+}
+
+.save-course button {
+    background: #f8f9fa;
+    color: #355386;
+    font-size: 1.1em;
+    border: none;
+    height: 100%;
+    width: 100%;
+    border-radius: 20px;
 }
 
 .course-info-content {
     display: inline-block;
-    padding-left: 30px;
-    padding-right: 30px;
+    padding: 20px 30px;
 }
 
-.course-info {
-    padding-top: 50px;
-}
-
-.prereq-list {
+.info-list {
     display: flex;
 }
 
-.prereq-items {
+.list-item {
     background-color: #355386;
     color: white;
     width: auto; 
-    height: 40px; 
-    padding-top: 1vh;
-    align-items: center; 
-    padding-right: 10px;
-    padding-left: 10px;
+    height: 35px;
+    align-items: center;
+    padding: 5px;
     margin-right: 20px;
     border-radius: 50px;
-    margin-bottom: 50px;
 }
 
 /*
@@ -90,7 +94,7 @@ body {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 .comments-list li {
     background-color: #355386;
@@ -107,13 +111,16 @@ body {
     font-size: 1.2em;
 }
 .comment p {
-    color: white;
+    color: #f8f9fa;
 }
 hr {
-    border: 1px solid black;
+    border: 0.5px solid black;
     opacity: 0.5;
     margin-top: 0;
     margin-bottom: 0;
+}
+.new-section-header {
+    margin-top: 15px;
 }
 .comment-entry {
     margin-top: auto;

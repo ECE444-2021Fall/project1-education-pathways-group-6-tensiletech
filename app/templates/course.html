@@ -12,22 +12,58 @@
 <div class="main-content">
     <div class="course-info-box">
         <div class="course-info-title-box">
-            <h3>{{code}} - {{course['Name']}}</h3>
-            <button class="save-button" type="button">
-                Save
-            </button>
+            <h3>{{code}} - {{name}}</h3>
+            <form class="save-course" action="{{ url_for('courses.save_course', code=code) }}" method="post">
+                <button class="save-button" type="submit">Save</button>
+            </form>
         </div>
         <div class="course-info-content">
-            <h2>Course Information</h2>
+            <h3>Course Information</h3>
             <p> 
-                {{course['Course Description']}}
+                {{description}}
             </p>
-            <h2 class="course-info">Pre-requisites</h2>
-            <div class="prereq-list">
-                {% for prereq in pre %}
-                    <p class="prereq-items">{{prereq[0]}} </p>
+            <p><b>Course Level:</b> {{level}}</p>
+            <p><b>Campus:</b> {{campus}}</p>
+            <p><b>Division:</b> {{division}}</p>
+            <p><b>Department:</b> {{department}}</p>
+            <p><b>Terms Offered:</b> {{terms|join(", ")}}</p>
+
+            <hr>
+            <h4 class="new-section-header">Requirements</h4>
+            <p>
+                <b>Pre-requisites:</b>
+                {% if pre|length > 0 %}
+                    {{ pre|join(", ") }}
+                {% else %}
+                    None
+                {% endif %}
+            </p>
+            <p>
+                <b>Co-requisites:</b>
+                {% if coreq|length > 0 %}
+                    {{ coreq|join(", ") }}
+                {% else %}
+                    None
+                {% endif %}
+            </p>
+            <p>
+                <b>Exclusions:</b>
+                {% if excl|length > 0 %}
+                    {{ excl|join(", ") }}
+                {% else %}
+                    None
+                {% endif %}
+            </p>
+
+            {% if filters|length > 0 %}
+            <hr>
+            <h4 class="new-section-header">Related Filters</h4>
+            <div class="info-list">
+                {% for filter in filters %}
+                    <p class="list-item">{{prereq[0]}} </p>
                 {% endfor %}
             </div>
+            {% endif %}
         </div>
     </div>
 
