@@ -96,7 +96,7 @@ def isCourseSaved(username, course_id):
         return True
 
 def get_course_by_id(course_id):
-    return dbsql.session.query(Courses).filter_by(courseId=course_id).all()
+    return dbsql.session.query(Courses).filter_by(courseId=course_id).one()
 
 
 def querying_all(table):

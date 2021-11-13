@@ -137,10 +137,8 @@ def save_course(code):
 
         if isCourseSaved(current_user.username, code):
             remove_course(current_user.username, code)
-            print("Course was already saved!")
         else:
             add_to_table(savedCourse)
-            print("Course was saved!")
     else:
         print('User is not currently logged in')
 
@@ -160,8 +158,7 @@ def my_courses():
     if current_user and current_user.username:
         all_saved_courses = load_saved_courses(current_user.username)
         for i, course in enumerate(all_saved_courses):
-            all_user_courses[i] = get_course_by_id(course.courseId)
+            all_user_courses.append(get_course_by_id(course.courseId))
 
-    # Just go back to the home page for now
-    # When we create the view for the saved courses page, we can redirect to that template
-    return redirect(url_for('courses.home'))
+    return render_template('my-courses.html' , courses = all_user_courses)
+
