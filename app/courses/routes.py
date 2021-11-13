@@ -4,12 +4,6 @@ from flask_login import current_user, login_required
 from app.courses.forms import CourseSearchForm
 from app.courses.utils import filter_courses
 from app.db.db_models import load_comments, row_to_dict, add_to_table, remove_course, CourseComments, UserSavedCourses, isCourseSaved, load_saved_courses, get_course_by_id
-# from app import db
-from flask import Flask, Blueprint, render_template, request, redirect, flash, url_for
-from flask_login import current_user, login_required
-from app.courses.forms import CourseSearchForm
-from app.courses.utils import filter_courses
-from app.db.db_models import load_comments, row_to_dict, add_to_table, remove_course, CourseComments, UserSavedCourses, isCourseSaved, load_saved_courses, get_course_by_id
 from app import df, G
 
 courses = Blueprint('courses', __name__)
