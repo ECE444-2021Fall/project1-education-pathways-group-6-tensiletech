@@ -71,7 +71,7 @@
         <div class="course-comments-title-box">
             <h3>Comments</h3>
         </div>
-        <ul class="comments-list">
+        <ul class="comments-list" id="comments-list">
             {% for comment in comments %}
             <li class="comment">
                 <div><b>{{comment.userId}}</b></div>
@@ -94,4 +94,11 @@
         </div>
     </div>
 </div>
+
+<script>
+    window.onload = function() {
+        var commentsList = document.querySelector('#comments-list');
+        commentsList.scrollTop = commentsList.scrollHeight;
+    }
+</script>
 {% endblock %}
