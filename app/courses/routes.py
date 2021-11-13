@@ -3,7 +3,7 @@ from flask import Flask, Blueprint, render_template, request, redirect, flash, u
 from flask_login import current_user, login_required
 from app.courses.forms import CourseSearchForm
 from app.courses.utils import filter_courses
-from app.db.db_models import load_comments, row_to_dict, add_to_table, remove_course, CourseComments, UserSavedCourses, isCourseSaved
+from app.db.db_models import load_course, load_comments, row_to_dict, add_to_table, remove_course, CourseComments, UserSavedCourses, isCourseSaved
 from app import df, G
 
 courses = Blueprint('courses', __name__)
@@ -47,36 +47,21 @@ Pass all that to render template.
 """
 @courses.route('/course/<code>')
 def course(code):
-    #If the course code is not present in the dataset, progressively remove the last character until we get a match.
-    #For example, if there is no CSC413 then we find the first match that is CSC41.
-    #If there are no matches for any character, just go home.
-    if code not in df.index:
-        while True:
-            code = code[:-1]
-            if len(code) == 0:
-                return redirect(url_for('courses.home'))
-            t = df[df.index.str.contains(code)]
-            if len(t) > 0:
-                code = t.index[0]
-                return redirect(url_for('courses.course'), code = code)
+    course_info = load_course(code)
 
+    if not course_info:
+        return redirect(url_for('courses.home'))
 
-    course = df.loc[code]
-    #use course network graph to identify pre and post requisites
-    pre = G.in_edges(code)
-    post = G.out_edges(code)
-
-    excl = course['Exclusion']
-    coreq = course['Corequisite']
-    aiprereq = course['AIPreReqs']
-    majors = course['MajorsOutcomes']
-    minors = course['MinorsOutcomes']
-    faseavailable = course['FASEAvailable']
-    mayberestricted = course['MaybeRestricted']
-    terms = course['Term']
-    activities = course['Activity']
-    course = {k:v for k,v in course.items() if k not in ['Course','Course Level Number','FASEAvailable','MaybeRestricted','URL','Pre-requisites','Exclusion','Corequisite','Recommended Preparation','AIPreReqs','MajorsOutcomes','MinorsOutcomes','Term','Activity'] and v==v}
-
+    pre = list(filter(None, course_info.prerequisites.strip(' ').split(' ')))
+    coreq = list(filter(None, course_info.corequisites.strip(' ').split(' ')))
+    excl = list(filter(None, course_info.exclusion.strip(' ').split(' ')))
+    terms = []
+    for term in course_info.terms_offered.split(' '):
+        if term.isnumeric() or len(terms) == 0:
+            terms.append(term)
+        else:
+            terms[-1] += ' ' + term
+    
     commentsQuery = load_comments(code)
     comments = []
     for c in commentsQuery:
@@ -85,19 +70,16 @@ def course(code):
     return render_template(
         'course.html',
         code=code,
-        course=course,
-        pre=pre, 
-        post=post,
+        name=course_info.name,
+        description=course_info.description,
+        level=course_info.course_level,
+        campus=course_info.campus,
+        division=course_info.division,
+        department=course_info.department,
+        pre=pre,
         excl=excl,
         coreq=coreq,
-        aip=aiprereq,
-        majors=majors,
-        minors=minors,
-        faseavailable=faseavailable,
-        mayberestricted=mayberestricted,
         terms=terms,
-        activities=activities,
-        zip=zip,
         comments=comments
         )
 
