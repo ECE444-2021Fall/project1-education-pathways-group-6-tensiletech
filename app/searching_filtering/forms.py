@@ -6,7 +6,7 @@ from app import df
 
 class SearchForm(FlaskForm):
     # The keywords field can be empty, therefor no validator needed (if empty return all result)
-    keywords = StringField('Keywords', render_kw={"placeholder": "Search BetterPath"})
+    keywords = StringField('Keywords', render_kw={"placeholder": "Enter course name..."})
     search = SubmitField('Search')
     saved_courses = SubmitField('Saved Courses')
     log_out = SubmitField('Logout')

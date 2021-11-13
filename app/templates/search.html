@@ -10,13 +10,14 @@
 
 {% block main %}
 {{ macros.navbar('search') }}
+
+<div class="middle-search">
+    <h2 class="logo">BetterPath</h2>
+    <h3>Search For Courses</h3>
+</div>
 <div class="search-form">
     {% from "_formhelpers.html" import render_searchtextfield, filter_render_field%}
     <form method="post">
-        <div class="middle-search">
-            <h3>Welcome to BetterPath!</h3>
-            <h3>Search For Courses</h3>
-        </div>
         <div class="centering2">
             {{ render_searchtextfield(search_form.keywords) }}
         </div>
@@ -25,14 +26,16 @@
         </div>
         <div class="rectangle">
             <h5 class="filter-title">Filters</h5>
-            <div class="courseyear-filter">
-                {{ filter_render_field(filter_form.select) }}
-            </div>
-            <div class="division-filter">
-                {{ filter_render_field(filter_form.divisions) }}
-            </div>
-            <div class="campus-filter">
-                {{ filter_render_field(filter_form.campuses) }}
+            <div class="filter-row">
+                <div class="row-item">
+                    {{ filter_render_field(filter_form.select) }}
+                </div>
+                <div class="row-item">
+                    {{ filter_render_field(filter_form.divisions) }}
+                </div>
+                <div class="row-item">
+                    {{ filter_render_field(filter_form.campuses) }}
+                </div>
             </div>
         </div>
     </form> 

@@ -1,5 +1,9 @@
 /* Any specific styling needed for search page */
-
+.logo {
+    text-align: center;
+    color: #355386;
+    font-family: 'Pacifico', cursive;
+}
 
 .middle-search {
     color: #355386;
@@ -41,6 +45,7 @@
 .search-landing-button {
     font-size: 25px;
     color: #355386;
+    margin-top: 10px;
     background: rgb(255, 255, 255);
     border-radius: 100px;
     border-color: #355386;
@@ -68,7 +73,7 @@
 
 .rectangle {
     width:85vw;
-    height:10vh;
+    height: auto;
     border: solid;
     border-color: #355386;
     background-color: white;
@@ -97,25 +102,13 @@
     font: bolder;
 }
 
-.courseyear-filter {
-    position: absolute;
-    left:5vw; 
-    top:4vh;
-    margin-right: 3vw;
+.filter-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
 }
 
-.division-filter {
-    position: absolute;
-    left:11vw;
-    right:10%; 
-    top:4vh;
-    margin-right: 3vw;
+.row-item {
+    margin-top: 40px;
+    margin-bottom: 20px;
 }
-
-.campus-filter {
-    position: absolute;
-    left:65vw; 
-    top:4vh;
-}
-
-
