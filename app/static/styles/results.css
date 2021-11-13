@@ -1,6 +1,6 @@
 h1 {
     text-align: center;
-    color: 355386;
+    color: #355386;
     top: 15vh;
 }
 
@@ -13,10 +13,17 @@ table.centre {
 
 .heading {
     font: bolder;
-    font-size: large;
+    align-items: center;
+    font-weight: 1500;
+    font-size: 20px;
     text-align: center;
     font-family: 'Open Sans';
+    color:#355386;
+    top: 0;
+    z-index: 20;
+    background-color: #bcddea;
     position: sticky;
+    height: 5vh;
 }
 
 th, td {
@@ -76,6 +83,12 @@ table.table tbody td {
     padding: 10px;
     
 }
+
+tr:first-child td:first-child { border-top-left-radius: 16px; }
+tr:first-child td:first-child { border-bottom-left-radius: 16px; }
+tr:first-child td:last-child { border-top-right-radius: 16px; }
+tr:first-child td:last-child { border-bottom-right-radius: 16px; }
+
 
 .row {
     padding-right: 0px;
