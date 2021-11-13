@@ -1,7 +1,7 @@
 h1 {
     text-align: center;
     color: 355386;
-    margin-top: 10vh;
+    top: 15vh;
 }
 
 
@@ -16,6 +16,7 @@ table.centre {
     font-size: large;
     text-align: center;
     font-family: 'Open Sans';
+    position: sticky;
 }
 
 th, td {
@@ -30,6 +31,14 @@ th, td {
     border-left: 0;
     border-right: 0;
     padding: 0;
+}
+
+.below-table {
+    position: absolute;
+    top: 93vh;
+    left: 45vw;
+    bottom: 5vh;
+    text-align: center;
 }
 
 .middle {

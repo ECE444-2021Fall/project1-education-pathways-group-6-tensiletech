@@ -13,6 +13,8 @@
 {% block main %}
 {{ macros.navbar('results') }}
 
+<br><br>
+
 <h1>Search Results</h1>
 
 <br> <br> <br> <br>
@@ -45,10 +47,9 @@
             {% endfor %}
             </tbody>
         </table>
-        <div style="text-align: center; top: 80%;">
-            <br>
-            <a href="/" style="font-size: 22px; margin: 0 auto; font-family: 'Open Sans';"> Click Here to Return Back to Search! </a>
-        </div>
+    </div>    
+    <div class="below-table">
+        <a href="/" style="font-size: 22px; font-family: 'Open Sans';"> Return to Search </a>
     </div>
 {% else %}
     <div class="middle-search">
@@ -56,7 +57,6 @@
         <a href="/" style="font-size: 22px; margin: 0 auto;"> Click Here to Return Back to Search! </a>
     </div>
 {% endif %}
-
 
 
 {% endblock %}
