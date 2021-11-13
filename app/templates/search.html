@@ -14,13 +14,11 @@
     
     {% from "_formhelpers.html" import render_searchtextfield, filter_render_field%}
     <form method="post">
-        <!-- <div class="buttons-top-right"> -->
-            <!-- {{ search_form.log_out(class="search-landing-button") }} -->
-            <!-- {{ search_form.saved_courses(class="search-landing-button") }} -->
-        <!-- </div> -->
         <div class="middle-search">
             <h3>Welcome to BetterPath!</h3>
             <h3>Search For Courses</h3>
+        </div>
+        <div class="centering2">
             {{ render_searchtextfield(search_form.keywords) }}
         </div>
         <div class="centering">

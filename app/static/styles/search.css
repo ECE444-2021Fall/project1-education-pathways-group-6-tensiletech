@@ -6,14 +6,14 @@
     font-weight: 600;
     left: 0;
     line-height: 200px;
-    margin-top: -100px;
+    /* margin-top: -100px; */
     position: absolute;
     text-align: center;
-    top: 50%;
-    width: 100%;
+    top: 40vh;
+    width: 100vw;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: center;
 }
 
 .buttons-top-right {
@@ -27,7 +27,9 @@
     border-radius: 100px;
     border-color: #355386;
     border-width: 5px;
-    display:inline-block;
+    top: 50vh;
+    text-align: center;
+    /* display:inline-block; */
     padding:15px 10px;
     line-height:140%;
     width: 50%;
@@ -37,35 +39,46 @@
 }
 
 .search-landing-button {
-    position: absolute;
-    top: 65%;
-    left: 45%;
     font-size: 25px;
     color: #355386;
     background: rgb(255, 255, 255);
-    width: 8%;
-    height: 8%;
     border-radius: 100px;
     border-color: #355386;
     border-width: 5px;
     opacity: 100%;
+    width: 100%
 }
 
 .centering {
+    position: absolute;
+    top: 67vh;
+    left: 46vw;
+    width: 8vw;
+    height: 8vh;
+    text-align: center;
+}
+
+.centering2 {
+    position: absolute;
+    top: 55vh;
+    left: 15vw;
+    width: 70vw;
     text-align: center;
 }
 
 .rectangle {
-    width:1000px;
-    height:100px;
+    width:85vw;
+    height:10vh;
     border: solid;
     border-color: #355386;
     background-color: white;
     border-width: 5px;
     border-radius: 100px;
     position: relative;
-    left: 23%;
+    left: 10vw;
+    right: 15vw;
     top: 70vh;
+    bottom: 15vh;
 }
 
 .filter {
@@ -78,28 +91,31 @@
 
 .filter-title {
     position: absolute;
-    left:435px; 
-    top:10px;
+    left:37.5vw; 
+    top:1vh;
     color: #355386;
     font: bolder;
 }
 
 .courseyear-filter {
     position: absolute;
-    left:50px; 
-    top:40px;
+    left:5vw; 
+    top:4vh;
+    margin-right: 3vw;
 }
 
 .division-filter {
     position: absolute;
-    left:200px; 
-    top:40px;
+    left:11vw;
+    right:10%; 
+    top:4vh;
+    margin-right: 3vw;
 }
 
 .campus-filter {
     position: absolute;
-    left:750px; 
-    top:40px;
+    left:65vw; 
+    top:4vh;
 }
 
 
