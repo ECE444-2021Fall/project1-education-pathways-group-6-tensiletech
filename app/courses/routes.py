@@ -159,6 +159,9 @@ def my_courses():
         all_saved_courses = load_saved_courses(current_user.username)
         for i, course in enumerate(all_saved_courses):
             all_user_courses.append(get_course_by_id(course.courseId))
+<<<<<<< HEAD
 
     return render_template('my-courses.html' , courses = all_user_courses)
+=======
+>>>>>>> 57cd121131f9b196f040548cf00acf998f47607d
 
