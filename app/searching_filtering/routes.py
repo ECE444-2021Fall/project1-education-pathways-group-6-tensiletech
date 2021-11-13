@@ -38,10 +38,8 @@ def performSearch(search_word, select, divisions, campuses, top=5000):
         return redirect(url_for('courses.home'))
     if results_form.log_out.data:
         return redirect(url_for('users.logout'))
-    
-    search_body = get_query(search_word, select, divisions, campuses, top)
-    
-    data = es.search(index="course_info_v2", body=search_body)
+
+    data = get_data(search_word, select, divisions, campuses, top)
     course_list = []
     for i in data['hits']['hits']:
         course_list.append(i['_source'])
@@ -54,7 +52,7 @@ def performSearch(search_word, select, divisions, campuses, top=5000):
             "Course Level" : course["Course Level"], "Campus" : course["Campus"]} for course in course_list]
     return render_template('searchresults.html', keys=list(keys), results_form=results_form, data=course_list_limited)
 
-def get_query(search_word, select, divisions, campuses, top):
+def get_data(search_word, select, divisions, campuses, top=5000):
     query_body = {
             "size": top,
             "query": {
@@ -93,5 +91,6 @@ def get_query(search_word, select, divisions, campuses, top):
         }
         must.append(query)
     query_body["query"]["bool"]["must"] = must
+    return es.search(index="course_info_v2", body=query_body)
     return query_body
     
