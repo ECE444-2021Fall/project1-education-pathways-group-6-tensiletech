@@ -166,6 +166,5 @@ def my_courses():
         for i, course in enumerate(all_saved_courses):
             all_user_courses.append(get_course_by_id(course.courseId))
 
-    # Just go back to the home page for now
-    # When we create the view for the saved courses page, we can redirect to that template
-    return redirect(url_for('courses.home'))
+    return render_template('my-courses.html' , courses = all_user_courses)
+
