@@ -20,8 +20,8 @@ def search_home():
             search_word = search_form.data['keywords']
             if search_word == '':
                 search_word = '__'
-            return performSearch(search_word=search_word, select=filter_form.data['select'], divisions=filter_form.data['divisions'], campuses=filter_form.data['campuses'])
-            #return redirect(url_for('searching_filtering.performSearch', search_word=search_word, select=filter_form.data['select'], divisions=filter_form.data['divisions'], campuses=filter_form.data['campuses']))
+            # return performSearch(search_word=search_word, select=filter_form.data['select'], divisions=filter_form.data['divisions'], campuses=filter_form.data['campuses'])
+            return redirect(url_for('searching_filtering.performSearch', search_word=search_word, select=filter_form.data['select'], divisions=filter_form.data['divisions'], campuses=filter_form.data['campuses']))
         if search_form.saved_courses.data:
             return redirect(url_for('courses.home'))
         if search_form.log_out.data:
@@ -29,8 +29,8 @@ def search_home():
     return render_template('search.html', search_form=search_form, filter_form=filter_form)
 
 
-#@searching_filtering.route('/results/query?=<search_word>/<select>/<divisions>/<campuses>', methods=['GET', 'POST'])
-@searching_filtering.route('/results', methods=['GET', 'POST'])
+@searching_filtering.route('/results/query?=<search_word>/<select>/<divisions>/<campuses>', methods=['GET', 'POST'])
+# @searching_filtering.route('/results', methods=['GET', 'POST'])
 def performSearch(search_word, select, divisions, campuses, top=5000):
     results_form = SearchForm()
 
