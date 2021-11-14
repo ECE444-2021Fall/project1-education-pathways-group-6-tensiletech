@@ -1,4 +1,7 @@
 import os
+import json
+
+from werkzeug.utils import escape
 import pickle5 as pickle
 import numpy as np
 import pandas as pd
@@ -8,6 +11,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from config import Config
+from elasticsearch import Elasticsearch, helpers, ElasticsearchException
 
 # DB - Sqlite3
 dbsql = SQLAlchemy()
@@ -30,6 +34,23 @@ with open(os.path.join(cur_path, 'resources/graph.pickle'),'rb') as f:
 
 df = pd.read_pickle(os.path.join(cur_path, 'resources/df_processed.pickle')).set_index('Code')
 
+# Setup Elasticsearch
+# get config information from the config file
+with open(os.path.join(cur_path, "searching_filtering/ESconfig.json")) as json_data_file:
+    es_config = json.load(json_data_file)
+    
+# Initiate elasticsearch instance
+try:
+    es = Elasticsearch(
+        cloud_id=es_config['elasticsearch']['cloud_id'], 
+        api_key=(es_config['elasticsearch']['api_key'], es_config['elasticsearch']['api_key_secret'])
+    )
+    print("Successfully created elasticsearch instance")
+    print(es.info())
+except ElasticsearchException as error:
+    print("Failed to initiate elasticsearch instance")
+    print(error)
+
 def create_app(config_class = Config):
     # Create app
     app = Flask(__name__)
@@ -47,14 +68,19 @@ def create_app(config_class = Config):
         # sanity check
         # from .db import db_general_testing.py
         from .db import resources_initializer
-
+    
+    # check if elasticsearch is ready
+    from .searching_filtering import elasticsearch_initializer
+    
     bcrypt.init_app(app)
     
 
     from app.users.routes import users
     from app.courses.routes import courses
+    from app.searching_filtering.routes import searching_filtering
     app.register_blueprint(users)
     app.register_blueprint(courses)
+    app.register_blueprint(searching_filtering)
 
     # Login Manager
     login_manager.init_app(app)
