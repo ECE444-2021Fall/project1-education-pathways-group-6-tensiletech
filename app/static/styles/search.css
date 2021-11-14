@@ -1,0 +1,114 @@
+/* Any specific styling needed for search page */
+.logo {
+    text-align: center;
+    color: #355386;
+    font-family: 'Pacifico', cursive;
+}
+
+.middle-search {
+    color: #355386;
+    font-weight: 600;
+    left: 0;
+    line-height: 200px;
+    /* margin-top: -100px; */
+    position: absolute;
+    text-align: center;
+    top: 40vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.buttons-top-right {
+    float: right;
+}
+
+.search-box input{
+    border-radius: 20px;
+    color: #355386;
+    /* border: none; */
+    border-radius: 100px;
+    border-color: #355386;
+    border-width: 5px;
+    top: 50vh;
+    text-align: center;
+    /* display:inline-block; */
+    padding:15px 10px;
+    line-height:140%;
+    width: 50%;
+    font-weight: 300;
+    font-size: 20px;
+    /* border-bottom: 1px solid #94d2ef; */
+}
+
+.search-landing-button {
+    font-size: 25px;
+    color: #355386;
+    margin-top: 10px;
+    background: rgb(255, 255, 255);
+    border-radius: 100px;
+    border-color: #355386;
+    border-width: 5px;
+    opacity: 100%;
+    width: 100%
+}
+
+.centering {
+    position: absolute;
+    top: 67vh;
+    left: 46vw;
+    width: 8vw;
+    height: 8vh;
+    text-align: center;
+}
+
+.centering2 {
+    position: absolute;
+    top: 55vh;
+    left: 15vw;
+    width: 70vw;
+    text-align: center;
+}
+
+.rectangle {
+    width:85vw;
+    height: auto;
+    border: solid;
+    border-color: #355386;
+    background-color: white;
+    border-width: 5px;
+    border-radius: 100px;
+    position: relative;
+    left: 10vw;
+    right: 15vw;
+    top: 70vh;
+    bottom: 15vh;
+}
+
+.filter {
+    /* putting the styling of the dropdown in here */
+    color: #355386;
+    font-family: 'Open Sans';
+    font-size: 16px;
+    text-align: center;
+}
+
+.filter-title {
+    position: absolute;
+    left:37.5vw; 
+    top:1vh;
+    color: #355386;
+    font: bolder;
+}
+
+.filter-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.row-item {
+    margin-top: 40px;
+    margin-bottom: 20px;
+}

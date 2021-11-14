@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% import "macros.html" as macros %}
+
+{% block imports %}
+<link rel="stylesheet" href="static/styles/common.css">
+<link rel="stylesheet" href="static/styles/landing.css">
+<link rel="stylesheet" href="static/styles/search.css">
+{% endblock %}
+
+
+{% block main %}
+{{ macros.navbar('search') }}
+
+<div class="middle-search">
+    <h1 class="logo">BetterPath</h1>
+    <h3>Search For Courses</h3>
+</div>
+<div class="search-form">
+    {% from "_formhelpers.html" import render_searchtextfield, filter_render_field%}
+    <form method="post">
+        <div class="centering2">
+            {{ render_searchtextfield(search_form.keywords) }}
+        </div>
+        <div class="centering">
+            {{ search_form.search(class="search-landing-button") }}
+        </div>
+        <div class="rectangle">
+            <h5 class="filter-title">Filters</h5>
+            <div class="filter-row">
+                <div class="row-item">
+                    {{ filter_render_field(filter_form.select) }}
+                </div>
+                <div class="row-item">
+                    {{ filter_render_field(filter_form.divisions) }}
+                </div>
+                <div class="row-item">
+                    {{ filter_render_field(filter_form.campuses) }}
+                </div>
+            </div>
+        </div>
+    </form> 
+</div>
+
+{% endblock %}

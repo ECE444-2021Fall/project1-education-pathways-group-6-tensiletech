@@ -1,16 +1,104 @@
-<!doctype html>
+{% extends "base.html" %}
+
+{% import "macros.html" as macros %}
 
 {% block imports %}
 <link rel="stylesheet" href="../static/styles/course.css">
 {% endblock %}
 
 {% block main %}
-<html>
-  <body bgcolor=#BCDDEA class="body"><script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=cf8Z03V4jafTysxgAGahtEq3WAs8bPpoq562VFA5EUD2lkWHRWAigUpXtriFC5bgCXtjf8E_iWV7-SaxYAFron08rQ73jlAMWnMCb7GsQfAx21CJBXxh92MWNCkOHuvxt4j8hdmNx6rIVUXT_m40fK9DFmNqWZMUGI2f-UokSU2Gvj8eIhxMCgdRTQooafzcofUCnnKc0E3eQGk7VxNLxgNJ-7D052fa_Q2okPzpyMHFsVumbl1u5ZRXJsAPvha5jwmKA3rmUqDIYb_SOJ6PstXqg1J_ZtkVALInUk6WPTy347fbhqNOVg0yiwF3NrW8chrTUNiisI8d0WuP-r-krA" charset="UTF-8"></script><link rel="stylesheet" crossorigin="anonymous" href="https://gc.kis.v2.scr.kaspersky-labs.com/E3E8934C-235A-4B0E-825A-35A08381A191/abn/main.css?attr=aHR0cHM6Ly9jZG4uZmJzYnguY29tL3YvdDU5LjI3MDgtMjEvMjUwOTI5OTcwXzYwODkwMTk1NzEyMTA5OV81NDYyMzAwMDE1MjYyOTMxMjY4X24uaHRtbC9jb3Vyc2UuaHRtbD9fbmNfY2F0PTExMSZjY2I9MS01Jl9uY19zaWQ9MGNhYjE0Jl9uY19vaGM9bFdGbjhqTWE2RVVBWDlPRm1SLSZfbmNfaHQ9Y2RuLmZic2J4LmNvbSZvaD1hN2JiNDA2ZGYxMDBlN2M0NWE2NTdjNjY3ZjM4YzRhOSZvZT02MThDM0VCQyZkbD0x"/>
-    <form action="{{ url_for('courses.save_course', code = code, called_from = 'course_info') }}" method="POST">
-      <input class="btn" type="submit" value="Save">
-    </form>
-    <a href= "{{ url_for('courses.my_courses') }}">Saved Courses</a>
-  </body>
-</html>
+{{ macros.navbar('course') }}
+
+<div class="main-content">
+    <div class="course-info-box">
+        <div class="course-info-title-box">
+            <h3>{{code}} - {{name}}</h3>
+            <form class="save-course" action="{{ url_for('courses.save_course', code=code, called_from = 'course_info') }}" method="post">
+                <button class="save-button" type="submit">Save</button>
+            </form>
+        </div>
+        <div class="course-info-content">
+            <h3>Course Information</h3>
+            <p> 
+                {{description}}
+            </p>
+            <p><b>Course Level:</b> {{level}}</p>
+            <p><b>Campus:</b> {{campus}}</p>
+            <p><b>Division:</b> {{division}}</p>
+            <p><b>Department:</b> {{department}}</p>
+            <p><b>Terms Offered:</b> {{terms|join(", ")}}</p>
+
+            <hr>
+            <h4 class="new-section-header">Requirements</h4>
+            <p>
+                <b>Pre-requisites:</b>
+                {% if pre|length > 0 %}
+                    {{ pre|join(", ") }}
+                {% else %}
+                    None
+                {% endif %}
+            </p>
+            <p>
+                <b>Co-requisites:</b>
+                {% if coreq|length > 0 %}
+                    {{ coreq|join(", ") }}
+                {% else %}
+                    None
+                {% endif %}
+            </p>
+            <p>
+                <b>Exclusions:</b>
+                {% if excl|length > 0 %}
+                    {{ excl|join(", ") }}
+                {% else %}
+                    None
+                {% endif %}
+            </p>
+
+            {% if filters|length > 0 %}
+            <hr>
+            <h4 class="new-section-header">Related Filters</h4>
+            <div class="info-list">
+                {% for filter in filters %}
+                    <p class="list-item">{{prereq[0]}} </p>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="comments-box">
+        <div class="course-comments-title-box">
+            <h3>Comments</h3>
+        </div>
+        <ul class="comments-list" id="comments-list">
+            {% for comment in comments %}
+            <li class="comment">
+                <div><b>{{comment.userId}}</b></div>
+                {{comment.comment}}
+            </li>
+            {% else %}
+            <div class="empty-list"><em>There are no comments yet.</em></div>
+            {% endfor %}
+        </ul>
+        <div class="comment-entry">
+            <hr>
+            <form
+                action="{{ url_for('courses.add_comment', code=code) }}"
+                method="post"
+                class="add-comment"
+            >
+                <textarea name="text" placeholder="Your comment..."></textarea>
+                <input class="comment-button" type="submit" value="Post" />
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.onload = function() {
+        var commentsList = document.querySelector('#comments-list');
+        commentsList.scrollTop = commentsList.scrollHeight;
+    }
+</script>
 {% endblock %}

@@ -5,16 +5,24 @@ from app.courses.forms import CourseSearchForm
 from app.courses.utils import filter_courses
 from app.db.db_models import load_comments, load_course, row_to_dict, add_to_table, remove_course, CourseComments, UserSavedCourses, isCourseSaved, load_saved_courses, get_course_by_id
 from app import df, G
+from app import es
 
 courses = Blueprint('courses', __name__)
+search = CourseSearchForm()
 
 """Homepage is essentially just the course search form. If a post request is received, call the method that finds search results."""
-@courses.route('/',methods=['GET','POST'])
-@login_required
+@courses.route('/search',methods=['GET','POST'])
 def home():
     search = CourseSearchForm(request.form)
     if request.method == 'POST':
-        return search_results(search)
+        search_word = search.data['search']
+        select = search.data['select']
+        division = search.data['divisions']
+        departments = search.data['departments']
+        campuses = search.data['campuses']
+        top = search.data['top']
+        return redirect(url_for('courses.search_results', search_word=search_word, select=select, divisions=division, departments=departments, campuses=campuses, top=top))
+        # return search_results(search)
     return render_template('index.html',form=search)
 
 
@@ -24,20 +32,20 @@ Otherwise, pull out the elements of the POST request that are used by the algori
 Then, render the results page with a list of pandas tables containing the results for each year.
 Pass the original search to the template as well, so the user can see the context of what they asked for.
 """
-@courses.route('/results')
+@courses.route('/results/query=?q=<search_word>s=<select>d=<divisions>dp=<departments>c=<campuses>t=<top>')
 @login_required
-def search_results(search):
-    if search.data['search'] == '' or not search.data['search']:
+def search_results(search_word, select, divisions, departments, campuses, top):
+    if search_word == '' or not search_word:
         return redirect(url_for('courses.home'))
     results = filter_courses(
-        search.data['search'],
-        search.data['select'],
-        search.data['divisions'],
-        search.data['departments'],
-        search.data['campuses'],
-        search.data['top']
+        search_word,
+        select,
+        divisions,
+        departments,
+        campuses,
+        top
         )
-
+    
     return render_template('results.html',tables=[t.to_html(classes='data',index=False,na_rep='',render_links=True, escape=False) for t in results],form=search)
 
 """
@@ -49,36 +57,21 @@ Pass all that to render template.
 @courses.route('/course/<code>')
 @login_required
 def course(code):
-    #If the course code is not present in the dataset, progressively remove the last character until we get a match.
-    #For example, if there is no CSC413 then we find the first match that is CSC41.
-    #If there are no matches for any character, just go home.
-    if code not in df.index:
-        while True:
-            code = code[:-1]
-            if len(code) == 0:
-                return redirect(url_for('courses.home'))
-            t = df[df.index.str.contains(code)]
-            if len(t) > 0:
-                code = t.index[0]
-                return redirect(url_for('courses.course'), code = code)
+    course_info = load_course(code)
 
+    if not course_info:
+        return redirect(url_for('courses.home'))
 
-    course = df.loc[code]
-    #use course network graph to identify pre and post requisites
-    pre = G.in_edges(code)
-    post = G.out_edges(code)
-
-    excl = course['Exclusion']
-    coreq = course['Corequisite']
-    aiprereq = course['AIPreReqs']
-    majors = course['MajorsOutcomes']
-    minors = course['MinorsOutcomes']
-    faseavailable = course['FASEAvailable']
-    mayberestricted = course['MaybeRestricted']
-    terms = course['Term']
-    activities = course['Activity']
-    course = {k:v for k,v in course.items() if k not in ['Course','Course Level Number','FASEAvailable','MaybeRestricted','URL','Pre-requisites','Exclusion','Corequisite','Recommended Preparation','AIPreReqs','MajorsOutcomes','MinorsOutcomes','Term','Activity'] and v==v}
-
+    pre = list(filter(None, course_info.prerequisites.strip(' ').split(' ')))
+    coreq = list(filter(None, course_info.corequisites.strip(' ').split(' ')))
+    excl = list(filter(None, course_info.exclusion.strip(' ').split(' ')))
+    terms = []
+    for term in course_info.terms_offered.split(' '):
+        if term.isnumeric() or len(terms) == 0:
+            terms.append(term)
+        else:
+            terms[-1] += ' ' + term
+    
     commentsQuery = load_comments(code)
     comments = []
     for c in commentsQuery:
@@ -87,19 +80,16 @@ def course(code):
     return render_template(
         'course.html',
         code=code,
-        course=course,
-        pre=pre, 
-        post=post,
+        name=course_info.name,
+        description=course_info.description,
+        level=course_info.course_level,
+        campus=course_info.campus,
+        division=course_info.division,
+        department=course_info.department,
+        pre=pre,
         excl=excl,
         coreq=coreq,
-        aip=aiprereq,
-        majors=majors,
-        minors=minors,
-        faseavailable=faseavailable,
-        mayberestricted=mayberestricted,
         terms=terms,
-        activities=activities,
-        zip=zip,
         comments=comments
         )
 
