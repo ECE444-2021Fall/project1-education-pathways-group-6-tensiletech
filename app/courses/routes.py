@@ -3,7 +3,7 @@ from flask import Flask, Blueprint, render_template, request, redirect, flash, u
 from flask_login import current_user, login_required
 from app.courses.forms import CourseSearchForm
 from app.courses.utils import filter_courses
-from app.db.db_models import load_comments, row_to_dict, add_to_table, remove_course, CourseComments, UserSavedCourses, isCourseSaved, load_saved_courses, get_course_by_id
+from app.db.db_models import load_comments, load_course, row_to_dict, add_to_table, remove_course, CourseComments, UserSavedCourses, isCourseSaved, load_saved_courses, get_course_by_id
 from app import df, G
 
 courses = Blueprint('courses', __name__)
@@ -131,10 +131,10 @@ def add_comment(code):
 # But above, the value should say either save or unsave based on condition if course is already saved or not
 # This route is called from both the search page and the course info page
 # This method is used for both saving and unsaving courses
-@courses.route('/course/<code>/save-course', methods = ['POST'])
+@courses.route('/course/<code>/save-course/<called_from>', methods = ['POST'])
 @login_required
-def save_course(code):
-    
+def save_course(code, called_from = "my_courses"):
+    print(called_from)
     # Validate if user has logged in
     if current_user and current_user.username:
         savedCourse = UserSavedCourses(username=current_user.username, courseId=code)
@@ -148,12 +148,12 @@ def save_course(code):
 
 
     # Redirect back to the page originally called from
-    next_page = request.args.get('next')
-    print(request.args.keys())
-    if next_page:
-        return redirect(next_page)
-    else:
+    if called_from == "my_courses":
+        return redirect(url_for('courses.my_courses')) 
+    elif called_from == "course_info":
         return redirect(url_for('courses.course', code = code)) 
+    else:
+        return redirect(url_for('courses.my_courses')) 
 
 
 @courses.route('/course/my-courses', methods = ['GET'])
@@ -164,8 +164,12 @@ def my_courses():
     if current_user and current_user.username:
         all_saved_courses = load_saved_courses(current_user.username)
         for i, course in enumerate(all_saved_courses):
-            all_user_courses.append(get_course_by_id(course.courseId))
+            # print(f"i : {i} courseId: {course.courseId}")
+            courseObj = get_course_by_id(course.courseId)
+            # print(courseObj)
+            if courseObj != None:
+                all_user_courses.append(courseObj)
+            else:
+                print("Somehow the course object we got by id is null")
 
-    # Just go back to the home page for now
-    # When we create the view for the saved courses page, we can redirect to that template
     return render_template('my-courses.html' , courses = all_user_courses)
