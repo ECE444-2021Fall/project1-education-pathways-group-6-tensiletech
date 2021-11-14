@@ -25,6 +25,7 @@ Then, render the results page with a list of pandas tables containing the result
 Pass the original search to the template as well, so the user can see the context of what they asked for.
 """
 @courses.route('/results')
+@login_required
 def search_results(search):
     if search.data['search'] == '' or not search.data['search']:
         return redirect(url_for('courses.home'))
@@ -46,6 +47,7 @@ Then, separate the course information into the elements which have specific disp
 Pass all that to render template.
 """
 @courses.route('/course/<code>')
+@login_required
 def course(code):
     #If the course code is not present in the dataset, progressively remove the last character until we get a match.
     #For example, if there is no CSC413 then we find the first match that is CSC41.
@@ -102,6 +104,7 @@ def course(code):
         )
 
 @courses.route('/course/<code>/add_comment', methods=['POST'])
+@login_required
 def add_comment(code):
 
     # Make sure that comment is not empty
@@ -129,6 +132,7 @@ def add_comment(code):
 # This route is called from both the search page and the course info page
 # This method is used for both saving and unsaving courses
 @courses.route('/course/<code>/save-course', methods = ['POST'])
+@login_required
 def save_course(code):
     
     # Validate if user has logged in
@@ -145,6 +149,7 @@ def save_course(code):
 
     # Redirect back to the page originally called from
     next_page = request.args.get('next')
+    print(request.args)
     if next_page:
         return redirect(next_page)
     else:
@@ -152,6 +157,7 @@ def save_course(code):
 
 
 @courses.route('/course/my-courses', methods = ['GET'])
+@login_required
 def my_courses():
 
     all_user_courses = []
