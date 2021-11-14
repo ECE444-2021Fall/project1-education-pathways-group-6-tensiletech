@@ -42,7 +42,9 @@
                     <td> {{ course["Campus"] }}</td>
                     {% set ns.course_url = ns.course_url + course["Code"] %}
                     <td><a class="btn btn-primary table-button" href= "{{ ns.course_url }}">More Info</a></td>
-                    <td><button class="btn btn-primary table-button">Save Course</button></td>
+                    <form class="save-course" action="{{ url_for('courses.save_course', code=code) }}" method="post">
+                        <td><button class="btn btn-primary table-button">Save Course</button></td>
+                    </form>
                 </tr>
             {% endfor %}
             </tbody>

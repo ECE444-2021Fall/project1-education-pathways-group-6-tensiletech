@@ -25,7 +25,7 @@
               More Info
             </a>
           </button>
-          <form class="remove-button-box" action="{{ url_for('courses.save_course', code = course.courseId, called_from='my_courses') }}" method="POST">
+          <form class="remove-button-box" action="{{ url_for('courses.save_course', code = course.courseId) }}" method="POST">
             <input class="remove-button" type="submit" value="Remove">
           </form>
           

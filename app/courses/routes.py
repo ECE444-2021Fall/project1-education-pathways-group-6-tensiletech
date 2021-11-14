@@ -121,10 +121,9 @@ def add_comment(code):
 # But above, the value should say either save or unsave based on condition if course is already saved or not
 # This route is called from both the search page and the course info page
 # This method is used for both saving and unsaving courses
-@courses.route('/course/<code>/save-course/<called_from>', methods = ['POST'])
+@courses.route('/course/<code>/save-course', methods = ['POST'])
 @login_required
-def save_course(code, called_from = "my_courses"):
-    print(called_from)
+def save_course(code):
     # Validate if user has logged in
     if current_user and current_user.username:
         savedCourse = UserSavedCourses(username=current_user.username, courseId=code)
@@ -138,12 +137,10 @@ def save_course(code, called_from = "my_courses"):
 
 
     # Redirect back to the page originally called from
-    if called_from == "my_courses":
-        return redirect(url_for('courses.my_courses')) 
-    elif called_from == "course_info":
-        return redirect(url_for('courses.course', code = code)) 
+    if request.referrer:
+        return redirect(request.referrer) 
     else:
-        return redirect(url_for('courses.my_courses')) 
+        return redirect(url_for('courses.home'))
 
 
 @courses.route('/course/my-courses', methods = ['GET'])
