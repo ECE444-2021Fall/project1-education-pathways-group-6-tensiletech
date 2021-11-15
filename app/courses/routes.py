@@ -77,6 +77,10 @@ def course(code):
     for c in commentsQuery:
         comments.append(row_to_dict(c))
 
+    # checking if the course is saved for the user, need to pass to frontend to render
+    # appropriate button
+    isSaved = isCourseSaved(current_user.username, code)
+
     return render_template(
         'course.html',
         code=code,
@@ -90,7 +94,8 @@ def course(code):
         excl=excl,
         coreq=coreq,
         terms=terms,
-        comments=comments
+        comments=comments,
+        isSaved = isSaved
         )
 
 @courses.route('/course/<code>/add_comment', methods=['POST'])

@@ -12,19 +12,20 @@
 </div>
 <div class="course-info-box">
     {% for course in courses %}
-        <div class="saved-courses-list">
-            <p>{{course.courseId}} - {{course.name}}</p>
+        <div class=flex>
+            <div class="saved-courses-list">
+                <p>{{course.courseId}} - {{course.name}}</p>
+            </div>
+            <button class="more-info-button" type="button">
+                <a class="more-info-button-text" href= "{{ url_for('courses.course', code = course.courseId) }}">
+                    More Info
+                </a>
+            </button>
+            <form class="remove-button" action="{{ url_for('courses.save_course', code = course.courseId) }}" method="POST">
+                <input class="remove-button-text" type="submit" value="Remove">
+            </form>
         </div>
-        <button class="more-info-button" type="button">
-            <a class="more-info-button-text" href= "{{ url_for('courses.course', code = course.courseId) }}">
-                More Info
-            </a>
-        </button>
-        <form class="remove-button-box" action="{{ url_for('courses.save_course', code = course.courseId) }}" method="POST">
-            <input class="remove-button" type="submit" value="Remove">
-        </form>
-        
-        <hr size="1" class="line">
+        <hr size="2" class="line"><hr/>
     {% endfor %}          
 </div>
 {% endblock %}

@@ -23,6 +23,17 @@ body {
     display: flex; 
 }
 
+.course-info-title-box-saved {
+    background-color: #167347;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.4);
+    z-index: 100;
+    color: #f8f9fa;
+    padding: 10px 20px;
+    display: flex; 
+}
+
 .save-course {
     background: #f8f9fa;
     font-size: 1.1em;
@@ -36,7 +47,8 @@ body {
     padding: 20px auto;
 }
 
-.save-course button {
+
+.save-course button{
     background: #f8f9fa;
     color: #355386;
     font-size: 1.1em;

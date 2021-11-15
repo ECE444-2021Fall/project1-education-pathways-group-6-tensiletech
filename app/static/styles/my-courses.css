@@ -1,45 +1,3 @@
-body {
-    width: 100%;
-    height: auto;
-}
-
-.search-bar {
-    background: #FFFFFF;
-    width: 50%;
-    height: 5vh;
-    padding: 20px auto;
-    margin: 20px auto;
-    margin-left: 3%;
-    margin-right: 23%;
-    border-radius: 50px;
-    border: none;
-}
-
-.saved-courses-button {
-    background: #ffffff;
-    width: 10%; 
-    height: 6vh; 
-    border-radius: 50px;
-    border: none;
-}
-
-.saved-courses-button-text {
-    text-decoration: none;
-    color:rgb(0, 0, 0);
-}
-
-.logout-button {
-    background: #ffffff;
-    width: 10%; 
-    height: 6vh;
-    border-radius: 50px;
-    border: none;
-}
-
-.logout-button-text {
-    text-decoration: none;
-    color:rgb(0, 0, 0);
-}
 
 .course-info-title-box {
     background-color: #355386;
@@ -66,20 +24,19 @@ body {
     overflow: auto;
 }
 
+.flex{
+    display: flex; 
+}
+
 .saved-courses-list {
     margin: 50px auto;
     margin-left: 20px;
     display: flex;
 }
 
-.line{
-    display: block; 
-    background: #000000; 
-}
-
 .more-info-button{
-    margin-left: 70%;
-    margin-top:-90px;
+    margin-top: 50px;
+    margin-right: 50px;
     background: #355386;
     width: 10%; 
     height: 6vh; 
@@ -95,14 +52,27 @@ body {
 }
 
 
-.remove-button{
-    margin-left: 85%;
-    margin-top:-90px;
-    background: #355386;
+.remove-button {
+    margin-top: 50px;
+    margin-right: 80px;
     width: 10%; 
     height: 6vh; 
-    padding: 20px auto;
     border-radius: 50px;
+    border: none;   
+}
+
+.remove-button-text {
+    width: 100%; 
+    height: 6vh; 
+    border-radius: 50px;
+    text-decoration: none;
     color:white;
+    background: #355386;
     border: none;
+}
+
+.line{
+    display: block; 
+    background: #000000; 
+    margin-top: -10px;
 }
