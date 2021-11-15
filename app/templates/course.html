@@ -11,17 +11,12 @@
 
 <div class="main-content">
     <div class="course-info-box">
-<<<<<<< HEAD
-        <div class="course-info-title-box">
-            <h3 class ="te">{{code}} - {{name}}</h3>
-=======
         {% if isSaved == True %}
             <div class="course-info-title-box-saved"> 
         {% else %} 
             <div class="course-info-title-box"> 
         {% endif %}
             <h3 class="text-white"> {{code}} - {{name}}</h3>
->>>>>>> f8d21027218900d5891422dec54815b666219587
             <form class="save-course" action="{{ url_for('courses.save_course', code=code) }}" method="post">
                 {% if isSaved == True %}
                     <button class="save-button btn-danger">Saved</button>
