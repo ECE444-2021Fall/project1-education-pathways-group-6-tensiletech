@@ -12,7 +12,7 @@
 <div class="main-content">
     <div class="course-info-box">
         <div class="course-info-title-box">
-            <h3>{{code}} - {{name}}</h3>
+            <h3 class ="te">{{code}} - {{name}}</h3>
             <form class="save-course" action="{{ url_for('courses.save_course', code=code) }}" method="post">
                 <button class="save-button" type="submit">Save</button>
             </form>
