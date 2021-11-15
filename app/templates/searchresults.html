@@ -3,7 +3,8 @@
 
 {% block imports %}
 
-<!-- <link rel="stylesheet" href="../static/styles/landing.css"> -->
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/common.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/landing.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/search.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/results.css') }}">
 
