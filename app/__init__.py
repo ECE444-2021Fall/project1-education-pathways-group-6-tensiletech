@@ -38,7 +38,6 @@ df = pd.read_pickle(os.path.join(cur_path, 'resources/df_processed.pickle')).set
 
 # Setup Elasticsearch
 es_url = urlparse(os.environ.get('SEARCHBOX_URL'))
-print(vars(es_url))
 
 # get config information from the config file
 # with open(os.path.join(cur_path, "searching_filtering/ESconfig.json")) as json_data_file:
@@ -51,7 +50,7 @@ try:
     #     api_key=(es_config['elasticsearch']['api_key'], es_config['elasticsearch']['api_key_secret'])
     # )
     es = Elasticsearch(
-        [es_url.host],
+        [es_url.hostname],
         http_auth=(es_url.username, es_url.password),
         scheme=es_url.scheme,
         port=es_url.port,
