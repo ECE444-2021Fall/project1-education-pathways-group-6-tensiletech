@@ -57,7 +57,7 @@ virtualenv==20.8.1
 virtualenv-clone==0.5.7
 # tk==8.6.10
 # tzdata==2021a
-werkzeug==1.0.1
+werkzeug==2.0.2
 wheel==0.36.2
 wtforms==2.3.3
 # xz==5.2.5
