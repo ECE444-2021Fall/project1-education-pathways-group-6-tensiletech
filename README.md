@@ -1,5 +1,8 @@
 ## Welcome to BetterPath by TensileTech
 
+<img width="194" alt="Screen Shot 2021-11-16 at 12 04 36 PM" src="https://user-images.githubusercontent.com/47369363/142031474-f7f79cb3-11e0-4f33-9348-64787bc2f14a.png">
+
+
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 BetterPath is a web appliction that builds on the Education Pathways website for course exploration and planning. 
@@ -23,8 +26,9 @@ To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-
+- python3 pip environment with all pip packages installed from requirements.txt
+- MacOS, Windows, Linux operating system on your computer
+- Browsing app (Safari, Chrome, Mozilla Firefox) to open the local web server
 
 ### Installation
 
@@ -63,6 +67,7 @@ This is an example of how to list things you need to use the software and how to
     ```sh
     flask run
     ```
+5. Visit "localhost:5000" on your favourite web browser.
 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
@@ -74,7 +79,6 @@ This is an example of how to list things you need to use the software and how to
 Coming Soon!
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
 
 
 <!-- ROADMAP -->
@@ -101,7 +105,6 @@ Hannah Zhang
 Project Link: [https://github.com/ECE444-2021Fall/project1-education-pathways-group-6-tensiletech](https://github.com/ECE444-2021Fall/project1-education-pathways-group-6-tensiletech)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
 
 
 <!-- ACKNOWLEDGMENTS -->
