@@ -50,7 +50,7 @@ try:
     #     api_key=(es_config['elasticsearch']['api_key'], es_config['elasticsearch']['api_key_secret'])
     # )
     es = Elasticsearch(
-        [es_url.netloc],
+        [es_url.hostname],
         http_auth=(es_url.username, es_url.password),
         scheme=es_url.scheme,
         port=es_url.port or 80,
