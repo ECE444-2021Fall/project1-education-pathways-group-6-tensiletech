@@ -50,10 +50,10 @@ try:
     #     api_key=(es_config['elasticsearch']['api_key'], es_config['elasticsearch']['api_key_secret'])
     # )
     es = Elasticsearch(
-        [es_url.hostname],
+        [es_url.netloc],
         http_auth=(es_url.username, es_url.password),
         scheme=es_url.scheme,
-        port=80,
+        port=es_url.port,
         timeout=30
     )
     print("Successfully created elasticsearch instance")
