@@ -32,7 +32,7 @@ def search_home():
 
 @searching_filtering.route('/results/query?=<search_word>/<select>/<divisions>/<campuses>', methods=['GET', 'POST'])
 # @searching_filtering.route('/results', methods=['GET', 'POST'])
-def performSearch(search_word, select, divisions, campuses, top=5000):
+def performSearch(search_word, select, divisions, campuses, top=500):
     results_form = SearchForm()
 
     if results_form.saved_courses.data:
@@ -54,7 +54,7 @@ def performSearch(search_word, select, divisions, campuses, top=5000):
     print(course_list_limited)
     return render_template('searchresults.html', keys=list(keys), results_form=results_form, data=course_list_limited)
 
-def get_data(search_word, select, divisions, campuses, top=5000):
+def get_data(search_word, select, divisions, campuses, top=500):
     query_body = {
             "size": top,
             "query": {
