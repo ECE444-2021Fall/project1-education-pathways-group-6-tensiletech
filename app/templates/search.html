@@ -2,15 +2,21 @@
 {% import "macros.html" as macros %}
 
 {% block imports %}
-<link rel="stylesheet" href="static/styles/common.css">
-<link rel="stylesheet" href="static/styles/landing.css">
-<link rel="stylesheet" href="static/styles/search.css">
+
+<!-- need to use url_for() to find the the neccessary css files after search results redirect! -->
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/common.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/landing.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/search.css') }}">
+
 {% endblock %}
 
 
 {% block main %}
+
+<!-- importing the navbar, general to all the pages -->
 {{ macros.navbar('search') }}
 
+<!-- Logo and Main Title -->
 <div class="middle-search">
     <h1 class="logo">BetterPath</h1>
     <h3>Search For Courses</h3>
@@ -18,15 +24,19 @@
 <div class="search-form">
     {% from "_formhelpers.html" import render_searchtextfield, filter_render_field%}
     <form method="post">
+        <!-- Search Bar -->
         <div class="centering2">
             {{ render_searchtextfield(search_form.keywords) }}
         </div>
+        <!-- Search Button -->
         <div class="centering">
             {{ search_form.search(class="search-landing-button") }}
         </div>
+        <!-- Centering all the Filers into Rectangle Object, below Search Button -->
         <div class="rectangle">
             <h5 class="filter-title">Filters</h5>
             <div class="filter-row">
+                <!-- Dropdown menus for the filters -->
                 <div class="row-item">
                     {{ filter_render_field(filter_form.select) }}
                 </div>
