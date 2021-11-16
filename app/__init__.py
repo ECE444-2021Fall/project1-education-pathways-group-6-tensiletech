@@ -53,7 +53,7 @@ try:
         [es_url.netloc],
         http_auth=(es_url.username, es_url.password),
         scheme=es_url.scheme,
-        port=es_url.port,
+        port=es_url.port or 80,
         timeout=30
     )
     print("Successfully created elasticsearch instance")
