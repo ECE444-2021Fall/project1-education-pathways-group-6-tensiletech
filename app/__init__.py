@@ -37,7 +37,7 @@ with open(os.path.join(cur_path, 'resources/graph.pickle'),'rb') as f:
 df = pd.read_pickle(os.path.join(cur_path, 'resources/df_processed.pickle')).set_index('Code')
 
 # Setup Elasticsearch
-es_url = urlparse(os.environ.get('SEARCHBOX_URL'))
+es_url = urlparse(os.environ.get('SEARCHBOX_ACCESS_URL'))
 
 # get config information from the config file
 # with open(os.path.join(cur_path, "searching_filtering/ESconfig.json")) as json_data_file:
