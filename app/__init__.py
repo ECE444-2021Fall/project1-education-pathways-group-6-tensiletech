@@ -54,16 +54,23 @@ try:
         http_auth=(es_url.username, es_url.password),
         scheme=es_url.scheme,
         port=es_url.port,
+        timeout=30
     )
     print("Successfully created elasticsearch instance")
-    # print(es.info())
+    print(es.info())
 except ElasticsearchException as error:
     print("Failed to initiate elasticsearch instance")
     print(error)
 
-es.indices.create(index='course_info_v2', ignore=400)
+try:
+    es.indices.create(index='course_info_v2', ignore=400)
+except ElasticsearchException as error:
+    print(error)
 
-es.indices.put_mapping(body=mapping, index='course_info_v2')
+try:
+    es.indices.put_mapping(body=mapping, index='course_info_v2')
+except ElasticsearchException as error:
+    print(error)
 
 def create_app(config_class = Config):
     # Create app
