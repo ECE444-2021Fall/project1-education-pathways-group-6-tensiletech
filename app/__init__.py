@@ -56,7 +56,7 @@ try:
         port=es_url.port,
     )
     print("Successfully created elasticsearch instance")
-    print(es.info())
+    # print(es.info())
 except ElasticsearchException as error:
     print("Failed to initiate elasticsearch instance")
     print(error)
