@@ -1,10 +1,20 @@
+
+/* Headings and General Text */
 h1 {
     text-align: center;
     color: #355386;
     top: 15vh;
 }
 
+.below-table {
+    position: absolute;
+    top: 93vh;
+    left: 45vw;
+    bottom: 5vh;
+    text-align: center;
+}
 
+/* Table Formatting */
 table.centre {
     width:70%; 
     margin-left:15%; 
@@ -39,14 +49,6 @@ th, td {
     border-left: 0;
     border-right: 0;
     padding: 0;
-}
-
-.below-table {
-    position: absolute;
-    top: 93vh;
-    left: 45vw;
-    bottom: 5vh;
-    text-align: center;
 }
 
 .middle {
@@ -110,20 +112,14 @@ tr:first-child td:last-child { border-bottom-right-radius: 16px; }
     font-size: 20px;
 }
 
-.nomatch {
-    margin-left: 20px;
-    text-align: center;
-    align-items: center;
-}
+/* Scrollbar design */
 
 .scrollbar {
     position: absolute;
     height: 500px;
     overflow: auto;
-    /* left: 25%; */
 }
 
 .scroll-y {
     display: block;
-    /* left: 30%; */
 }

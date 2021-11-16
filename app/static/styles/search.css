@@ -1,4 +1,7 @@
 /* Any specific styling needed for search page */
+
+/* Styling of text and buttons on the search page */
+
 .logo {
     text-align: center;
     color: #355386;
@@ -27,19 +30,16 @@
 .search-box input{
     border-radius: 20px;
     color: #355386;
-    /* border: none; */
     border-radius: 100px;
     border-color: #355386;
     border-width: 5px;
     top: 50vh;
     text-align: center;
-    /* display:inline-block; */
     padding:15px 10px;
     line-height:140%;
     width: 50%;
     font-weight: 300;
     font-size: 20px;
-    /* border-bottom: 1px solid #94d2ef; */
 }
 
 .search-landing-button {
@@ -53,6 +53,8 @@
     opacity: 100%;
     width: 100%
 }
+
+/* Centering for Search and Search Button */
 
 .centering {
     position: absolute;
@@ -70,6 +72,9 @@
     width: 70vw;
     text-align: center;
 }
+
+
+/* Filtering styling, rectangle, dropdowns and alignment */
 
 .rectangle {
     width:85vw;

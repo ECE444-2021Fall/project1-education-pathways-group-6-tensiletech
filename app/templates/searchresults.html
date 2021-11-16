@@ -3,6 +3,7 @@
 
 {% block imports %}
 
+<!-- need to use url_for() to find the the neccessary css files after search results redirect! -->
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/common.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/landing.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/search.css') }}">
@@ -11,6 +12,7 @@
 {% endblock %}
 
 {% block main %}
+<!-- importing the navbar, general to all the pages -->
 {{ macros.navbar('results') }}
 
 <br><br>
@@ -20,7 +22,9 @@
 <br> <br> <br> <br>
 
 {% if data != [] %}
+    <!-- Alignment and creating a scrollbar for the entire table -->
     <div class="middle scrollbar">
+        <!-- Using bootstrap classes + customized class to design results table -->
         <table align="center" class=" table mb-0 text-center table-sm scroll-y ">
             <tbody>
             <tr class="heading">
@@ -32,6 +36,7 @@
                 <td></td>
                 <td></td>
             </tr>
+            <!-- Looping through the customized list of dicts to display search results in the table -->
             {% for course in data %}
                 <tr style="text-align: center;">
                     {% set ns = namespace(course_url="/course/") %}
@@ -53,11 +58,13 @@
             {% endfor %}
             </tbody>
         </table>
-    </div>    
+    </div>
+    <!-- call back to search page at the bottom -->
     <div class="below-table">
         <a href="/" style="font-size: 22px; font-family: 'Open Sans';"> Return to Search </a>
     </div>
 {% else %}
+    <!-- fallback message for null search results from the query -->
     <div class="middle-search">
         <h3 style="margin: 0 auto;">Sorry, There are No Courses Matching Your Search! </h1>
         <a href="/" style="font-size: 22px; margin: 0 auto;"> Click Here to Return Back to Search! </a>
