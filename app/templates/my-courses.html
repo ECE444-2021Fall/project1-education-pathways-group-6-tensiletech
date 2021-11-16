@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% import "macros.html" as macros %}
+
+{% block imports %}
+<link rel="stylesheet" href="../static/styles/my-courses.css">
+{% endblock %}
+
+{% block main %}
+{{ macros.navbar('search') }}
+<div class="course-info-title-box">
+    <h1 class="course-info-title">Saved Courses</h1>
+</div>
+<div class="course-info-box">
+    {% for course in courses %}
+        <div class=flex>
+            <div class="saved-courses-list">
+                <p>{{course.courseId}} - {{course.name}}</p>
+            </div>
+            <button class="more-info-button" type="button">
+                <a class="more-info-button-text" href= "{{ url_for('courses.course', code = course.courseId) }}">
+                    More Info
+                </a>
+            </button>
+            <form class="remove-button" action="{{ url_for('courses.save_course', code = course.courseId) }}" method="POST">
+                <input class="remove-button-text" type="submit" value="Remove">
+            </form>
+        </div>
+        <hr size="2" class="line"><hr/>
+    {% endfor %}          
+</div>
+{% endblock %}

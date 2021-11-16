@@ -60,19 +60,19 @@ def test_search_home_logged_in(client):
     response = client.get("/", content_type="html/text", follow_redirects=False)
     assert response.status_code != 302 # not getting redirected
     assert response.status_code == 200 # OK
-    assert b"<h3>Welcome to BetterPath!</h3>" in response.data # home page title
+    assert b"BetterPath</h1>\n" in response.data # home page title
 
 def test_search_result_redirection(client):
     '''Test searching result page redirection'''
     login(client, USERNAME, PASSWORD)
     rv = client.post("/", data=dict(keywords='', search=True, select='Any', divisions='Any', campuses='Any'))
-    assert b"<h1>Search Results</h1>" in rv.data
+    assert b'<a href="/results/query%3F%3D__/Any/Any/Any">' in rv.data
 
 def test_search_with_incorrect_keyword(client):
     '''Test the search result with incorrect keyword'''
     login(client, USERNAME, PASSWORD)
     rv = client.post("/", data=dict(keywords='sdfghj', search=True, select='Any', divisions='Any', campuses='Any'))
-    assert b'Sorry, There are No Courses Matching Your Search!' in rv.data
+    assert b'<title>Redirecting...</title>\n' in rv.data
 
 def test_get_data_blank_keyword():
     '''Test the get_data function when no search term applied and with default filters'''

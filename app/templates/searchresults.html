@@ -3,10 +3,10 @@
 
 {% block imports %}
 
-<link rel="stylesheet" href="static/styles/common.css">
-<link rel="stylesheet" href="static/styles/landing.css">
-<link rel="stylesheet" href="static/styles/search.css">
-<link rel="stylesheet" href="static/styles/results.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/common.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/landing.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/search.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/results.css') }}">
 
 {% endblock %}
 
@@ -20,8 +20,8 @@
 <br> <br> <br> <br>
 
 {% if data != [] %}
-    <div class=" middle scrollbar">
-        <table align="center" class="table mb-0 text-center table-sm scroll-y ">
+    <div class="middle scrollbar">
+        <table align="center" class=" table mb-0 text-center table-sm scroll-y ">
             <tbody>
             <tr class="heading">
                 <td> Code </td>
@@ -33,7 +33,7 @@
                 <td></td>
             </tr>
             {% for course in data %}
-                <tr>
+                <tr style="text-align: center;">
                     {% set ns = namespace(course_url="/course/") %}
                     <td> {{ course["Code"] }} </td>
                     <td> {{ course["Name"] }} </td>
@@ -42,7 +42,13 @@
                     <td> {{ course["Campus"] }}</td>
                     {% set ns.course_url = ns.course_url + course["Code"] %}
                     <td><a class="btn btn-primary table-button" href= "{{ ns.course_url }}">More Info</a></td>
-                    <td><button class="btn btn-primary table-button">Save Course</button></td>
+                    <form class="save-course" action="{{ url_for('courses.save_course', code=course["Code"]) }}" method="post">
+                        {% if course["isSaved"] == True %}
+                            <td><button class="btn btn-primary btn-danger table-button-saved">Saved</button></td>
+                        {% else %}
+                            <td><button class="btn btn-primary table-button">Save Course</button></td>
+                        {% endif %}
+                    </form>
                 </tr>
             {% endfor %}
             </tbody>

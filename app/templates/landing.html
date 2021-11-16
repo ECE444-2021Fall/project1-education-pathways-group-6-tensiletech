@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 
 {% block imports %}
-<link rel="stylesheet" href="static/styles/landing.css">
+<link rel="stylesheet" href="../static/styles/landing.css">
+<link rel="stylesheet" href="../static/styles/search.css">
 {% endblock %}
 
 {% block main %}
@@ -10,14 +11,20 @@
         <h3>Sorry...</h3>
     {% elif page == "login" %}
         <h3>Welcome Back</h3>
+        <h3 class="logo">BetterPath</h3><br>
     {% elif page == "create" %}
         <h3>Sign Up</h3>
+        <h1 class="logo">BetterPath</h1><br>
     {% endif %}
 
     <!-- Print flash error messages -->
     {% with messages = get_flashed_messages() %}
     {% if messages %}
-        <h6 class = "text-danger">{{ messages[-1] }}</h6>
+        {% if "created" in messages[-1] %}
+            <h6 class = "text-success">{{ messages[-1] }}</h6>
+        {% else %} 
+            <h6 class = "text-danger">{{ messages[-1] }}</h6>
+        {% endif %}
     {% endif %}
     {% endwith %}
 

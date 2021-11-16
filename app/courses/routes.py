@@ -3,7 +3,7 @@ from flask import Flask, Blueprint, render_template, request, redirect, flash, u
 from flask_login import current_user, login_required
 from app.courses.forms import CourseSearchForm
 from app.courses.utils import filter_courses
-from app.db.db_models import load_course, load_comments, row_to_dict, add_to_table, remove_course, CourseComments, UserSavedCourses, isCourseSaved
+from app.db.db_models import load_comments, load_course, row_to_dict, add_to_table, remove_course, CourseComments, UserSavedCourses, isCourseSaved, load_saved_courses, get_course_by_id
 from app import df, G
 from app import es
 
@@ -33,6 +33,7 @@ Then, render the results page with a list of pandas tables containing the result
 Pass the original search to the template as well, so the user can see the context of what they asked for.
 """
 @courses.route('/results/query=?q=<search_word>s=<select>d=<divisions>dp=<departments>c=<campuses>t=<top>')
+@login_required
 def search_results(search_word, select, divisions, departments, campuses, top):
     if search_word == '' or not search_word:
         return redirect(url_for('courses.home'))
@@ -54,6 +55,7 @@ Then, separate the course information into the elements which have specific disp
 Pass all that to render template.
 """
 @courses.route('/course/<code>')
+@login_required
 def course(code):
     course_info = load_course(code)
 
@@ -75,6 +77,10 @@ def course(code):
     for c in commentsQuery:
         comments.append(row_to_dict(c))
 
+    # checking if the course is saved for the user, need to pass to frontend to render
+    # appropriate button
+    isSaved = isCourseSaved(current_user.username, code)
+
     return render_template(
         'course.html',
         code=code,
@@ -88,10 +94,12 @@ def course(code):
         excl=excl,
         coreq=coreq,
         terms=terms,
-        comments=comments
+        comments=comments,
+        isSaved = isSaved
         )
 
 @courses.route('/course/<code>/add_comment', methods=['POST'])
+@login_required
 def add_comment(code):
 
     # Make sure that comment is not empty
@@ -117,29 +125,43 @@ def add_comment(code):
         #   </form>
 # But above, the value should say either save or unsave based on condition if course is already saved or not
 # This route is called from both the search page and the course info page
-# The route needs to redirect back to the page that it was actually called from
 # This method is used for both saving and unsaving courses
 @courses.route('/course/<code>/save-course', methods = ['POST'])
+@login_required
 def save_course(code):
-    
     # Validate if user has logged in
     if current_user and current_user.username:
         savedCourse = UserSavedCourses(username=current_user.username, courseId=code)
 
         if isCourseSaved(current_user.username, code):
             remove_course(current_user.username, code)
-            print("Course was already saved!")
         else:
             add_to_table(savedCourse)
-            print("Course was saved!")
     else:
         print('User is not currently logged in')
 
 
     # Redirect back to the page originally called from
-    next_page = request.args.get('next')
-    if next_page:
-        return redirect(next_page)
+    if request.referrer:
+        return redirect(request.referrer) 
     else:
-        return redirect(url_for('courses.course', code = code)) 
+        return redirect(url_for('courses.home'))
 
+
+@courses.route('/course/my-courses', methods = ['GET'])
+@login_required
+def my_courses():
+
+    all_user_courses = []
+    if current_user and current_user.username:
+        all_saved_courses = load_saved_courses(current_user.username)
+        for i, course in enumerate(all_saved_courses):
+            # print(f"i : {i} courseId: {course.courseId}")
+            courseObj = get_course_by_id(course.courseId)
+            # print(courseObj)
+            if courseObj != None:
+                all_user_courses.append(courseObj)
+            else:
+                print("Somehow the course object we got by id is null")
+
+    return render_template('my-courses.html' , courses = all_user_courses)

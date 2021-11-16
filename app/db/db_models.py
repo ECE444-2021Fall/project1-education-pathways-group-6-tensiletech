@@ -89,11 +89,15 @@ def remove_course(username, course_id):
 
 def isCourseSaved(username, course_id):
     saved = dbsql.session.query(UserSavedCourses).filter(and_(UserSavedCourses.username == str(username), UserSavedCourses.courseId == str(course_id))).one_or_none()
-    print(f"Username is {username} and course_id is {course_id} and Result of isCourseSaved is {saved} \n")
+    # print(f"Username is {username} and course_id is {course_id} and Result of isCourseSaved is {saved} \n")
     if saved == None:
         return False
     else:
         return True
+
+def get_course_by_id(course_id):
+    return dbsql.session.query(Courses).filter_by(courseId=str(course_id)).one_or_none()
+
 
 def querying_all(table):
     return dbsql.session.query(table).all()

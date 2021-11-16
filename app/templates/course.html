@@ -11,10 +11,18 @@
 
 <div class="main-content">
     <div class="course-info-box">
-        <div class="course-info-title-box">
-            <h3>{{code}} - {{name}}</h3>
+        {% if isSaved == True %}
+            <div class="course-info-title-box-saved"> 
+        {% else %} 
+            <div class="course-info-title-box"> 
+        {% endif %}
+            <h3 class="text-white"> {{code}} - {{name}}</h3>
             <form class="save-course" action="{{ url_for('courses.save_course', code=code) }}" method="post">
-                <button class="save-button" type="submit">Save</button>
+                {% if isSaved == True %}
+                    <button class="save-button btn-danger">Saved</button>
+                {% else %} 
+                    <button class="save-button btn-success" type="submit">Save</button>
+                {% endif %}
             </form>
         </div>
         <div class="course-info-content">
