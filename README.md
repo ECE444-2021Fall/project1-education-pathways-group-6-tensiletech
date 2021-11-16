@@ -48,12 +48,12 @@ To get a local copy up and running follow these simple example steps.
 3. Install required Python dependencies
 
     ```sh
-    pip install -r requirements.txt
+    python -m pip install -r requirements.txt
     ```
 
 4. Run Flask app in development mode
 
-    On windows, first set the following environment variables
+    On Windows OS, first set the following environment variables
     ```sh
     set FLASK_APP=run.py
     set FLASK_ENV=development
