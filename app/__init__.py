@@ -36,11 +36,18 @@ with open(os.path.join(cur_path, 'resources/graph.pickle'),'rb') as f:
 df = pd.read_pickle(os.path.join(cur_path, 'resources/df_processed.pickle')).set_index('Code')
 
 # Setup Elasticsearch
+url = urlparse(os.environ.get('SEARCHBOX_URL'))
 # Initiate elasticsearch instance
 try:
+    # es = Elasticsearch(
+    #     cloud_id=Config.ES_CLOUD_ID, 
+    #     api_key=(Config.ES_API_KEY, Config.ES_API_KEY_SECRET)
+    # )
     es = Elasticsearch(
-        cloud_id=Config.ES_CLOUD_ID, 
-        api_key=(Config.ES_API_KEY, Config.ES_API_KEY_SECRET)
+        [url.hostname],
+        http_auth=(url.username, url.password),
+        scheme=url.scheme,
+        port=url.port or 443,
     )
     print("Successfully created elasticsearch instance")
     print(es.info())
