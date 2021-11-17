@@ -13,7 +13,6 @@ from flask_login import LoginManager
 from config import Config
 from elasticsearch import Elasticsearch, helpers, ElasticsearchException
 from urllib.parse import urlparse
-from .resources.mapping import mapping
 
 # DB - Sqlite3
 dbsql = SQLAlchemy()
@@ -37,24 +36,11 @@ with open(os.path.join(cur_path, 'resources/graph.pickle'),'rb') as f:
 df = pd.read_pickle(os.path.join(cur_path, 'resources/df_processed.pickle')).set_index('Code')
 
 # Setup Elasticsearch
-es_url = urlparse(os.environ.get('SEARCHBOX_ACCESS_URL'))
-
-# get config information from the config file
-# with open(os.path.join(cur_path, "searching_filtering/ESconfig.json")) as json_data_file:
-#     es_config = json.load(json_data_file)
-    
 # Initiate elasticsearch instance
 try:
-    # es = Elasticsearch(
-    #     cloud_id=es_config['elasticsearch']['cloud_id'], 
-    #     api_key=(es_config['elasticsearch']['api_key'], es_config['elasticsearch']['api_key_secret'])
-    # )
     es = Elasticsearch(
-        [es_url.hostname],
-        http_auth=(es_url.username, es_url.password),
-        scheme=es_url.scheme,
-        port=es_url.port or 80,
-        timeout=30
+        cloud_id=Config.ES_CLOUD_ID, 
+        api_key=(Config.ES_API_KEY, Config.ES_API_KEY_SECRET)
     )
     print("Successfully created elasticsearch instance")
     print(es.info())
@@ -62,20 +48,9 @@ except ElasticsearchException as error:
     print("Failed to initiate elasticsearch instance")
     print(error)
 
-try:
-    es.indices.create(index='course_info_v2', ignore=400)
-except ElasticsearchException as error:
-    print(error)
-
-try:
-    es.indices.put_mapping(body=mapping, index='course_info_v2')
-except ElasticsearchException as error:
-    print(error)
-
 def create_app(config_class = Config):
     # Create app
     app = Flask(__name__)
-
 
     app.config.from_object(config_class)
     
@@ -91,18 +66,7 @@ def create_app(config_class = Config):
         from .db import resources_initializer
     
     # check if elasticsearch is ready
-    # from .searching_filtering import elasticsearch_initializer
-    f = open(os.path.join(cur_path, 'resources/courseInfo.json'),)
-    doc = []
-    for i in f.readlines():
-        doc.append(i)
-
-    try:
-        data = helpers.bulk(es, doc, index="course_info_v2")
-        print("Successfully uploaded data onto the elastic cloud cluster index!", data)
-    except ElasticsearchException as error:
-        print("Failed to upload elasticsearch data")
-        print(error)
+    from .searching_filtering import elasticsearch_initializer
     
     bcrypt.init_app(app)
     
