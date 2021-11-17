@@ -13,6 +13,7 @@ from flask_login import LoginManager
 from config import Config
 from elasticsearch import Elasticsearch, helpers, ElasticsearchException
 from urllib.parse import urlparse
+from .resources.mapping import mapping
 
 # DB - Sqlite3
 dbsql = SQLAlchemy()
@@ -53,6 +54,32 @@ try:
     print(es.info())
 except ElasticsearchException as error:
     print("Failed to initiate elasticsearch instance")
+    print(error)
+
+try:
+    es.indices.create(index='test-index', ignore=400)
+    print("successfully created index")
+except ElasticsearchException as error:
+    print("Failed to create index")
+    print(error)
+
+try:
+    es.indices.put_mapping(index='test-index', body=mapping)
+    print("successfully created mapping")
+except ElasticsearchException as error:
+    print("Failed to create mapping")
+    print(error)
+
+f = open(os.path.join(cur_path, 'resources/courseInfo.json'),)
+doc = []
+for i in f.readlines():
+    doc.append(i)
+
+try:
+    data = helpers.bulk(es, doc, index="test-index")
+    print("Successfully uploaded data onto the elastic cloud cluster index!", data)
+except ElasticsearchException as error:
+    print("Failed to upload elasticsearch data")
     print(error)
 
 def create_app(config_class = Config):
