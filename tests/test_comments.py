@@ -1,7 +1,7 @@
 import unittest
 
 from app import create_app, dbsql
-from app.db.db_models import CourseComments
+from app.db.db_models import CourseComments, User
 
 class CommentsTest(unittest.TestCase):
     def setUp(self):
@@ -16,13 +16,20 @@ class CommentsTest(unittest.TestCase):
         self.app.config['USERNAME'] = 'admin'
         self.app.config['PASSWORD'] = 'admin'
 
-        self.client.post('/login', data = {
+        response = self.client.post('/signup', data = {
+            'email': 'admin@test.com',
+            'username': self.app.config['USERNAME'],
+            'password': self.app.config['PASSWORD'],
+            'confirm_password': self.app.config['PASSWORD']
+        })
+
+        response = self.client.post('/login', data = {
             'username': self.app.config['USERNAME'],
             'password': self.app.config['PASSWORD']
         })
     
     def test_response(self):
-        response = self.client.get('/course/ECE444H1')
+        response = self.client.get('/course/APS100H1')
         self.assertEqual(response.status_code, 200)
         self.assertTrue('There are no comments yet.' in response.get_data(as_text=True))
 
@@ -34,6 +41,7 @@ class CommentsTest(unittest.TestCase):
         self.assertTrue(TEST_COMMENT_TEXT in response.get_data(as_text=True))
 
         dbsql.session.query(CourseComments).filter_by(userId=self.app.config['USERNAME']).delete()
+        dbsql.session.query(User).filter_by(username=self.app.config['USERNAME']).delete()
         dbsql.session.commit()
         
 
