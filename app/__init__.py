@@ -36,59 +36,50 @@ with open(os.path.join(cur_path, 'resources/graph.pickle'),'rb') as f:
 
 df = pd.read_pickle(os.path.join(cur_path, 'resources/df_processed.pickle')).set_index('Code')
 
-# Setup Elasticsearch
+# Setup Elasticsearch with the searchbox heroku add-on URL
 url = urlparse(os.environ.get('SEARCHBOX_URL'))
 # Initiate elasticsearch instance
 try:
-    # es = Elasticsearch(
-    #     cloud_id=Config.ES_CLOUD_ID, 
-    #     api_key=(Config.ES_API_KEY, Config.ES_API_KEY_SECRET)
-    # # )
     es = Elasticsearch(
         [url.hostname],
         http_auth=(url.username, url.password),
         scheme=url.scheme,
         port=url.port or 443,
     )
-    # es = Elasticsearch()
     print("Successfully created elasticsearch instance")
     print(es.info())
 except ElasticsearchException as error:
     print("Failed to initiate elasticsearch instance")
     print(error)
 
-try:
-    es.indices.delete(index='course_info_v2')
-    print("successfully deleted previous index")
-except ElasticsearchException as error:
-    print("Failed to deleted previous index")
-    print(error)
-
-try:
-    es.indices.create(index='course_info_v2', body=mapping)
-    print("successfully created index")
-except ElasticsearchException as error:
-    print("Failed to create index")
-    print(error)
-
+# # delete the index if there exist one already
 # try:
-#     es.indices.put_mapping(index='test-index', body=mapping)
-#     print("successfully created mapping")
+#     es.indices.delete(index='course_info_v2')
+#     print("successfully deleted previous index")
 # except ElasticsearchException as error:
-#     print("Failed to create mapping")
+#     print("Failed to deleted previous index")
 #     print(error)
 
-f = open(os.path.join(cur_path, 'resources/courseInfo.json'),)
-doc = []
-for i in f.readlines():
-    doc.append(i)
+# # create a new search index with the correct mapping information
+# try:
+#     es.indices.create(index='course_info_v2', body=mapping)
+#     print("successfully created index")
+# except ElasticsearchException as error:
+#     print("Failed to create index")
+#     print(error)
 
-try:
-    data = helpers.bulk(es, doc, index="course_info_v2")
-    print("Successfully uploaded data onto the elastic cloud cluster index!", data)
-except ElasticsearchException as error:
-    print("Failed to upload elasticsearch data")
-    print(error)
+# # upload data to the searchbox elasticsearch engine
+# f = open(os.path.join(cur_path, 'resources/courseInfo.json'),)
+# doc = []
+# for i in f.readlines():
+#     doc.append(i)
+
+# try:
+#     data = helpers.bulk(es, doc, index="course_info_v2")
+#     print("Successfully uploaded data onto the elastic cloud cluster index!", data)
+# except ElasticsearchException as error:
+#     print("Failed to upload elasticsearch data")
+#     print(error)
 
 def create_app(config_class = Config):
     # Create app

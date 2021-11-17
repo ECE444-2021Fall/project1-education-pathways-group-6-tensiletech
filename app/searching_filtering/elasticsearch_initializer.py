@@ -22,7 +22,7 @@ if not os.path.isfile(os.path.join(cur_path, '../resources/courseInfo.json')):
         doc.append(i)
 
     try:
-        data = helpers.bulk(es, doc, index="course_info")
+        data = helpers.bulk(es, doc, index="course_info_v2")
         print("Successfully uploaded data onto the elastic cloud cluster index!", data)
     except ElasticsearchException as error:
         print("Failed to upload elasticsearch data")
