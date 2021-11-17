@@ -43,13 +43,14 @@ try:
     # es = Elasticsearch(
     #     cloud_id=Config.ES_CLOUD_ID, 
     #     api_key=(Config.ES_API_KEY, Config.ES_API_KEY_SECRET)
+    # # )
+    # es = Elasticsearch(
+    #     [url.hostname],
+    #     http_auth=(url.username, url.password),
+    #     scheme=url.scheme,
+    #     port=url.port or 443,
     # )
-    es = Elasticsearch(
-        [url.hostname],
-        http_auth=(url.username, url.password),
-        scheme=url.scheme,
-        port=url.port or 443,
-    )
+    es = Elasticsearch()
     print("Successfully created elasticsearch instance")
     print(es.info())
 except ElasticsearchException as error:
@@ -57,18 +58,25 @@ except ElasticsearchException as error:
     print(error)
 
 try:
-    es.indices.create(index='test-index', ignore=400)
+    es.indices.delete(index='test-index')
+    print("successfully deleted previous index")
+except ElasticsearchException as error:
+    print("Failed to deleted previous index")
+    print(error)
+
+try:
+    es.indices.create(index='test-index', body=mapping)
     print("successfully created index")
 except ElasticsearchException as error:
     print("Failed to create index")
     print(error)
 
-try:
-    es.indices.put_mapping(index='test-index', body=mapping)
-    print("successfully created mapping")
-except ElasticsearchException as error:
-    print("Failed to create mapping")
-    print(error)
+# try:
+#     es.indices.put_mapping(index='test-index', body=mapping)
+#     print("successfully created mapping")
+# except ElasticsearchException as error:
+#     print("Failed to create mapping")
+#     print(error)
 
 f = open(os.path.join(cur_path, 'resources/courseInfo.json'),)
 doc = []
