@@ -44,13 +44,13 @@ try:
     #     cloud_id=Config.ES_CLOUD_ID, 
     #     api_key=(Config.ES_API_KEY, Config.ES_API_KEY_SECRET)
     # # )
-    # es = Elasticsearch(
-    #     [url.hostname],
-    #     http_auth=(url.username, url.password),
-    #     scheme=url.scheme,
-    #     port=url.port or 443,
-    # )
-    es = Elasticsearch()
+    es = Elasticsearch(
+        [url.hostname],
+        http_auth=(url.username, url.password),
+        scheme=url.scheme,
+        port=url.port or 443,
+    )
+    # es = Elasticsearch()
     print("Successfully created elasticsearch instance")
     print(es.info())
 except ElasticsearchException as error:
