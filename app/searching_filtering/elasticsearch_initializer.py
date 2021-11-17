@@ -2,6 +2,7 @@ from app import df, es
 from elasticsearch import Elasticsearch, ElasticsearchException, helpers
 import pandas as pd
 import os
+from ..resources.mapping import mapping
 
 cur_path = os.path.dirname(__file__)
 if not os.path.isfile(os.path.join(cur_path, '../resources/courseInfo.json')):
@@ -13,6 +14,22 @@ if not os.path.isfile(os.path.join(cur_path, '../resources/courseInfo.json')):
             js_file.write("\n")
     
     print("\n****************************************** FILE SUCCESSFULLY CREATED ******************************************\n")
+
+    # delete the index if there exist one already
+    try:
+        es.indices.delete(index='course_info_v2')
+        print("successfully deleted previous index")
+    except ElasticsearchException as error:
+        print("Failed to deleted previous index")
+        print(error)
+
+    # create a new search index with the correct mapping information
+    try:
+        es.indices.create(index='course_info_v2', body=mapping)
+        print("successfully created index")
+    except ElasticsearchException as error:
+        print("Failed to create index")
+        print(error)
 
     # config elasticsearch
     # create the json file for search data if not yet created
