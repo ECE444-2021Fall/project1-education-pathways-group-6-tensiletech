@@ -20,8 +20,7 @@ def search_home():
         if search_form.search.data:
             search_word = search_form.data['keywords']
             if search_word == '':
-                search_word = '__'
-            # return performSearch(search_word=search_word, select=filter_form.data['select'], divisions=filter_form.data['divisions'], campuses=filter_form.data['campuses'])
+                search_word = '__' # if the search_word is empty then use two underscores as placeholder
             return redirect(url_for('searching_filtering.performSearch', search_word=search_word, select=filter_form.data['select'], divisions=filter_form.data['divisions'], campuses=filter_form.data['campuses']))
         if search_form.saved_courses.data:
             return redirect(url_for('courses.home'))
@@ -31,7 +30,6 @@ def search_home():
 
 
 @searching_filtering.route('/results/query?=<search_word>/<select>/<divisions>/<campuses>', methods=['GET', 'POST'])
-# @searching_filtering.route('/results', methods=['GET', 'POST'])
 def performSearch(search_word, select, divisions, campuses, top=500):
     results_form = SearchForm()
 
@@ -39,7 +37,7 @@ def performSearch(search_word, select, divisions, campuses, top=500):
         return redirect(url_for('courses.home'))
     if results_form.log_out.data:
         return redirect(url_for('users.logout'))
-
+    # call get_data function to acquire the query that needs to send to elasticsearch and return the actural search results
     data = get_data(search_word, select, divisions, campuses, top)
     course_list = []
     for i in data['hits']['hits']:
@@ -51,7 +49,6 @@ def performSearch(search_word, select, divisions, campuses, top=500):
             keys = course_list[0].keys()
         course_list_limited = [{"Code": course["Code"], "Name": course["Name"], "Division" : course["Division"], \
             "Course Level" : course["Course Level"], "Campus" : course["Campus"], "isSaved" : isCourseSaved(current_user.username, course["Code"])} for course in course_list]
-    print(course_list_limited)
     return render_template('searchresults.html', keys=list(keys), results_form=results_form, data=course_list_limited)
 
 def get_data(search_word, select, divisions, campuses, top=500):
