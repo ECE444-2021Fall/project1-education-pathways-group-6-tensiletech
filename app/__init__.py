@@ -58,14 +58,14 @@ except ElasticsearchException as error:
     print(error)
 
 try:
-    es.indices.delete(index='test-index')
+    es.indices.delete(index='course_info_v2')
     print("successfully deleted previous index")
 except ElasticsearchException as error:
     print("Failed to deleted previous index")
     print(error)
 
 try:
-    es.indices.create(index='test-index', body=mapping)
+    es.indices.create(index='course_info_v2', body=mapping)
     print("successfully created index")
 except ElasticsearchException as error:
     print("Failed to create index")
@@ -84,7 +84,7 @@ for i in f.readlines():
     doc.append(i)
 
 try:
-    data = helpers.bulk(es, doc, index="test-index")
+    data = helpers.bulk(es, doc, index="course_info_v2")
     print("Successfully uploaded data onto the elastic cloud cluster index!", data)
 except ElasticsearchException as error:
     print("Failed to upload elasticsearch data")
